@@ -1,24 +1,42 @@
-# README
+# Kleomarcus
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Kleomarcus is a web application developed for the Kleomarcus Fight Club, providing a platform to manage and showcase club activities.
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+To run this application, ensure the following dependencies are installed:
 
-* System dependencies
+- **Ruby**: 3.4.4
+- **Rails**: 8.1.1
+- **Tailwind CSS**: 4.1.16
+- **Database**: PostgreSQL
 
-* Configuration
+## Installation and Setup
 
-* Database creation
+Follow these steps to set up the application:
 
-* Database initialization
+1. **Clone the Repository**  
+   Clone the project repository to your local machine:
+   ```bash
+   git clone https://github.com/sametpolat7/kleomarcus.git
+   ```
 
-* How to run the test suite
+2. **Install Dependencies**  
+   Navigate to the project directory and install the required gems:
+   ```bash
+   bundle install
+   ```
 
-* Services (job queues, cache servers, search engines, etc.)
+3. **Database Setup**  
+   Set up the database by running:
+   ```bash
+   rails db:setup
+   ```
 
-* Deployment instructions
+## Running the Application
 
-* ...
+Start the Rails server with the following command:
+```bash
+rails server
+```
+The application will be accessible at `http://localhost:3000`.
