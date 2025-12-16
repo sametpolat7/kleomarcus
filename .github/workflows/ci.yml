@@ -7,6 +7,7 @@ on:
 
 jobs:
   scan_ruby:
+    name: Security scan - Ruby (Brakeman & Bundler Audit)
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +26,7 @@ jobs:
         run: bin/bundler-audit
       
   scan_js:
+    name: Security scan - JavaScript dependencies
     runs-on: ubuntu-latest
 
     steps:
@@ -40,6 +42,7 @@ jobs:
         run: bin/importmap audit
 
   lint:
+    name: Lint Ruby code style (RuboCop)
     runs-on: ubuntu-latest
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
@@ -66,7 +69,7 @@ jobs:
         run: bin/rubocop -f github
 
   erb:
-    name: ERB / HTML structure check (with Herb)
+    name: Lint erb code style (Herb)
     runs-on: ubuntu-latest
 
     steps:
@@ -82,6 +85,7 @@ jobs:
         run: bundle exec herb analyze app/views
 
   test:
+    name: Run unit & integration tests
     runs-on: ubuntu-latest
 
     services:
@@ -121,6 +125,7 @@ jobs:
         run: bin/rails db:test:prepare test
 
   system-test:
+    name: Run system tests (browser-based)
     runs-on: ubuntu-latest
 
     services:
