@@ -7,6 +7,7 @@ on:
 
 jobs:
   scan_ruby:
+    name: Security scan - Ruby (Brakeman & Bundler Audit)
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +26,7 @@ jobs:
         run: bin/bundler-audit
       
   scan_js:
+    name: Security scan - JavaScript dependencies
     runs-on: ubuntu-latest
 
     steps:
@@ -40,6 +42,7 @@ jobs:
         run: bin/importmap audit
 
   lint:
+    name: Lint Ruby code style (RuboCop)
     runs-on: ubuntu-latest
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
@@ -65,7 +68,24 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
+  erb:
+    name: Lint erb code style (Herb)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Analyze ERB templates with Herb
+        run: bundle exec herb analyze app/views
+
   test:
+    name: Run unit & integration tests
     runs-on: ubuntu-latest
 
     services:
@@ -105,6 +125,7 @@ jobs:
         run: bin/rails db:test:prepare test
 
   system-test:
+    name: Run system tests (browser-based)
     runs-on: ubuntu-latest
 
     services:
