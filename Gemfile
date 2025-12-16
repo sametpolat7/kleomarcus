@@ -54,6 +54,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Lint ERB or HTML files
+  gem "herb", "~> 0.8", require: false
 end
 
 group :development do
