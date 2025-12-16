@@ -57,6 +57,18 @@ group :development, :test do
 
   # Lint ERB or HTML files
   gem "herb", "~> 0.8", require: false
+
+  # Testing framework for Rails [https://rspec.info/]
+  gem "rspec-rails", "~> 7.1"
+
+  # Factory Bot for test data [https://github.com/thoughtbot/factory_bot_rails]
+  gem "factory_bot_rails", "~> 6.4"
+
+  # Faker for generating fake data [https://github.com/faker-ruby/faker]
+  gem "faker", "~> 3.5"
+
+  # Use system testing and feature specs [https://github.com/teamcapybara/capybara]
+  gem "capybara"
 end
 
 group :development do
@@ -65,7 +77,9 @@ group :development do
 end
 
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
+  # Code coverage analysis [https://github.com/simplecov-ruby/simplecov]
+  gem "simplecov", require: false
+
+  # A browser automation framework and ecosystem. [https://github.com/SeleniumHQ/selenium]
   gem "selenium-webdriver"
 end
