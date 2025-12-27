@@ -1,8 +1,26 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Ubuntu", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Russo One", ui-sans-serif, system-ui, sans-serif;
+}
+
 @source not "./daisyui{,*}.mjs";
-@plugin "./daisyui.mjs"{
-  themes: pastel --default, sunset --prefersdark;
+
+@plugin "./daisyui.mjs" {
+  themes: pastel --default, dracula --prefersdark;
   root: ":root";
   prefix: "";
+}
+
+@plugin "./daisyui-theme.mjs" {
+  name: "pastel";
+  --color-primary: oklch(51% .222 16.935);
+  --color-secondary: oklch(55% .046 257.417);
+}
+
+@plugin "./daisyui-theme.mjs" {
+  name: "dracula";
+  --color-primary: oklch(70% .223 29.234);
+  --color-secondary: oklch(87.889% .006 275.524);
 }

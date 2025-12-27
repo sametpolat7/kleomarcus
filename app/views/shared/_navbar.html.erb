@@ -1,0 +1,35 @@
+<div class="navbar bg-base-100 shadow-sm font-display">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+        </svg>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow tracking-wide">
+        <li class="py-2"><%= link_to "Kulübümüz", "#" %></li>
+        <li class="py-2"><%= link_to "Antrenörlerimiz", "#" %></li>
+        <li class="py-2"><%= link_to "Galeri", "#" %></li>
+        <li class="py-2"><%= link_to "İletişim", "#" %></li>
+      </ul>
+    </div>
+    <%= link_to "KLEOMARCUS", root_path, class: "text-xl md:text-2xl lg:text-3xl font-bold text-primary px-2 lg:px-6 hover:text-secondary" %>
+  </div>
+  <div class="navbar-end hidden lg:flex">
+    <ul class="menu menu-horizontal lg:gap-2 text-base-content tracking-wide">
+      <li><%= link_to "Kulübümüz", "#" %></li>
+      <li><%= link_to "Antrenörlerimiz", "#" %></li>
+      <li><%= link_to "Galeri", "#" %></li>
+      <li><%= link_to "İletişim", "#" %></li>
+    </ul>
+    <label class="toggle text-base-content mx-4" data-controller="theme">
+      <input type="checkbox" value="synthwave" data-action="change->theme#toggleTheme" class="theme-controller">
+
+      <svg aria-label="Sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></g></svg>
+
+      <svg aria-label="Moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></g></svg>
+    </label>
+  </div>
+</div>
