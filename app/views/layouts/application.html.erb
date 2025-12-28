@@ -1,41 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
   <head>
+    <meta charset="UTF-8">
     <title><%= content_for(:title) || "Kleomarcus" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Kleomarcus">
+    
+    <%# Mobile-First Viewport & PWA %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    
+    <%# SEO Meta Tags %>
+    <meta name="description" content="<%= content_for(:description) || "Kleomarcus Spor Akademi. Çanakkale'de Boks, Kick Boks, Muay Thai, Wushu eğitimleri." %>">
+    <meta name="keywords" content="<%= content_for(:keywords) || "kleomarcus, boks, kick boks, muay thai, wushu, Çanakkale dövüş kulübü, Çanakkale spor salonu, bireysel dersler, grup dersleri, profesyonel antrenör" %>">
+    <meta name="author" content="Kleomarcus">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="<%= content_for(:canonical) || request.original_url %>">
+    
+    <%# Open Graph / Social Media %>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kleomarcus">
+    <meta property="og:title" content="<%= content_for(:og_title) || content_for(:title) || "Kleomarcus" %>">
+    <meta property="og:description" content="<%= content_for(:og_description) || content_for(:description) || "Çanakkale'nin en iyi spor salonu. Tecrübeli ve profesyonel antrenörler, modern ekipmanlar." %>">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:locale" content="tr_TR">
+    
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%# Favicons and Web App Manifest %>
-    <link rel="shortcut icon" href="/favicon.ico">
+    <%# Favicons %>
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#000000">
 
     <%= yield :head %>
 
+    <%# Fonts %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%# Stylesheets & Scripts %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    
+    <%# Structured Data (JSON-LD) %>
+    <%= yield :structured_data %>
   </head>
 
-  <body>
+  <body class="min-h-screen flex flex-col">
     <%= render "shared/navbar" %>
 
-    <main class="container mx-auto mt-16 sm:mt-20 lg:mt-24 px-4 sm:px-6 lg:px-8 pb-8">
+    <main id="main-content" class="flex-1">
       <%= yield %>
     </main>
   </body>
