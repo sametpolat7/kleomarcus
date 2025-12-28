@@ -1,0 +1,172 @@
+/* ========================================
+   DaisyUI Color Variables (Refined)
+   ======================================== */
+
+/* ========================================
+   PASTEL THEME (Light)
+   ======================================== */
+
+.pastel—color-primary {
+  color: #C62828;
+}
+
+.pastel—color-primary-content {
+  color: #FFFFFF;
+}
+
+.pastel—color-secondary {
+  color: #263238;
+}
+
+.pastel—color-secondary-content {
+  color: #FFFFFF;
+}
+
+.pastel—color-accent {
+  color: #8E0000;
+}
+
+.pastel—color-accent-content {
+  color: #FFFFFF;
+}
+
+.pastel—color-neutral {
+  color: #F5F5F5;
+}
+
+.pastel—color-neutral-content {
+  color: #263238;
+}
+
+.pastel—color-base-100 {
+  color: #FFFFFF;
+}
+
+.pastel—color-base-200 {
+  color: #F0F0F0;
+}
+
+.pastel—color-base-300 {
+  color: #E0E0E0;
+}
+
+.pastel—color-base-content {
+  color: #263238;
+}
+
+.pastel—color-info {
+  color: #455A64;
+}
+
+.pastel—color-info-content {
+  color: #FFFFFF;
+}
+
+.pastel—color-success {
+  color: #2E7D32;
+}
+
+.pastel—color-success-content {
+  color: #FFFFFF;
+}
+
+.pastel—color-warning {
+  color: #ED6C02;
+}
+
+.pastel—color-warning-content {
+  color: #FFFFFF;
+}
+
+.pastel—color-error {
+  color: #C62828;
+}
+
+.pastel—color-error-content {
+  color: #FFFFFF;
+}
+
+
+/* ========================================
+   DRACULA THEME (Dark)
+   ======================================== */
+
+.dracula—color-primary {
+  color: #E53935;
+}
+
+.dracula—color-primary-content {
+  color: #121212;
+}
+
+.dracula—color-secondary {
+  color: #B0BEC5;
+}
+
+.dracula—color-secondary-content {
+  color: #121212;
+}
+
+.dracula—color-accent {
+  color: #FF1744;
+}
+
+.dracula—color-accent-content {
+  color: #121212;
+}
+
+.dracula—color-neutral {
+  color: #121212;
+}
+
+.dracula—color-neutral-content {
+  color: #E0E0E0;
+}
+
+.dracula—color-base-100 {
+  color: #1E1E1E;
+}
+
+.dracula—color-base-200 {
+  color: #252525;
+}
+
+.dracula—color-base-300 {
+  color: #2E2E2E;
+}
+
+.dracula—color-base-content {
+  color: #E0E0E0;
+}
+
+.dracula—color-info {
+  color: #4FC3F7;
+}
+
+.dracula—color-info-content {
+  color: #121212;
+}
+
+.dracula—color-success {
+  color: #66BB6A;
+}
+
+.dracula—color-success-content {
+  color: #121212;
+}
+
+.dracula—color-warning {
+  color: #FFA726;
+}
+
+.dracula—color-warning-content {
+  color: #121212;
+}
+
+.dracula—color-error {
+  color: #EF5350;
+}
+
+.dracula—color-error-content {
+  color: #121212;
+}
