@@ -1,0 +1,63 @@
+<%# SEO Meta Tags for Homepage %>
+<% content_for :title, "Kleomarcus" %>
+<% content_for :description, "Kleomarcus Spor Akademi. Çanakkale Boks, Kick Boks, Muay Thai, Wushu eğitimleri." %>
+<% content_for :keywords, "kleomarcus, boks, kick boks, muay thai, wushu, Çanakkale dövüş kulübü, Çanakkale spor salonu, bireysel dersler, grup dersleri, profesyonel antrenör" %>
+<% content_for :og_title, "Kleomarcus Spor Akademi" %>
+<% content_for :og_description, "Çanakkale'nin en iyi spor salonu. Tecrübeli ve profesyonel antrenörler, modern ekipmanlar." %>
+
+ <%# Structured Data for SEO %>
+<% content_for :structured_data do %>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsClub",
+      "name": "Kleomarcus",
+      "description": "Çanakkale'nin en iyi spor salonu. Boks, Kick Boks, Muay Thai, Wushu eğitimleri.",
+      "url": "<%= request.base_url %>",
+      "telephone": "+90-547-023-08-99",
+      "email": "info@kleomarcus.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Merkez",
+        "addressRegion": "Çanakkale",
+        "addressCountry": "TR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "40.16089",
+        "longitude": "26.41582"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "22:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "09:00",
+          "closes": "17:00"
+        }
+      ],
+      "priceRange": "₺₺",
+      "sameAs": [
+        "https://instagram.com/kleomarcus",
+        "https://www.facebook.com/kleomarcusss/"
+      ]
+    }
+  </script>
+<% end %>
+
+<%= render "public/home/sections/hero" %>
+<%= render "public/home/sections/philosophy" %>
+<%= render "public/home/sections/motivation_quote" %>
+<%= render "public/home/sections/programs" %>
+<%= render "public/home/sections/quote" %>
+<%= render "public/home/sections/coaches" %>
+<%= render "public/home/sections/testimonials" %>
+<%= render "public/home/sections/faq" %>
+<%= render "public/home/sections/membership" %>
+<%= render "public/home/sections/cta" %>
+<%= render "public/home/sections/footer" %>
