@@ -1,35 +1,127 @@
-<div class="navbar bg-base-100 shadow-sm font-display">
-  <div class="navbar-start">
-    <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-        </svg>
-      </div>
-      <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow tracking-wide">
-        <li class="py-2"><%= link_to "Kulübümüz", "#" %></li>
-        <li class="py-2"><%= link_to "Antrenörlerimiz", "#" %></li>
-        <li class="py-2"><%= link_to "Galeri", "#" %></li>
-        <li class="py-2"><%= link_to "İletişim", "#" %></li>
-      </ul>
+<header class="fixed top-0 left-0 right-0 z-50 bg-base-100/95 backdrop-blur-sm shadow-sm font-display">
+
+  <nav class="flex items-center justify-between container mx-auto py-2 sm:py-3 px-3 sm:px-6 lg:px-8" aria-label="Ana Navigasyon">
+    
+    <%# Logo - Left Side %>
+    <div class="flex-shrink-0">
+      <%= link_to root_path, class: "text-xl sm:text-2xl lg:text-3xl font-bold text-primary hover:text-secondary transition-colors", "aria-label": "Kleomarcus Ana Sayfa" do %>
+        KLEOMARCUS
+      <% end %>
     </div>
-    <%= link_to "KLEOMARCUS", root_path, class: "text-xl md:text-2xl lg:text-3xl font-bold text-primary px-2 lg:px-6 hover:text-secondary" %>
-  </div>
-  <div class="navbar-end hidden lg:flex">
-    <ul class="menu menu-horizontal lg:gap-2 text-base-content tracking-wide">
-      <li><%= link_to "Kulübümüz", "#" %></li>
-      <li><%= link_to "Antrenörlerimiz", "#" %></li>
-      <li><%= link_to "Galeri", "#" %></li>
-      <li><%= link_to "İletişim", "#" %></li>
-    </ul>
-    <label class="toggle text-base-content mx-4" data-controller="theme">
-      <input type="checkbox" value="synthwave" data-action="change->theme#toggleTheme" class="theme-controller">
+    
+    <%# Right Side %>
+    <div class="flex items-center gap-2 lg:gap-4">
+      <%# Desktop Navigation Links %>
+      <ul class="hidden lg:flex items-center text-sm text-base-content">
+        <li>
+          <%= link_to "Kulübümüz", "#about", class: "relative px-3 py-2 transition-colors hover:text-primary after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4" %>
+        </li>
+        <li>
+          <%= link_to "Antrenörlerimiz", "#coaches", class: "relative px-3 py-2 transition-colors hover:text-primary after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4" %>
+        </li>
+        <li>
+          <%= link_to "Ders Programı", "#schedule", class: "relative px-3 py-2 transition-colors hover:text-primary after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4" %>
+        </li>
+        <li>
+          <%= link_to "Galeri", "#gallery", class: "relative px-3 py-2 transition-colors hover:text-primary after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4" %>
+        </li>
+        <li class="ml-2">
+          <%= link_to "#contact", class: "btn btn-primary btn-sm px-5 text-primary-content shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            İletişim
+          <% end %>
+        </li>
+      </ul>
+      
+      <%# Theme Toggle %>
+      <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm sm:btn-md" data-controller="theme" aria-label="Tema Değiştir">
+        <input type="checkbox" data-action="change->theme#toggleTheme" class="theme-controller">
+        <svg class="swap-off w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="4" stroke-width="2"/>
+          <path stroke-width="2" d="M12 2v2m0 16v2m-8-10H2m20 0h-2M5.64 5.64l1.41 1.41m9.9 9.9l1.41 1.41m-12.72 0l1.41-1.41m9.9-9.9l1.41-1.41"/>
+        </svg>
+        <svg class="swap-on w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-width="2" d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+        </svg>
+      </label>
+      
+      <%# Mobile Menu Button - Visible only on mobile/tablet %>
+      <div class="dropdown dropdown-end lg:hidden">
+        <button tabindex="0" class="btn btn-ghost btn-circle btn-sm sm:btn-md" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div id="mobile-menu" tabindex="0" class="dropdown-content bg-base-100 rounded-xl shadow-2xl mt-3 w-56 z-50 border border-base-200 overflow-hidden">
+          <%# Mobile Menu Header %>
+          <div class="px-3 py-3 bg-base-200/50 border-b border-base-200">
+            <span class="text-xs tracking-widest text-base-content/50">
+              Menü
+            </span>
+          </div>
+          
+          <%# Mobile Menu Items %>
+          <ul class="menu menu-sm p-2">
+            <li>
+              <%= link_to "#about", class: "py-3 rounded-lg transition-colors hover:bg-base-200 hover:text-primary" do %>
+                <span class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  Kulübümüz
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "#coaches", class: "py-3 rounded-lg transition-colors hover:bg-base-200 hover:text-primary" do %>
+                <span class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  Antrenörlerimiz
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "#schedule", class: "py-3 rounded-lg transition-colors hover:bg-base-200 hover:text-primary" do %>
+                <span class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Ders Programı
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "#gallery", class: "py-3 rounded-lg transition-colors hover:bg-base-200 hover:text-primary" do %>
+                <span class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Galeri
+                </span>
+              <% end %>
+            </li>
+          </ul>
+          
+          <%# Contact %>
+          <div class="p-3 bg-base-200/30 border-t border-base-200">
+            <%= link_to "#contact", class: "btn btn-primary btn-sm w-full gap-2 shadow-md" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              İletişim
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </nav>
 
-      <svg aria-label="Sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></g></svg>
+</header>
 
-      <svg aria-label="Moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></g></svg>
-    </label>
-  </div>
-</div>
+<%# Spacer for fixed navbar %>
+<div class="h-12 sm:h-14 lg:h-16"></div>
