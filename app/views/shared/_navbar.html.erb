@@ -1,14 +1,14 @@
 <header class="fixed top-0 left-0 right-0 z-50 bg-base-100/95 backdrop-blur-sm shadow-sm font-display">
 
   <nav class="flex items-center justify-between container mx-auto py-2 sm:py-3 px-3 sm:px-6 lg:px-8" aria-label="Ana Navigasyon">
-    
+
     <%# Logo - Left Side %>
     <div class="flex-shrink-0">
       <%= link_to root_path, class: "text-xl sm:text-2xl lg:text-3xl font-bold text-primary hover:text-secondary transition-colors", "aria-label": "Kleomarcus Ana Sayfa" do %>
         KLEOMARCUS
       <% end %>
     </div>
-    
+
     <%# Right Side %>
     <div class="flex items-center gap-2 lg:gap-4">
       <%# Desktop Navigation Links %>
@@ -34,7 +34,7 @@
           <% end %>
         </li>
       </ul>
-      
+
       <%# Theme Toggle %>
       <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm sm:btn-md" data-controller="theme" aria-label="Tema Değiştir">
         <input type="checkbox" data-action="change->theme#toggleTheme" class="theme-controller">
@@ -46,7 +46,7 @@
           <path stroke-width="2" d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
         </svg>
       </label>
-      
+
       <%# Mobile Menu Button - Visible only on mobile/tablet %>
       <div class="dropdown dropdown-end lg:hidden">
         <button tabindex="0" class="btn btn-ghost btn-circle btn-sm sm:btn-md" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-menu">
@@ -61,7 +61,7 @@
               Menü
             </span>
           </div>
-          
+
           <%# Mobile Menu Items %>
           <ul class="menu menu-sm p-2">
             <li>
@@ -105,7 +105,7 @@
               <% end %>
             </li>
           </ul>
-          
+
           <%# Contact %>
           <div class="p-3 bg-base-200/30 border-t border-base-200">
             <%= link_to "#contact", class: "btn btn-primary btn-sm w-full gap-2 shadow-md" do %>
@@ -118,7 +118,7 @@
         </div>
       </div>
     </div>
-    
+
   </nav>
 
 </header>
