@@ -1,0 +1,255 @@
+<section id="testimonials" class="py-12 sm:py-16 md:py-20 lg:py-24 bg-base-100" aria-labelledby="testimonials-title">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <header class="text-center mb-8 sm:mb-12 lg:mb-16">
+      <h2 id="testimonials-title" class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-base-content mb-3 sm:mb-4">
+        Sporcularımızdan
+      </h2>
+    </header>
+    
+    <!-- Testimonials Carousel -->
+    <div class="relative max-w-6xl mx-auto" data-controller="carousel" data-action="touchstart->carousel#touchStart touchmove->carousel#touchMove touchend->carousel#touchEnd" role="region" aria-roledescription="carousel" aria-label="Sporcularımızdan">
+
+      <!-- Side Navigation - Hidden on mobile, visible on md+ -->
+      <button type="button" class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-8 xl:-translate-x-12 z-10 btn btn-circle btn-md lg:btn-lg bg-base-100 border-base-300 shadow-lg hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300" data-action="click->carousel#prev" aria-label="Önceki Yorum">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 lg:h-6 lg:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <button type="button" class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-8 xl:translate-x-12 z-10 btn btn-circle btn-md lg:btn-lg bg-base-100 border-base-300 shadow-lg hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300" data-action="click->carousel#next" aria-label="Sonraki Yorum">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 lg:h-6 lg:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <!-- Carousel Track -->
+      <div class="overflow-hidden md:mx-12 lg:mx-16">
+        <div class="flex gap-4 sm:gap-6 lg:gap-8" data-carousel-target="track">
+          
+          <!-- Testimonial 1 -->
+          <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="1 / 9: Ahmet K.">
+            <div class="card bg-base-200 shadow-lg h-full">
+              <div class="card-body">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="avatar">
+                    <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src="https://picsum.photos/id/1012/100/100" alt="Ahmet K. portresi" width="100" height="100" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-base-content">Ahmet K.</h3>
+                    <p class="text-primary text-sm">Bölge Şampiyonu 2024</p>
+                  </div>
+                </div>
+                <blockquote class="text-base-content/70 italic">
+                  "Kleomarcus beni bir amatörden bölge şampiyonuna dönüştürdü. Buradaki disiplin ve profesyonellik eşsiz."
+                </blockquote>
+                <%= star_rating(5) %>
+              </div>
+            </div>
+          </article>
+          
+          <!-- Testimonial 2 -->
+          <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="2 / 9: Elif Y.">
+            <div class="card bg-base-200 shadow-lg h-full">
+              <div class="card-body">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="avatar">
+                    <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src="https://picsum.photos/id/1027/100/100" alt="Elif Y. portresi" width="100" height="100" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-base-content">Elif Y.</h3>
+                    <p class="text-primary text-sm">Profesyonel Dövüşçü</p>
+                  </div>
+                </div>
+                <blockquote class="text-base-content/70 italic">
+                  "Burası sadece bir spor salonu değil, bir aile. Herkes birbirini daha iyiye taşıyor."
+                </blockquote>
+                <%= star_rating(5) %>
+              </div>
+            </div>
+          </article>
+          
+          <!-- Testimonial 3 -->
+          <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="3 / 9: Mert D.">
+            <div class="card bg-base-200 shadow-lg h-full">
+              <div class="card-body">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="avatar">
+                    <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src="https://picsum.photos/id/1005/100/100" alt="Mert D. portresi" width="100" height="100" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-base-content">Mert D.</h3>
+                    <p class="text-primary text-sm">2022'den Üye</p>
+                  </div>
+                </div>
+                <blockquote class="text-base-content/70 italic">
+                  "Forma girmek için geldim, özgüven ve yeni bir yaşam tarzıyla ayrıldım. Hayatımın en iyi kararı."
+                </blockquote>
+                <%= star_rating(4) %>
+              </div>
+            </div>
+          </article>
+
+          <!-- Testimonial 4 -->
+          <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="4 / 9: Deniz S.">
+            <div class="card bg-base-200 shadow-lg h-full">
+              <div class="card-body">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="avatar">
+                    <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src="https://picsum.photos/id/1011/100/100" alt="Deniz S. portresi" width="100" height="100" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-base-content">Deniz S.</h3>
+                    <p class="text-primary text-sm">Ulusal Takım Üyesi</p>
+                  </div>
+                </div>
+                <blockquote class="text-base-content/70 italic">
+                  "Kleomarcus'ta aldığım eğitim sayesinde ulusal takıma seçildim. Antrenörler gerçekten mükemmellik için çalışıyor."
+                </blockquote>
+                <%= star_rating(5) %>
+              </div>
+            </div>
+          </article>
+
+          <!-- Testimonial 5 -->
+          <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="5 / 9: Selin M.">
+            <div class="card bg-base-200 shadow-lg h-full">
+              <div class="card-body">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="avatar">
+                    <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src="https://picsum.photos/id/1025/100/100" alt="Selin M. portresi" width="100" height="100" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-base-content">Selin M.</h3>
+                    <p class="text-primary text-sm">Kick Boks Şampiyonu</p>
+                  </div>
+                </div>
+                <blockquote class="text-base-content/70 italic">
+                  "3 yıl önce hiçbir deneyimim yoktu. Şimdi şampiyon olarak insanlara ilham veriyorum. Hepsi Kleomarcus'ta başladı."
+                </blockquote>
+                <%= star_rating(5) %>
+              </div>
+            </div>
+          </article>
+
+          <!-- Testimonial 6 -->
+          <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="6 / 9: Kerem B.">
+            <div class="card bg-base-200 shadow-lg h-full">
+              <div class="card-body">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="avatar">
+                    <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src="https://picsum.photos/id/1013/100/100" alt="Kerem B. portresi" width="100" height="100" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-base-content">Kerem B.</h3>
+                    <p class="text-primary text-sm">MMA Dövüşçüsü</p>
+                  </div>
+                </div>
+                <blockquote class="text-base-content/70 italic">
+                  "Kleomarcus'ta teknik gelişimim inanılmaz hızlı oldu. Profesyonel kariyerime burada başladım."
+                </blockquote>
+                <%= star_rating(5) %>
+              </div>
+            </div>
+          </article>
+
+          <!-- Testimonial 7 -->
+          <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="7 / 9: Ayşe T.">
+            <div class="card bg-base-200 shadow-lg h-full">
+              <div class="card-body">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="avatar">
+                    <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src="https://picsum.photos/id/1021/100/100" alt="Ayşe T. portresi" width="100" height="100" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-base-content">Ayşe T.</h3>
+                    <p class="text-primary text-sm">Fitness Antrenörü</p>
+                  </div>
+                </div>
+                <blockquote class="text-base-content/70 italic">
+                  "Hem sporcu hem de antrenör olarak Kleomarcus'un kalitesi beni her zaman şaşırtıyor. Mükemmel bir ekip."
+                </blockquote>
+                <%= star_rating(5) %>
+              </div>
+            </div>
+          </article>
+
+          <!-- Testimonial 8 -->
+          <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="8 / 9: Can Ö.">
+            <div class="card bg-base-200 shadow-lg h-full">
+              <div class="card-body">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="avatar">
+                    <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src="https://picsum.photos/id/1016/100/100" alt="Can Ö. portresi" width="100" height="100" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-base-content">Can Ö.</h3>
+                    <p class="text-primary text-sm">Yeni Başlayan</p>
+                  </div>
+                </div>
+                <blockquote class="text-base-content/70 italic">
+                  "2 ay önce başladım ve kendimi çok daha güçlü hissediyorum. Antrenörler sabırlı ve motive edici."
+                </blockquote>
+                <%= star_rating(4.5) %>
+              </div>
+            </div>
+          </article>
+
+          <!-- Testimonial 9 -->
+          <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="9 / 9: Zeynep A.">
+            <div class="card bg-base-200 shadow-lg h-full">
+              <div class="card-body">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="avatar">
+                    <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src="https://picsum.photos/id/1019/100/100" alt="Zeynep A. portresi" width="100" height="100" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-base-content">Zeynep A.</h3>
+                    <p class="text-primary text-sm">Boks Şampiyonu 2025</p>
+                  </div>
+                </div>
+                <blockquote class="text-base-content/70 italic">
+                  "Kleomarcus'un modern ekipmanları ve deneyimli kadrosu bana şampiyonluk yolunda rehberlik etti."
+                </blockquote>
+                <%= star_rating(5) %>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation - Visible only on mobile -->
+      <div class="flex md:hidden justify-center items-center gap-4 mt-6">
+        <button type="button" class="btn btn-circle btn-md bg-base-100 border-base-300 shadow-lg hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300" data-action="click->carousel#prev" aria-label="Önceki Yorum">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button type="button" class="btn btn-circle btn-md bg-base-100 border-base-300 shadow-lg hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300" data-action="click->carousel#next" aria-label="Sonraki Yorum">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+  </div>
+</section>

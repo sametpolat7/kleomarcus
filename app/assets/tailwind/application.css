@@ -1,1 +1,81 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Ubuntu", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Russo One", ui-sans-serif, system-ui, sans-serif;
+}
+
+@source not "./daisyui{,*}.mjs";
+
+@plugin "./daisyui.mjs" {
+  themes: pastel --default, dracula --prefersdark;
+  root: ":root";
+  prefix: "";
+}
+
+@plugin "./daisyui-theme.mjs" {
+  name: "pastel";
+
+  --color-primary: #C62828;
+  --color-primary-content: #FFFFFF;
+
+  --color-secondary: #263238;
+  --color-secondary-content: #FFFFFF;
+
+  --color-accent: #8E0000;
+  --color-accent-content: #FFFFFF;
+
+  --color-neutral: #F5F5F5;
+  --color-neutral-content: #263238;
+
+  --color-base-100: #FFFFFF;
+  --color-base-200: #F0F0F0;
+  --color-base-300: #E0E0E0;
+  --color-base-content: #263238;
+
+  --color-info: #455A64;
+  --color-info-content: #FFFFFF;
+
+  --color-success: #2E7D32;
+  --color-success-content: #FFFFFF;
+
+  --color-warning: #ED6C02;
+  --color-warning-content: #FFFFFF;
+
+  --color-error: #C62828;
+  --color-error-content: #FFFFFF;
+}
+
+
+@plugin "./daisyui-theme.mjs" {
+  name: "dracula";
+
+  --color-primary: #E53935;
+  --color-primary-content: #121212;
+
+  --color-secondary: #B0BEC5;
+  --color-secondary-content: #121212;
+
+  --color-accent: #FF1744;
+  --color-accent-content: #121212;
+
+  --color-neutral: #121212;
+  --color-neutral-content: #E0E0E0;
+
+  --color-base-100: #1E1E1E;
+  --color-base-200: #252525;
+  --color-base-300: #2E2E2E;
+  --color-base-content: #E0E0E0;
+
+  --color-info: #4FC3F7;
+  --color-info-content: #121212;
+
+  --color-success: #66BB6A;
+  --color-success-content: #121212;
+
+  --color-warning: #FFA726;
+  --color-warning-content: #121212;
+
+  --color-error: #EF5350;
+  --color-error-content: #121212;
+}

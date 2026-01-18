@@ -1,0 +1,144 @@
+<section id="programs" class="py-12 sm:py-16 md:py-20 lg:py-24 bg-base-200" aria-labelledby="programs-title">
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <header class="text-center mb-8 sm:mb-12 lg:mb-16">
+      <h2 id="programs-title" class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-base-content mb-3 sm:mb-4">
+        Branşlarımız
+      </h2>
+      <p class="text-base-content/70 max-w-2xl mx-auto text-sm sm:text-base lg:text-lg">
+        Her seviyeye uygun, profesyonel antrenörler eşliğinde kapsamlı eğitim programlarımız
+      </p>
+    </header>
+    
+    <!-- Programs Carousel -->
+    <div class="relative max-w-6xl mx-auto" data-controller="carousel" data-action="touchstart->carousel#touchStart touchmove->carousel#touchMove touchend->carousel#touchEnd" role="region" aria-roledescription="carousel" aria-label="Branşlarımız">
+
+      <!-- Side Navigation - Hidden on mobile, visible on md+ -->
+      <button type="button" class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-8 xl:-translate-x-12 z-10 btn btn-circle btn-md lg:btn-lg bg-base-100 border-base-300 shadow-lg hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300" data-action="click->carousel#prev" aria-label="Önceki Branş">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 lg:h-6 lg:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <button type="button" class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-8 xl:translate-x-12 z-10 btn btn-circle btn-md lg:btn-lg bg-base-100 border-base-300 shadow-lg hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300" data-action="click->carousel#next" aria-label="Sonraki Branş">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 lg:h-6 lg:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <!-- Carousel Track -->
+      <div class="overflow-hidden md:mx-12 lg:mx-16">
+        <div class="flex gap-4 sm:gap-6 lg:gap-8" data-carousel-target="track">
+          
+          <!-- Program Card 1 - Boks -->
+          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="1 / 6: Boks">
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
+              <figure class="h-40 sm:h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1015/600/400" alt="Boks antrenmanı"  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="400">
+              </figure>
+              <div class="card-body">
+                <h3 class="card-title font-display text-xl text-base-content">Boks</h3>
+                <p class="text-base-content/70 text-sm">
+                  Duruş, ayak hareketleri ve temel kombinasyonlarla boksun inceliklerini öğrenin.
+                </p>
+              </div>
+            </div>
+          </article>
+          
+          <!-- Program Card 2 - Kick Boks -->
+          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="2 / 6: Kick Boks">
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
+              <figure class="h-40 sm:h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1025/600/400" alt="Kick Boks antrenmanı"  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="400">
+              </figure>
+              <div class="card-body">
+                <h3 class="card-title font-display text-xl text-base-content">Kick Boks</h3>
+                <p class="text-base-content/70 text-sm">
+                  Tekme ve yumruk kombinasyonlarıyla etkili bir dövüş stili geliştirin.
+                </p>
+              </div>
+            </div>
+          </article>
+          
+          <!-- Program Card 3 - Muay Thai -->
+          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="3 / 6: Muay Thai">
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
+              <figure class="h-40 sm:h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1035/600/400" alt="Muay Thai antrenmanı"  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="400">
+              </figure>
+              <div class="card-body">
+                <h3 class="card-title font-display text-xl text-base-content">Muay Thai</h3>
+                <p class="text-base-content/70 text-sm">
+                  Tayland'ın geleneksel dövüş sanatı ile güçlü ve etkili teknikler öğrenin.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Program Card 4 - Wushu -->
+          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="4 / 6: Wushu">
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
+              <figure class="h-40 sm:h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1045/600/400" alt="Wushu antrenmanı"  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="400">
+              </figure>
+              <div class="card-body">
+                <h3 class="card-title font-display text-xl text-base-content">Wushu</h3>
+                <p class="text-base-content/70 text-sm">
+                  Çin savaş sanatlarının görkemli ve atletik hareketlerini keşfedin.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Program Card 5 - MMA -->
+          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="5 / 6: MMA">
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
+              <figure class="h-40 sm:h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1055/600/400" alt="MMA antrenmanı"  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="400">
+              </figure>
+              <div class="card-body">
+                <h3 class="card-title font-display text-xl text-base-content">MMA</h3>
+                <p class="text-base-content/70 text-sm">
+                  Karma dövüş sanatları ile her alanda yetkin bir dövüşçü olun.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Program Card 6 - CrossFit -->
+          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="6 / 6: CrossFit">
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
+              <figure class="h-40 sm:h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1062/600/400" alt="CrossFit antrenmanı"  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="400">
+              </figure>
+              <div class="card-body">
+                <h3 class="card-title font-display text-xl text-base-content">CrossFit</h3>
+                <p class="text-base-content/70 text-sm">
+                  Yüksek yoğunluklu fonksiyonel antrenmanlarla gücünüzü ve dayanıklılığınızı artırın.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation - Visible only on mobile -->
+      <div class="flex md:hidden justify-center items-center gap-4 mt-6">
+        <button type="button" class="btn btn-circle btn-md bg-base-100 border-base-300 shadow-lg hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300" data-action="click->carousel#prev" aria-label="Önceki Branş">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button type="button" class="btn btn-circle btn-md bg-base-100 border-base-300 shadow-lg hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300" data-action="click->carousel#next" aria-label="Sonraki Branş">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</section>
