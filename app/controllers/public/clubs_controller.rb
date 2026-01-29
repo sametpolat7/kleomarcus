@@ -4,4 +4,7 @@ class Public::ClubsController < ApplicationController
 
   def trainers
   end
+
+  def schedules
+  end
 end
