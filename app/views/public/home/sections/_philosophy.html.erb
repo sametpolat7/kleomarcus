@@ -69,7 +69,7 @@
 
         <%# About Us Button %>
         <div class="pt-4 sm:pt-6 md:pt-8 lg:pt-6 xl:pt-8 flex justify-center lg:justify-end">
-          <a href="#programs" class="group relative inline-flex items-center gap-2 sm:gap-2.5 md:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3.5 overflow-hidden text-base-content transition-colors duration-500">
+          <%= link_to club_path, class: "group relative inline-flex items-center gap-2 sm:gap-2.5 md:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3.5 overflow-hidden text-base-content transition-colors duration-500" do %>
             <span class="absolute top-0 left-0 w-0 h-px bg-primary group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true"></span>
             <span class="absolute bottom-0 right-0 w-0 h-px bg-primary group-hover:w-full transition-all duration-500 ease-out" aria-hidden="true"></span>
             <span class="absolute top-0 left-0 w-px h-0 bg-primary group-hover:h-full transition-all duration-500 delay-100 ease-out" aria-hidden="true"></span>
@@ -85,7 +85,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
               </svg>
             </span>
-          </a>
+          <% end %>
         </div>
 
       </div>
