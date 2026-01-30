@@ -1,9 +1,10 @@
 <%# SEO Meta Tags %>
-<% content_for :title, "Ders Programı | Kleomarcus" %>
-<% content_for :description, "Kleomarcus Spor Akademi haftalık ders programı. Minikler, Gençler ve Yetişkinler için grup antrenmanları ve özel ders saatleri." %>
-<% content_for :keywords, "kleomarcus ders programı, çanakkale dövüş dersleri, grup antrenmanı, özel ders, çocuk dövüş dersi" %>
-<% content_for :og_title, "Ders Programı | Kleomarcus" %>
-<% content_for :og_description, "Kleomarcus Spor Akademi haftalık ders programı ve antrenman saatleri." %>
+<% content_for :title, "Ders Programı | Kleomarcus Spor Akademi" %>
+<% content_for :description, "Kleomarcus Spor Akademi haftalık ders programı. Minikler, Gençler ve Yetişkinler için grup antrenmanları ve özel ders saatleri. Her yaş grubuna uygun programlar." %>
+<% content_for :keywords, "kleomarcus ders programı, çanakkale dövüş dersleri, grup antrenmanı, özel ders, çocuk dövüş dersi, yetişkin dövüş eğitimi" %>
+<% content_for :og_title, "Ders Programı | Kleomarcus Spor Akademi" %>
+<% content_for :og_description, "Minikler, Gençler ve Yetişkinler için haftalık ders programı ve antrenman saatleri." %>
+<% content_for :og_image, image_url('public/gallery-break.jpeg') %>
 
 <%# Structured Data %>
 <% content_for :structured_data do %>
@@ -26,7 +27,7 @@
 <section class="relative min-h-[60svh] sm:min-h-[70svh] overflow-hidden bg-neutral-950 hidden md:block" aria-label="Ders Programı Hero">
   <%# Background %>
   <div class="absolute inset-0">
-    <%= image_tag 'public/schedules.jpeg', alt: 'Kleomarcus Spor Akademi Ders Programı', class: 'w-full h-full object-cover object-center', loading: 'eager' %>
+    <%= image_tag 'public/gallery-break.jpeg', alt: 'Kleomarcus Spor Akademi Ders Programı', class: 'w-full h-full object-cover object-center', loading: 'eager' %>
     <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/70 to-neutral-950/30"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-neutral-950/80 via-transparent to-neutral-950/80"></div>
   </div>

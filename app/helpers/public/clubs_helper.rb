@@ -109,7 +109,7 @@ module Public::ClubsHelper
       { src: "public/kleomarcus-philosophy.jpeg", alt: "Grup antrenmanı" },
       { src: "public/quote-bg.jpeg", alt: "Teknik çalışma" },
       { src: "public/gallery-break.jpeg", alt: "Kick boks dersi" },
-      { src: "public/schedules.jpeg", alt: "Müsabaka hazırlığı" },
+      { src: "public/gallery11.jpeg", alt: "Müsabaka hazırlığı" },
       { src: "public/gallery1.jpeg", alt: "Kleomarcus antrenman" },
       { src: "public/gallery2.jpeg", alt: "Kleomarcus antrenman" },
       { src: "public/gallery3.jpeg", alt: "Kleomarcus antrenman" },

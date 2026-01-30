@@ -20,11 +20,12 @@
     <link rel="canonical" href="<%= content_for(:canonical) || request.original_url %>">
     
     <%# Open Graph / Social Media %>
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="<%= content_for(:og_type) || 'website' %>">
     <meta property="og:site_name" content="Kleomarcus">
     <meta property="og:title" content="<%= content_for(:og_title) || content_for(:title) || "Kleomarcus" %>">
     <meta property="og:description" content="<%= content_for(:og_description) || content_for(:description) || "Çanakkale'nin en iyi spor salonu. Tecrübeli ve profesyonel antrenörler, modern ekipmanlar." %>">
     <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:image" content="<%= content_for(:og_image) || image_url('public/hero-desktop.jpeg') %>">
     <meta property="og:locale" content="tr_TR">
     
     <%= csrf_meta_tags %>
