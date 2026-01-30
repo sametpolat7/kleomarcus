@@ -7,4 +7,7 @@ class Public::ClubsController < ApplicationController
 
   def schedules
   end
+
+  def gallery
+  end
 end

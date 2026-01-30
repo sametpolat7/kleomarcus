@@ -101,4 +101,25 @@ module Public::ClubsHelper
       }
     }
   end
+
+  def gallery_images
+    [
+      { src: "public/hero-desktop.jpeg", alt: "Antrenman salonu" },
+      { src: "public/our-club.jpeg", alt: "Kulüp" },
+      { src: "public/philosophy-kleomarcus.jpeg", alt: "Grup antrenmanı" },
+      { src: "public/first-quote-bg.jpeg", alt: "Teknik çalışma" },
+      { src: "public/second-quote-bg.jpeg", alt: "Kick boks dersi" },
+      { src: "public/schedules.jpeg", alt: "Müsabaka hazırlığı" },
+      { src: "public/gallery1.jpeg", alt: "Kleomarcus antrenman" },
+      { src: "public/gallery2.jpeg", alt: "Kleomarcus antrenman" },
+      { src: "public/gallery3.jpeg", alt: "Kleomarcus antrenman" },
+      { src: "public/gallery4.jpeg", alt: "Kleomarcus antrenman" },
+      { src: "public/gallery5.jpeg", alt: "Kleomarcus antrenman" },
+      { src: "public/gallery6.jpeg", alt: "Kleomarcus antrenman" },
+      { src: "public/gallery7.jpeg", alt: "Kleomarcus antrenman" },
+      { src: "public/gallery8.jpeg", alt: "Kleomarcus antrenman" },
+      { src: "public/gallery9.jpeg", alt: "Kleomarcus antrenman" },
+      { src: "public/gallery10.jpeg", alt: "Kleomarcus antrenman" }
+    ]
+  end
 end
