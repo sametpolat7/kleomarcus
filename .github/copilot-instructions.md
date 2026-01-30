@@ -179,9 +179,6 @@ The `application.html.erb` layout includes comprehensive SEO support via `conten
 <% content_for :og_description, "Sosyal medya açıklaması" %>
 <% content_for :og_image, image_url("og-image.jpg") %>
 <% content_for :og_type, "website" %>
-
-<%# Twitter Card %>
-<% content_for :twitter_card, "summary_large_image" %>
 ```
 
 ### Structured Data (JSON-LD)

@@ -1,7 +1,7 @@
 <footer class="bg-base-300 text-base-content" role="contentinfo">
 
   <!-- Container -->
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4 md:py-6 lg:py-8 mt-4 md:mt-6 lg:mt-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
 
       <!-- Brand -->
@@ -34,32 +34,60 @@
       <div>
         <h4 class="font-display font-bold text-base sm:text-lg text-base-content mb-3 sm:mb-4">Hızlı Bağlantılar</h4>
         <ul class="space-y-2 sm:space-y-2.5 text-sm sm:text-base text-base-content/70">
-          <li><a href="#philosophy" class="hover:text-primary transition-colors">Felsefemiz</a></li>
-          <li><a href="#programs" class="hover:text-primary transition-colors">Branşlarımız</a></li>
-          <li><a href="#membership" class="hover:text-primary transition-colors">Üyelik</a></li>
-          <li><a href="#faq" class="hover:text-primary transition-colors">SSS</a></li>
-          <li><a href="#contact" class="hover:text-primary transition-colors">İletişim</a></li>
+          <li><%= link_to "Felsefemiz", root_path(anchor: "philosophy"), class: "hover:text-primary transition-colors" %></li>
+          <li><%= link_to "Branşlarımız", root_path(anchor: "programs"), class: "hover:text-primary transition-colors" %></li>
+          <li><%= link_to "Üyelik", root_path(anchor: "membership"), class: "hover:text-primary transition-colors" %></li>
+          <li><%= link_to "SSS", root_path(anchor: "faq"), class: "hover:text-primary transition-colors" %></li>
+          <li><%= link_to "İletişim", root_path(anchor: "contact"), class: "hover:text-primary transition-colors" %></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div>
         <h4 class="font-display font-bold text-base sm:text-lg text-base-content mb-3 sm:mb-4">İletişim</h4>
-        <ul class="space-y-3 sm:space-y-3.5 text-sm sm:text-base text-base-content/70">
-          <li class="flex items-start gap-2 sm:gap-3">
-            <svg class="w-4 h-4 sm:w-5 sm:h-5 mt-0.5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
-            <a href="https://maps.app.goo.gl/FoZwYCtdZQpWdino9" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">Esenler, Barış Cd. 1/A, 17010 Merkez/Çanakkale</a>
-          </li>
-          <li class="flex items-center gap-2 sm:gap-3">
-            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-            </svg>
-            <a href="tel:+905470230899" class="hover:text-primary transition-colors">+90 547 023 08 99</a>
-          </li>
-        </ul>
+
+        <!-- Kleomarcus -->
+        <div class="mb-4 sm:mb-5">
+          <h5 class="font-display text-sm sm:text-base text-base-content mb-2">Kleomarcus</h5>
+          <ul class="space-y-2 sm:space-y-2.5 text-sm sm:text-base text-base-content/70">
+            <li class="flex items-start gap-2 sm:gap-3">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 mt-0.5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              <a href="https://maps.app.goo.gl/FoZwYCtdZQpWdino9" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">Esenler, Barış Cd. 1/A, 17010 Merkez/Çanakkale</a>
+            </li>
+            <li class="flex items-center gap-2 sm:gap-3">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+              <a href="tel:+905470230899" class="hover:text-primary transition-colors">+90 547 023 08 99</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Kleomarcus Plus -->
+        <div>
+          <h5 class="font-display text-sm sm:text-base text-base-content mb-2">
+            Kleomarcus Plus
+            <span class="badge badge-primary badge-sm ml-2">Yakında</span>
+          </h5>
+          <ul class="space-y-2 sm:space-y-2.5 text-sm sm:text-base text-base-content/70">
+            <li class="flex items-start gap-2 sm:gap-3">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 mt-0.5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              <span>Esenler-Karacaören Yolu Üzeri</span>
+            </li>
+            <li class="flex items-center gap-2 sm:gap-3">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+              <a href="tel:+905470230899" class="hover:text-primary transition-colors">+90 547 023 08 99</a>
+            </li>
+          </ul>
+        </div>
       </div>
 
     </div>
