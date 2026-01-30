@@ -76,9 +76,9 @@ export default class extends Controller {
     this.counter = this.lightbox.querySelector("span");
 
     const buttons = this.lightbox.querySelectorAll("button");
-    buttons[0].onclick = () => this.close();
-    buttons[1].onclick = () => this.prev();
-    buttons[2].onclick = () => this.next();
+    buttons[0].addEventListener("click", () => this.close());
+    buttons[1].addEventListener("click", () => this.prev());
+    buttons[2].addEventListener("click", () => this.next());
 
     document.body.appendChild(this.lightbox);
   }
