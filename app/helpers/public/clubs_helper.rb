@@ -18,14 +18,14 @@ module Public::ClubsHelper
       {
         name: "Muhammed Yay",
         title: "Antrenör",
-        image: "public/philosophy-kleomarcus.jpeg",
+        image: "public/kleomarcus-philosophy.jpeg",
         branches: [ "Wushu", "Boks", "Kick Boks" ],
         bio: "Muhammed Yay, geleneksel Çin dövüş sanatı Wushu'dan başlayarak Boks ve Kick Boks gibi modern dövüş disiplinlerinde de ustalaşmış, çok yönlü bir antrenördür.\n\nWushu'nun estetik ve akışkanlığını, boksun gücü ve stratejisiyle, kick boksun dinamizmiyle birleştirerek benzersiz bir eğitim metodolojisi geliştirmiştir. Teknik mükemmeliyetçiliğiyle tanınan Muhammed Hoca, her hareketin anatomik ve biyomekanik temellerine vurgu yaparak sporcularına derinlemesine anlayış kazandırır.\n\nÖzellikle genç sporcuların temel becerilerini geliştirmede uzman olan Muhammed Hoca, doğru teknik altyapısı oluşturmanın gelecekteki başarının anahtarı olduğuna inanır. Sabırlı öğretim tarzı ve detay odaklı yaklaşımı ile her sporcunun kendi hızında, ama sürekli ilerleyerek gelişmesini sağlar. Geleneksel değerleri modern antrenman bilimi ile harmanlayan eğitim felsefesi, sporcularına sadece dövüşçü kimliği değil, disiplin ve öz-kontrol kazandırır."
       },
       {
         name: "Salih Demir",
         title: "Antrenör",
-        image: "public/first-quote-bg.jpeg",
+        image: "public/quote-bg.jpeg",
         branches: [ "Boks", "Kick Boks" ],
         bio: "Salih Demir, spor bilimleri eğitimi ve profesyonel dövüş deneyimini birleştirerek, sporcu performansını bilimsel metodlarla en üst seviyeye çıkaran bir antrenördür. Boks ve Kick Boks alanlarında derin uzmanlığa sahiptir.\n\nKondisyon, güç antrenmanı ve atletik performans konularında uzmanlaşmış olan Salih Hoca, her sporcunun fiziksel kapasitesini analiz ederek kişiye özel antrenman programları tasarlar. Modern spor biliminin sunduğu tüm araçları kullanarak, sporcularının sadece teknik değil, fiziksel olarak da zirveye ulaşmasını hedefler.\n\nBesin ve beslenme planlaması, toparlanma stratejileri ve sakatlık önleme protokollerini antrenman sürecine entegre ederek bütünsel bir yaklaşım sergiler. Yoğun antrenman programlarının yanı sıra, sporcularının zihinsel dayanıklılığını artırmaya yönelik motivasyon teknikleri kullanır. Ölçülebilir sonuçlara odaklanan, disiplinli ve hedefe yönelik çalışma tarzıyla sporcularını sürekli gelişime teşvik eder."
       }
@@ -106,9 +106,9 @@ module Public::ClubsHelper
     [
       { src: "public/hero-desktop.jpeg", alt: "Antrenman salonu" },
       { src: "public/our-club.jpeg", alt: "Kulüp" },
-      { src: "public/philosophy-kleomarcus.jpeg", alt: "Grup antrenmanı" },
-      { src: "public/first-quote-bg.jpeg", alt: "Teknik çalışma" },
-      { src: "public/second-quote-bg.jpeg", alt: "Kick boks dersi" },
+      { src: "public/kleomarcus-philosophy.jpeg", alt: "Grup antrenmanı" },
+      { src: "public/quote-bg.jpeg", alt: "Teknik çalışma" },
+      { src: "public/gallery-break.jpeg", alt: "Kick boks dersi" },
       { src: "public/schedules.jpeg", alt: "Müsabaka hazırlığı" },
       { src: "public/gallery1.jpeg", alt: "Kleomarcus antrenman" },
       { src: "public/gallery2.jpeg", alt: "Kleomarcus antrenman" },

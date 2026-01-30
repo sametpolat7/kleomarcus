@@ -1,13 +1,13 @@
-<section id="second-quote" class="relative py-20 sm:py-28 md:py-36 lg:py-44 xl:py-52 overflow-hidden" aria-labelledby="second-quote-content">
+<section id="first-quote" class="relative py-20 sm:py-28 md:py-36 lg:py-44 xl:py-52 overflow-hidden" aria-labelledby="first-quote-content">
 
   <%# Background Image with Overlay %>
   <div class="absolute inset-0">
-    <%= image_tag "public/second-quote-bg.jpeg", alt: "", class: "w-full h-full object-cover object-center", loading: "lazy", aria: { hidden: "true" } %>
+    <%= image_tag 'public/quote-bg.jpeg', alt: 'Kleomarcus İç Mekan', class: 'w-full h-full object-cover object-center', loading: 'lazy', aria: { hidden: true } %>
 
-    <div class="absolute inset-0 bg-gradient-to-b from-base-300/20 via-base-300/75 to-base-300/20"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-base-300/10 via-base-300/60 to-base-300/10"></div>
     <div class="absolute inset-0 bg-primary/5"></div>
   </div>
-  
+
   <%# Quote Content %>
   <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
     <figure class="max-w-4xl mx-auto text-center">
@@ -23,8 +23,9 @@
 
       <%# Quote Text %>
       <blockquote>
-        <p id="second-quote-content" lang="tr" class="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-base-content leading-tight px-4 sm:px-8">
-          Madalyalar <span class="text-primary">antrenmanda</span> kazanılır; müsabakaya sadece almaya gideriz.
+        <p id="first-quote-content" class="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-base-content leading-tight px-4 sm:px-8">
+          "Ringde yalnız değilsin.<br class="hidden xs:block">
+          <span class="text-primary">Emeğin</span> seninle."
         </p>
       </blockquote>
 
