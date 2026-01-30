@@ -88,6 +88,10 @@ export default class extends Controller {
   }
 
   bindKeyboard() {
+    if (this.handleKeydown) {
+      document.removeEventListener("keydown", this.handleKeydown);
+    }
+
     this.handleKeydown = (e) => {
       if (!this.lightbox.open) return;
       if (e.key === "Escape") this.close();
