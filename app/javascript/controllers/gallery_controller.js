@@ -59,6 +59,10 @@ export default class extends Controller {
   }
 
   createLightbox() {
+    if (this.lightbox && document.body.contains(this.lightbox)) {
+      return;
+    }
+
     this.lightbox = document.createElement("dialog");
     this.lightbox.className = "modal";
     this.lightbox.innerHTML = `
