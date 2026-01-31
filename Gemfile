@@ -57,6 +57,20 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
+  # Testing framework for Rails [https://rspec.info/]
+  gem "rspec-rails", "~> 7.1"
+
+  # Factory Bot for test data [https://github.com/thoughtbot/factory_bot_rails]
+  gem "factory_bot_rails", "~> 6.4"
+
+  # Faker for generating fake data [https://github.com/faker-ruby/faker]
+  gem "faker", "~> 3.5"
+end
+
+group :development do
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
+
   # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
   gem "bundler-audit", require: false
 
@@ -68,29 +82,15 @@ group :development, :test do
 
   # Lint ERB or HTML files. [https://github.com/marcoroth/herb]
   gem "herb", "~> 0.8", require: false
-
-  # Testing framework for Rails [https://rspec.info/]
-  gem "rspec-rails", "~> 7.1"
-
-  # Factory Bot for test data [https://github.com/thoughtbot/factory_bot_rails]
-  gem "factory_bot_rails", "~> 6.4"
-
-  # Faker for generating fake data [https://github.com/faker-ruby/faker]
-  gem "faker", "~> 3.5"
-
-  # Use system testing and feature specs [https://github.com/teamcapybara/capybara]
-  gem "capybara"
-end
-
-group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
 end
 
 group :test do
-  # Code coverage analysis [https://github.com/simplecov-ruby/simplecov]
-  gem "simplecov", require: false
+  # Use system testing and feature specs [https://github.com/teamcapybara/capybara]
+  gem "capybara"
 
   # A browser automation framework and ecosystem. [https://github.com/SeleniumHQ/selenium]
   gem "selenium-webdriver"
+
+  # Code coverage analysis [https://github.com/simplecov-ruby/simplecov]
+  gem "simplecov", require: false
 end
