@@ -308,43 +308,82 @@ Base (mobile, <640px)  →  sm: (≥640px)  →  md: (≥768px)  →  lg: (≥10
 
 ## SEO & Semantic HTML
 
-### Meta Tag Structure
+### Meta Tag Management with `set_seo_meta` Helper
 
-The `application.html.erb` layout includes comprehensive SEO support via `content_for` blocks:
+The project uses the `set_seo_meta` helper from `ApplicationHelper` to simplify SEO metadata management. This helper automatically handles sensible defaults and eliminates boilerplate:
 
 ```erb
 <%# In page views (e.g., index.html.erb) %>
-<% content_for :title, "Sayfa Başlığı | Kleomarcus" %>
-<% content_for :description, "Sayfa açıklaması - 150-160 karakter arası." %>
-<% content_for :keywords, "anahtar, kelimeler, virgülle, ayrılmış" %>
-<% content_for :canonical, request.original_url %>
-
-<%# Open Graph %>
-<% content_for :og_title, "Sosyal medya başlığı" %>
-<% content_for :og_description, "Sosyal medya açıklaması" %>
-<% content_for :og_image, image_url("og-image.jpg") %>
-<% content_for :og_type, "website" %>
+<%= set_seo_meta(
+  title: "Antrenörlerimiz",                                    # Optional: Page title (auto-appends "| Kleomarcus Spor Akademi")
+  description: "Profesyonel antrenör kadromuz...",             # Optional: Falls back to default
+  keywords: "antrenörler, boks eğitmeni, mma antrenörü",       # Optional: Falls back to default
+  og_title: "Kleomarcus Antrenörlerimiz",                      # Optional: Defaults to full_title
+  og_description: "Deneyimli ve sertifikalı antrenörler...",  # Optional: Defaults to description
+  og_image: "trainers.jpg",                                     # Optional: Defaults to "public/hero-desktop.jpeg"
+  og_type: "website"                                            # Optional: Defaults to "website"
+) %>
 ```
+
+**Helper Behavior**:
+
+- **Title**: If provided, appends `" | Kleomarcus Spor Akademi"`. Otherwise uses site name only.
+- **Description**: Falls back to default: "Çanakkale'de Boks, Kick Boks, Muay Thai, Wushu, MMA ve CrossFit eğitimleri."
+- **Keywords**: Falls back to default keyword set.
+- **Open Graph**: Automatically inherits from title/description if not explicitly set.
+- **Canonical URL**: Automatically set to `request.original_url`.
+- **Image URLs**: Automatically prefixed with `image_url()` helper.
+
+**Usage Pattern**:
+
+- Place `set_seo_meta` call at the top of each view file (before any HTML).
+- Only specify parameters that differ from defaults.
+- For homepage, omit `title` to use site name only.
+- Returns `nil` to avoid rendering output.
 
 ### Structured Data (JSON-LD)
 
-Include schema.org markup for rich search results:
+Use the `structured_data_tag` and `organization_schema` helpers for schema.org markup:
 
 ```erb
-<% content_for :head do %>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SportsClub",
-      "name": "Kleomarcus Dövüş Kulübü",
-      "description": "...",
-      "address": { "@type": "PostalAddress", ... },
-      "telephone": "+90...",
-      "url": "<%= request.base_url %>"
-    }
-  </script>
+<%# In page views %>
+<% content_for :structured_data do %>
+  <%= structured_data_tag(organization_schema) %>
 <% end %>
 ```
+
+**For custom schema** (e.g., enhanced homepage data):
+
+```erb
+<% content_for :structured_data do %>
+  <%= structured_data_tag(
+    organization_schema.merge({
+      "description": "Çanakkale'nin köklü dövüş spor kulübü...",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "22:30"
+        }
+      ]
+    })
+  ) %>
+<% end %>
+```
+
+**Available Schema Helpers** (`ApplicationHelper`):
+
+- `organization_schema`: Returns base SportsClub schema with address, geo, contact info.
+- `structured_data_tag(schema)`: Wraps schema hash in `<script type="application/ld+json">`.
+
+**The base schema includes**:
+
+- Organization name, URL, contact (phone/email)
+- Postal address (Çanakkale, TR)
+- Geo coordinates (latitude/longitude)
+- Social media links (Instagram, Facebook)
+- Price range indicator
 
 ### Semantic HTML Requirements
 
