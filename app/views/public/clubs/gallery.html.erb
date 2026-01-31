@@ -1,23 +1,14 @@
 <%# SEO Meta Tags %>
-<% content_for :title, "Galeri | Kleomarcus Spor Akademi" %>
-<% content_for :description, "Kleomarcus Spor Akademi fotoğraf galerisi. Antrenmanlardan, müsabakalardan ve günlük aktivitelerimizden kareler." %>
-<% content_for :keywords, "kleomarcus galeri, çanakkale dövüş kulübü fotoğrafları, boks antrenmanı, kick boks müsabaka, dövüş sporları galerisi" %>
-<% content_for :og_title, "Galeri | Kleomarcus Spor Akademi" %>
-<% content_for :og_description, "Kleomarcus Spor Akademi fotoğraf galerisi - antrenmanlar ve müsabakalardan kareler." %>
-<% content_for :og_image, image_url('public/gallery-break.jpeg') %>
+<%= set_seo_meta(
+  title: "Galeri",
+  description: "Kleomarcus Spor Akademi fotoğraf galerisi. Antrenmanlardan, kulübümüzden ve günlük aktivitelerimizden kareler.",
+  keywords: "kleomarcus galeri, çanakkale dövüş kulübü fotoğrafları, boks antrenmanı, kick boks müsabaka, dövüş sporları galerisi",
+  og_description: "Kleomarcus Spor Akademi fotoğraf galerisi - antrenmanlar ve kulübümüzden kareler.",
+  og_image: "public/gallery-break.jpeg"
+) %>
 
 <%# Hero Section %>
-<section class="relative min-h-[40svh] sm:min-h-[50svh] md:min-h-[60svh] bg-neutral-950 hidden md:flex items-end">
-  <div class="absolute inset-0">
-    <%= image_tag 'public/hero-desktop.jpeg', alt: '', class: 'w-full h-full object-cover opacity-40', loading: 'eager', aria: { hidden: true } %>
-  </div>
-  <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 md:pb-16">
-    <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight">
-      Galeri
-    </h1>
-    <div class="mt-3 sm:mt-4 h-1 w-16 sm:w-20 md:w-24 bg-primary"></div>
-  </div>
-</section>
+<%= render "shared/page_hero", title: "Galeri", image: "public/gallery-break.jpeg", alt_text: "Kleomarcus Spor Akademi Galeri" %>
 
 <%# Gallery Section %>
 <section id="gallery" class="py-8 sm:py-12 md:py-16 lg:py-20 bg-base-100" data-controller="gallery" aria-labelledby="gallery-title">
