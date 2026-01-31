@@ -10,158 +10,303 @@ Kleomarcus is a Rails 8.1 web application for Kleomarcus Fight Club built with m
 - **Database**: PostgreSQL with Solid adapters (solid_cache, solid_queue, solid_cable)
 - **Frontend**: Tailwind CSS 4.1.16 + DaisyUI component library
 - **JavaScript**: importmap-rails (no bundler), Stimulus controllers, Turbo
-- **Testing**: RSpec with Factory Bot, Faker, Capybara (not minitest)
+- **Testing**: RSpec with Factory Bot, Faker, Capybara, SimpleCov, Selenium
 - **Deployment**: Kamal with Docker support
 - **Code Quality**: RuboCop (Rails Omakase), Brakeman, bundler-audit, Herb (ERB linter)
 
-## Critical Workflows
+## Ruby & Rails Coding Standards
 
-## General Coding Rules
+### Style Guide Compliance
 
-When generating, suggesting, or editing code, always follow official **Ruby** and **Ruby on Rails** style guidelines:
+**ALWAYS** follow the official Ruby Style Guide and Rails conventions:
 
-- Adhere to Ruby Style Guide and Rails Omakase conventions.
-- Follow existing RuboCop (Rails Omakase) rules without introducing violations.
-- Maintain consistent formatting, naming, and structure with the existing codebase.
-- Be mindful of security vulnerabilities:
-  - Follow Rails security best practices (strong parameters, CSRF protection, safe query methods).
-  - Avoid introducing XSS, SQL injection, mass-assignment, or unsafe deserialization risks.
+- **2-space indentation** for Ruby files (enforced by RuboCop)
+- **Snake_case** for methods, variables, file names; **CamelCase** for classes/modules
+- **SCREAMING_SNAKE_CASE** for constants
+- **Predicate methods** end with `?`; **dangerous methods** end with `!`
+- **String literals**: Prefer double quotes `""`
+- **Hash syntax**: Modern style `{ key: value }` for symbol keys, `{ "key" => value }` for string keys
+- **Method chaining**: Align dots on subsequent lines when wrapping
+- **Line length**: Aim for 120 characters max (RuboCop default)
+- **No trailing whitespace**, consistent blank lines between methods
 
-### Development Server
+### Rails Best Practices
+
+- **Controllers**: Keep thin, extract business logic to models/services
+- **RESTful routes**: Use standard actions (index, show, new, create, edit, update, destroy) if possible
+- **Views**: Use partials for reusable components, avoid logic in views
+- **Strong parameters**: Always use for mass assignment protection
+- **Callbacks**: Use sparingly, prefer explicit service objects for complex workflows
+- **Queries**: Use ActiveRecord query interface, avoid raw SQL unless necessary
+- **Validations**: Place in models, not controllers
+- **I18n**: Use locale files for all user-facing text (currently using Turkish locale)
+- **Concerns**: Extract shared functionality, properly test included modules
+
+### Security Standards
+
+- **CSRF protection**: Enabled by default, never disable
+- **Strong parameters**: Required for all controller create/update actions
+- **SQL injection**: Use parameterized queries, avoid string interpolation in queries
+- **XSS prevention**: Use ERB escaping by default (`<%= %>`), explicitly mark safe HTML with `raw` or `html_safe` only when necessary
+- **Mass assignment**: Use strong parameters, never permit all params
+- **Authentication**: Use `has_secure_password` or established gems (Devise, Sorcery)
+- **Secrets**: Store in `credentials.yml.enc`, never commit sensitive data
+
+## Development Workflows
+
+### Local Development
 
 ```bash
-bin/dev  # Runs both Rails server and Tailwind CSS watcher via Procfile.dev
+bin/dev          # Primary command: runs Rails server + Tailwind CSS watcher
+bin/setup        # First-time setup: installs dependencies, creates DB, seeds data
+rails console    # Interactive Ruby console with app loaded
 ```
 
-This is the primary command for local development - it auto-installs foreman if missing and starts both web and CSS processes.
+The `bin/dev` script uses `Procfile.dev` to run multiple processes concurrently.
 
 ### Testing
 
 ```bash
-bundle exec rspec  # Run RSpec test suite
-bin/ci             # Run full CI suite (uses config/ci.rb)
+bundle exec rspec                    # Run all specs
+bundle exec rspec spec/models/       # Run specific directory
+bundle exec rspec spec/path_spec.rb  # Run single file
+bin/ci                               # Run full CI suite (uses config/ci.rb)
 ```
 
-Uses RSpec exclusively (not Rails default minitest). Test files live in `spec/` directory.
+**Test organization**:
+
+- `spec/requests/` - Controller/integration tests (HTTP requests)
+- `spec/system/` - End-to-end browser tests with Capybara
+- `spec/models/` - Model unit tests
+- `spec/helpers/` - View helper tests
+- `spec/factories/` - Factory Bot definitions
+- `spec/support/` - RSpec configuration and helpers
 
 ### Code Quality
 
 ```bash
-bin/rubocop        # Ruby style checks (Omakase style)
-bin/brakeman       # Security vulnerability scanning
-bin/bundler-audit  # Gem security audit
+bin/rubocop        # Ruby style checks (Rails Omakase)
+bin/rubocop -a     # Auto-fix safe violations
+bin/brakeman       # Security vulnerability scan
+bin/bundler-audit  # Check gems for known vulnerabilities
+herb               # ERB/HTML linting
 ```
+
+**Run before committing**: `bin/ci` to ensure all checks pass.
 
 ### Database
 
-Standard Rails commands with Solid adapters enabled for caching, background jobs, and WebSockets.
+```bash
+rails db:create    # Create database
+rails db:migrate   # Run pending migrations
+rails db:seed      # Load seed data
+rails db:reset     # Drop, create, migrate, seed
+rails db:rollback  # Undo last migration
+```
+
+Solid adapters use database tables for cache, jobs, and WebSocket connections (no Redis needed).
 
 ## Architecture & Patterns
 
-### Controller Namespace Convention
+### Controller Organization
 
-Controllers are organized under **namespace directories** to separate public and future admin/api areas:
+Controllers are **namespaced** to separate concerns:
 
-- Public-facing: `app/controllers/public/` → routes under `namespace :public`
-- Example: `Public::HomeController` at `app/controllers/public/home_controller.rb`
-- Route: `root "public/home#index"`
-
-**Always use namespaced controllers** - don't create controllers directly in `app/controllers/` except `ApplicationController`.
+- **Public-facing**: `app/controllers/public/` → routes under `scope module: :public`
+  - Example: `Public::HomeController` at `app/controllers/public/home_controller.rb`
+  - Route: `root "public/home#index"`
+  - Pattern: `scope module: :public do ... end` (no URL namespace prefix)
 
 ### Frontend Architecture
 
-- **Tailwind CSS 4.x**: Custom configuration in `app/assets/tailwind/` with DaisyUI component library
-- **DaisyUI**: Component classes available (e.g., `btn btn-primary`), imported via `app/assets/tailwind/daisyui.mjs`
+- **Tailwind CSS 4.x**: Configuration in `app/assets/tailwind/` with DaisyUI
+- **DaisyUI**: Component library (e.g., `btn`, `btn-primary`, `card`, `navbar`)
 - **Stimulus Controllers**: Auto-loaded from `app/javascript/controllers/` via importmap
-- **No JavaScript bundler**: Use importmap pins in `config/importmap.rb` for any npm packages
+  - Naming: `theme_controller.js` → `data-controller="theme"`
+  - Actions: `data-action="click->theme#toggle"`
+  - Targets: `data-theme-target="button"`
+- **No JavaScript bundler**: Use importmap pins in `config/importmap.rb`
 
 ### View Structure
 
-- Namespaced views mirror controller structure: `app/views/public/home/index.html.erb`
-- Main layout at `app/views/layouts/application.html.erb` includes Tailwind and Turbo
-- PWA support files in `app/views/pwa/` (currently commented out in routes)
+- Views mirror controller namespaces: `app/views/public/home/index.html.erb`
+- Main layout: `app/views/layouts/application.html.erb`
+- Shared partials: `app/views/shared/` for reusable components
+- Use `content_for` blocks for page-specific meta tags, scripts, styles
 
-### Testing Patterns
+### Service Objects (Future Pattern)
 
-- **Request specs**: Test controller actions (e.g., `spec/requests/public/home_spec.rb`)
-- **Helper specs**: Minimal, in `spec/helpers/`
-- **View specs**: For complex views with Tailwind assertions (`spec/views/public/home/index.html.tailwindcss_spec.rb`)
-- Use Factory Bot for test data, Faker for generating fake content
+For complex business logic, extract to `app/services/`:
 
-## Key Configuration Files
+```ruby
+# app/services/membership_registration.rb
+class MembershipRegistration
+  def initialize(user, plan)
+    @user = user
+    @plan = plan
+  end
 
-- `config/routes.rb` - Namespaced route definitions
-- `config/importmap.rb` - JavaScript dependencies (no package.json)
-- `config/deploy.yml` - Kamal deployment configuration
-- `Procfile.dev` - Development process definitions (web + css)
-- `app/assets/tailwind/daisyui.mjs` - DaisyUI component library bundle
+  def call
+    # Multi-step business logic here
+  end
+end
 
-## Deployment
+# Usage in controller
+def create
+  result = MembershipRegistration.new(current_user, params[:plan]).call
+  # ...
+end
+```
 
-Uses Kamal for containerized deployment. Local registry at `localhost:5555` (see `config/deploy.yml`). Thruster provides asset acceleration in production.
+## Testing Strategy
 
-## Modern Rails Features in Use
+### Test Types & Organization
 
-- **allow_browser**: Modern browser enforcement in ApplicationController
-- **stale_when_importmap_changes**: Automatic ETags for importmap changes
-- **Solid adapters**: Database-backed caching, jobs, and cable (no Redis)
-- **Propshaft**: Modern asset pipeline (replaces Sprockets)
+**Request Specs** (`spec/requests/`):
 
-## Responsive Design (Mobile-First Approach)
+- Test controller actions, HTTP responses, redirects
+- Verify response status, content type, body content
+- Check authentication, authorization flows
+- Simple, focused assertions
 
-This project follows a **mobile-first** responsive design strategy using Tailwind CSS breakpoints.
+```ruby
+RSpec.describe Public::HomeController, type: :request do
+  describe "GET /" do
+    before { get root_path }
+
+    it "returns http success" do
+      expect(response).to have_http_status(:success)
+    end
+
+    it "returns HTML content" do
+      expect(response.content_type).to match(%r{text/html})
+    end
+
+    it "includes expected content" do
+      expect(response.body).to include("Kleomarcus")
+    end
+  end
+end
+```
+
+**System Specs** (`spec/system/`):
+
+- End-to-end user workflows with real browser
+- JavaScript interactions (use `js: true`)
+- Form submissions, navigation flows
+- Mobile/responsive behavior testing
+
+```ruby
+RSpec.describe "Homepage", type: :system do
+  it "loads successfully" do
+    visit root_path
+    expect(page).to have_http_status(:success)
+  end
+
+  describe "theme toggle", js: true do
+    it "toggles and persists theme" do
+      visit root_path
+      find('label.swap').click
+      expect(page.evaluate_script("localStorage.getItem('theme')")).to be_present
+    end
+  end
+end
+```
+
+**Model Specs** (`spec/models/`):
+
+- Validations, associations, scopes
+- Instance and class methods
+- Business logic in models
+
+```ruby
+RSpec.describe User, type: :model do
+  it "is valid with valid attributes" do
+    user = build(:user)
+    expect(user).to be_valid
+  end
+
+  it "validates presence of email" do
+    user = build(:user, email: nil)
+    expect(user).not_to be_valid
+  end
+end
+```
+
+**Helper Specs** (`spec/helpers/`):
+
+- Minimal, only for complex helpers
+- Most helpers should be simple and self-evident
+
+### Testing Best Practices
+
+1. **Keep tests simple and readable**
+   - One assertion per test when possible
+   - Clear test names describing behavior
+   - Use `let` and `let!` for setup, `before` for actions
+
+2. **Use Factory Bot for test data**
+
+   ```ruby
+   # spec/factories/users.rb
+   FactoryBot.define do
+     factory :user do
+       email { Faker::Internet.email }
+       password { "password123" }
+     end
+   end
+   ```
+
+3. **Capybara configuration** (`spec/support/capybara.rb`)
+   - Default: `:rack_test` (fast, no JS)
+   - JS tests: `:selenium_chrome_headless`
+   - Max wait time: 3 seconds
+
+4. **Test coverage**
+   - SimpleCov tracks coverage automatically
+   - Aim for >80% coverage on critical paths
+   - Not every line needs testing, focus on behavior
+
+5. **Avoid testing framework internals**
+   - Don't test Rails validations themselves
+   - Test your business logic and custom behavior
+   - Trust that Rails works correctly
+
+## Mobile-First Responsive Design
+
+This project **strictly follows mobile-first** responsive design strategy using Tailwind CSS breakpoints.
 
 ### Breakpoint System
 
-Always define base styles for mobile, then progressively enhance for larger screens:
+**Always define base styles for mobile first**, then progressively enhance for larger screens:
 
 ```
-Base (mobile)  →  sm: 640px  →  md: 768px  →  lg: 1024px  →  xl: 1280px
+Base (mobile, <640px)  →  sm: (≥640px)  →  md: (≥768px)  →  lg: (≥1024px)  →  xl: (≥1280px)
 ```
 
 ### Mobile-First Class Patterns
 
-```erb
-<!-- Typography: Start small, scale up -->
-<h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+**Typography**: Start small, scale up based on content hierarchy and importance (hero headings use largest scale, section headings medium scale, subsection headings smaller scale, body text minimal scaling)
 
-<!-- Spacing: Compact on mobile, generous on desktop -->
-<section class="py-12 sm:py-16 md:py-20 lg:py-24">
-<div class="px-4 sm:px-6 lg:px-8">
-<div class="mb-6 sm:mb-8 lg:mb-12">
+**Spacing**: Compact on mobile, generous on desktop (adjust based on section importance - major sections like hero use generous padding, standard sections use moderate padding, minor sections and cards use minimal padding)
 
-<!-- Grid: Stack on mobile, columns on larger screens -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+**Grid**: Stack on mobile, columns on larger screens (choose column count based on content type - 2 columns for features/testimonials, 3 columns for services/team members, 4 columns for icons/small cards, asymmetric layouts for sidebar + main content)
 
-<!-- Buttons: Appropriate touch targets -->
-<button class="btn btn-sm sm:btn-md lg:btn-lg">
+**Buttons**: Size based on importance and context (primary CTAs largest with full width on mobile, secondary actions medium/default size, tertiary/icon buttons small)
 
-<!-- Visibility: Show/hide based on screen -->
-<nav class="hidden lg:flex">        <!-- Desktop only -->
-<button class="lg:hidden">          <!-- Mobile only -->
-```
+**Visibility**: Show/hide based on screen size and layout needs (desktop navigation horizontal, mobile navigation hamburger menu, responsive images with different sources for different breakpoints)
 
-### Section Structure Convention
+### Responsive Design Requirements
 
-Each page section should follow this pattern:
+1. **Touch Targets**: Minimum 44×44px on mobile (DaisyUI `btn-sm` meets this)
+2. **Font Sizes**: Base at 16px minimum (Tailwind `text-base` = 16px)
+3. **Spacing**: Always use responsive scales, adjust padding based on section importance and context
+4. **Images**: Always include `loading="lazy"` for below-fold images, descriptive `alt` text for meaningful images, empty `alt=""` for decorative images, use `width` and `height` attributes to prevent CLS
+5. **Navigation**: Mobile hamburger menu with slide-out or dropdown, desktop horizontal navigation (threshold typically `lg:` breakpoint)
+6. **Hero Sections**: Use `min-h-screen` for standard viewports, `min-h-[100svh]` when accounting for mobile browser chrome, adjust height based on content needs
+7. **Testing**: Use system specs with `js: true` to verify responsive behaviors and breakpoint transitions
 
-```erb
-<section id="section-name" class="py-12 sm:py-16 md:py-20 lg:py-24 bg-base-100" aria-labelledby="section-title">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <header class="text-center mb-8 sm:mb-12 lg:mb-16">
-      <h2 id="section-title" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
-```
-
-### Key Responsive Guidelines
-
-1. **Touch Targets**: Minimum 44x44px on mobile (use `btn-sm` minimum)
-2. **Font Sizes**: Base at 16px minimum for readability
-3. **Spacing**: Use `py-12` or `py-16` minimum for mobile sections
-4. **Images**: Always include `loading="lazy"` and appropriate `alt` text
-5. **Navigation**: Fixed header with hamburger menu on mobile, horizontal nav on desktop
-6. **Hero Sections**: Use `min-h-[100svh]` for full viewport height (handles mobile browser chrome)
-
-## SEO Guidelines
+## SEO & Semantic HTML
 
 ### Meta Tag Structure
 
@@ -172,7 +317,7 @@ The `application.html.erb` layout includes comprehensive SEO support via `conten
 <% content_for :title, "Sayfa Başlığı | Kleomarcus" %>
 <% content_for :description, "Sayfa açıklaması - 150-160 karakter arası." %>
 <% content_for :keywords, "anahtar, kelimeler, virgülle, ayrılmış" %>
-<% content_for :canonical_url, request.original_url %>
+<% content_for :canonical, request.original_url %>
 
 <%# Open Graph %>
 <% content_for :og_title, "Sosyal medya başlığı" %>
@@ -186,7 +331,7 @@ The `application.html.erb` layout includes comprehensive SEO support via `conten
 Include schema.org markup for rich search results:
 
 ```erb
-<% content_for :structured_data do %>
+<% content_for :head do %>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -208,18 +353,26 @@ Include schema.org markup for rich search results:
 3. **Section IDs**: Every major section needs an `id` for navigation (e.g., `id="about"`, `id="programs"`)
 4. **ARIA Labels**: Use `aria-labelledby` to connect sections with their headings
 5. **Landmark Roles**: Use semantic elements (`<header>`, `<main>`, `<footer>`, `<nav>`, `<section>`)
-6. **Skip Link**: Include skip-to-content link for keyboard users (in layout)
+6. **Skip Link**: Include skip-to-content link for keyboard users
 
 ### Image SEO
 
 ```erb
+<%# Meaningful images: Descriptive alt text %>
 <img
-  src="..."
-  alt="Açıklayıcı alternatif metin"    <%# Descriptive for meaningful images %>
-  alt=""                                 <%# Empty for decorative images %>
-  aria-hidden="true"                     <%# Add for decorative images %>
-  loading="lazy"                         <%# Lazy load below-fold images %>
-  width="800" height="600"               <%# Explicit dimensions prevent CLS %>
+  src="image.jpg"
+  alt="Açıklayıcı alternatif metin"
+  loading="lazy"
+  width="800" height="600"
+>
+
+<%# Decorative images: Empty alt and aria-hidden %>
+<img
+  src="decoration.jpg"
+  alt=""
+  aria-hidden="true"
+  loading="lazy"
+  width="800" height="600"
 >
 ```
 
