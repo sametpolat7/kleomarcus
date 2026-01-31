@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   scan_ruby:
@@ -21,10 +21,10 @@ jobs:
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
-      
+
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit
-      
+
   scan_js:
     name: Security scan - JavaScript dependencies
     runs-on: ubuntu-latest
@@ -85,7 +85,7 @@ jobs:
         run: bundle exec herb analyze app/views
 
   test:
-    name: Run unit & integration tests
+    name: Run unit & integration tests (RSpec)
     runs-on: ubuntu-latest
 
     services:
@@ -116,13 +116,15 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run tests
+      - name: Run RSpec tests (excluding system tests)
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
+        run: |
+          bin/rails db:test:prepare
+          bundle exec rspec --exclude-pattern 'spec/system/**/*_spec.rb'
 
   system-test:
     name: Run system tests (browser-based)
@@ -146,7 +148,7 @@ jobs:
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable libpq-dev
 
       - name: Checkout code
         uses: actions/checkout@v6
@@ -156,13 +158,15 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run System Tests
+      - name: Run RSpec system tests
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test:system
+        run: |
+          bin/rails db:test:prepare
+          bundle exec rspec spec/system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v6
