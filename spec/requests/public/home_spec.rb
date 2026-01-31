@@ -35,7 +35,7 @@ RSpec.describe Public::HomeController, type: :request do
 
       it "includes structured data (JSON-LD)" do
         expect(response.body).to include('application/ld+json')
-        expect(response.body).to include('"@type": "SportsClub"')
+        expect(response.body).to include('"@type":"SportsClub"')
       end
 
       it "includes canonical URL" do

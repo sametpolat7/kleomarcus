@@ -34,7 +34,7 @@ RSpec.describe Public::ClubsController, type: :request do
 
       it "includes structured data for AboutPage" do
         expect(response.body).to include('application/ld+json')
-        expect(response.body).to include('"@type": "AboutPage"')
+        expect(response.body).to include('"@type":"AboutPage"')
       end
     end
   end
