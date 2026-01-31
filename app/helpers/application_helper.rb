@@ -64,7 +64,7 @@ module ApplicationHelper
 
   def structured_data_tag(schema)
     content_tag :script, type: "application/ld+json" do
-      schema.to_json.html_safe
+      json_escape(schema.to_json).html_safe
     end
   end
 end
