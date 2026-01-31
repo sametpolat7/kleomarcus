@@ -1,42 +1,87 @@
 # Kleomarcus
 
-Kleomarcus is a web application developed for the Kleomarcus Fight Club, providing a platform to manage and showcase club activities.
+A Rails 8.1 web application for Kleomarcus Fight Club.
 
 ## Requirements
 
-To run this application, ensure the following dependencies are installed:
+- Ruby 3.4.4
+- Rails 8.1.1
 
-- **Ruby**: 3.4.4
-- **Rails**: 8.1.1
-- **Tailwind CSS**: 4.1.16
+## Technology Stack
+
+- **Backend**: Ruby on Rails 8.1.1
+- **Frontend**: Tailwind CSS, DaisyUI, Hotwire (Turbo, Stimulus)
 - **Database**: PostgreSQL
+- **Asset Pipeline**: Propshaft
+- **JavaScript**: importmap-rails
+- **Testing**: RSpec, Factory Bot, Capybara, Selenium
+- **Code Quality**: RuboCop, Brakeman, Bundler Audit
 
-## Installation and Setup
+## Installation
 
-Follow these steps to set up the application:
+Clone the repository:
 
-1. **Clone the Repository**  
-   Clone the project repository to your local machine:
-   ```bash
-   git clone https://github.com/sametpolat7/kleomarcus.git
-   ```
-
-2. **Install Dependencies**  
-   Navigate to the project directory and install the required gems:
-   ```bash
-   bundle install
-   ```
-
-3. **Database Setup**  
-   Set up the database by running:
-   ```bash
-   rails db:setup
-   ```
-
-## Running the Application
-
-Start the Rails server with the following command:
 ```bash
-rails server
+git clone https://github.com/sametpolat7/kleomarcus.git
+cd kleomarcus
 ```
-The application will be accessible at `http://localhost:3000`.
+
+Run the setup script:
+
+```bash
+bin/setup
+```
+
+This will install dependencies, create the database, run migrations, and seed initial data.
+
+## Development
+
+Start the development server:
+
+```bash
+bin/dev
+```
+
+This runs both the Rails server and Tailwind CSS watcher. The application will be available at `http://localhost:3000`.
+
+## Testing
+
+Run the test suite:
+
+```bash
+bundle exec rspec
+```
+
+Run the full CI suite (tests, linters, security checks):
+
+```bash
+bin/ci
+```
+
+Run specific test types:
+
+```bash
+bundle exec rspec spec/models/
+bundle exec rspec spec/requests/
+bundle exec rspec spec/system/
+```
+
+## Code Quality
+
+Run RuboCop for style checks:
+
+```bash
+bin/rubocop
+bin/rubocop -a  # Auto-fix violations
+```
+
+Run security checks:
+
+```bash
+bin/brakeman
+bin/bundler-audit
+```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
