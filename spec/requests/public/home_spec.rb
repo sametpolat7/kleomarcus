@@ -54,7 +54,7 @@ RSpec.describe Public::HomeController, type: :request do
     end
 
     context "performance and caching" do
-      it "does not cache by default" do
+      it "sets Cache-Control header" do
         expect(response.headers["Cache-Control"]).to be_present
       end
     end
