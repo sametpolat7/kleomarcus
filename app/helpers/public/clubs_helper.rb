@@ -58,47 +58,27 @@ module Public::ClubsHelper
   end
 
   def schedule_data
-    weekday_schedule = {
-      "10:00" => { name: "Özel Ders", type: "private" },
-      "11:00" => { name: "Özel Ders", type: "private" },
-      "12:00" => { name: "Özel Ders", type: "private" },
-      "13:00" => { name: "Özel Ders", type: "private" },
-      "14:00" => { name: "Özel Ders", type: "private" },
-      "15:00" => { name: "Özel Ders", type: "private" },
-      "16:00" => { name: "Özel Ders", type: "private" },
-      "17:00" => { name: "Özel Ders", type: "private" },
-      "18:15" => { name: "Minikler", type: "group" },
-      "19:15" => { name: "Gençler", type: "group" },
-      "20:15" => { name: "Yetişkinler", type: "group" },
-      "21:15" => { name: "Yetişkinler 2", type: "group" }
+    mw_groups = {
+      "19:15" => "Gençler",
+      "20:15" => "Yetişkinler"
+    }
+
+    tt_groups = {
+      "17:00" => "Çocuklar 1",
+      "18:15" => "Çocuklar 2",
+      "19:15" => "Gençler",
+      "20:15" => "Yetişkinler 1",
+      "21:15" => "Yetişkinler 2"
     }
 
     {
-      "Pazartesi" => weekday_schedule,
-      "Salı" => weekday_schedule,
-      "Çarşamba" => weekday_schedule,
-      "Perşembe" => weekday_schedule,
-      "Cuma" => weekday_schedule,
-      "Cumartesi" => {
-        "10:00" => { name: "Özel Ders", type: "private" },
-        "11:00" => { name: "Özel Ders", type: "private" },
-        "12:00" => { name: "Özel Ders", type: "private" },
-        "13:00" => { name: "Özel Ders", type: "private" },
-        "14:00" => { name: "Özel Ders", type: "private" },
-        "15:00" => { name: "Özel Ders", type: "private" },
-        "16:00" => { name: "Özel Ders", type: "private" },
-        "17:00" => { name: "Özel Ders", type: "private" }
-      },
-      "Pazar" => {
-        "10:00" => { name: "Özel Ders", type: "private" },
-        "11:00" => { name: "Özel Ders", type: "private" },
-        "12:00" => { name: "Özel Ders", type: "private" },
-        "13:00" => { name: "Özel Ders", type: "private" },
-        "14:00" => { name: "Özel Ders", type: "private" },
-        "15:00" => { name: "Özel Ders", type: "private" },
-        "16:00" => { name: "Özel Ders", type: "private" },
-        "17:00" => { name: "Özel Ders", type: "private" }
-      }
+      "Pazartesi"  => build_day(groups: mw_groups),
+      "Salı"       => build_day(groups: tt_groups),
+      "Çarşamba"   => build_day(groups: mw_groups),
+      "Perşembe"   => build_day(groups: tt_groups),
+      "Cuma"       => build_day,
+      "Cumartesi"  => build_day(until_hour: "17:00"),
+      "Pazar"      => build_day(until_hour: "17:00")
     }
   end
 
@@ -121,5 +101,18 @@ module Public::ClubsHelper
       { src: "public/gallery9.jpeg", alt: "Antrenman öncesi ısınma ve esneme hareketleri" },
       { src: "public/gallery10.jpeg", alt: "Kleomarcus Fight Club salonunda yoğun antrenman atmosferi" }
     ]
+  end
+
+  private
+
+  def build_day(groups: {}, until_hour: nil)
+    hours = until_hour ? schedule_hours.select { |h| h[:start] <= until_hour } : schedule_hours
+    private_lesson = { name: "Özel Ders", type: "private" }
+
+    hours.to_h do |hour|
+      time = hour[:start]
+      lesson = groups.key?(time) ? { name: groups[time], type: "group" } : private_lesson
+      [ time, lesson ]
+    end
   end
 end
