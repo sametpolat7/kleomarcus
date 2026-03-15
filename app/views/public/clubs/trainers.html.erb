@@ -42,7 +42,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
 
       <% trainers_data.each_with_index do |trainer, index| %>
-        <div onclick="trainer_modal_<%= index %>.showModal()" class="bg-base-200 rounded-lg overflow-hidden shadow-md cursor-pointer flex flex-col h-full">
+        <div onclick="trainer_modal_<%= j(index.to_s) %>.showModal()" class="bg-base-200 rounded-lg overflow-hidden shadow-md cursor-pointer flex flex-col h-full">
           <div class="aspect-[4/5] bg-gradient-to-br from-base-300 to-base-200 relative overflow-hidden">
             <%= image_tag trainer[:image], alt: trainer[:name], class: 'w-full h-full object-cover object-center', loading: 'lazy', width: '400', height: '500' %>
           </div>

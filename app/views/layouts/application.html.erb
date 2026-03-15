@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <title><%= content_for(:title) || "Kleomarcus" %></title>
     <meta name="application-name" content="Kleomarcus">
-    
+
     <%# Mobile-First Viewport & PWA %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    
+
     <%# SEO Meta Tags %>
     <meta name="description" content="<%= content_for(:description) || "Kleomarcus Spor Akademi. Çanakkale'de Boks, Kick Boks, Muay Thai, Wushu eğitimleri." %>">
     <meta name="keywords" content="<%= content_for(:keywords) || "kleomarcus, boks, kick boks, muay thai, wushu, Çanakkale dövüş kulübü, Çanakkale spor salonu, bireysel dersler, grup dersleri, profesyonel antrenör" %>">
     <meta name="author" content="Kleomarcus">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<%= content_for(:canonical) || request.original_url %>">
-    
+
     <%# Open Graph / Social Media %>
     <meta property="og:type" content="<%= content_for(:og_type) || 'website' %>">
     <meta property="og:site_name" content="Kleomarcus">
@@ -27,7 +27,7 @@
     <meta property="og:url" content="<%= request.original_url %>">
     <meta property="og:image" content="<%= content_for(:og_image) || image_url('public/hero-desktop.jpeg') %>">
     <meta property="og:locale" content="tr_TR">
-    
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -48,7 +48,7 @@
     <%# Stylesheets & Scripts %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    
+
     <%# Structured Data (JSON-LD) %>
     <%= yield :structured_data %>
   </head>
