@@ -107,7 +107,7 @@ module Public::ClubsHelper
 
   def build_day(groups: {}, until_hour: nil)
     hours = until_hour ? schedule_hours.select { |h| h[:start] <= until_hour } : schedule_hours
-    private_lesson = { name: "Özel Ders", type: "private" }
+    private_lesson = { name: "Özel Ders", type: "private" }.freeze
 
     hours.to_h do |hour|
       time = hour[:start]
