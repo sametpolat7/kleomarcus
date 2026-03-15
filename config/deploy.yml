@@ -15,8 +15,8 @@ servers:
 
 proxy:
   ssl: true
-  host: kleomarcus.com
-  aliases:
+  hosts:
+    - kleomarcus.com
     - www.kleomarcus.com
 
 # Where you keep your container images.
