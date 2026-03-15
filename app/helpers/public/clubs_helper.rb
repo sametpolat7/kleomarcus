@@ -25,7 +25,7 @@ module Public::ClubsHelper
       {
         name: "Salih Demir",
         title: "Antrenör",
-        image: "public/quote-bg.jpeg",
+        image: "public/gallery-break-one.jpeg",
         branches: [ "Boks", "Kick Boks" ],
         bio: "Salih Demir, spor bilimleri eğitimi ve profesyonel dövüş deneyimini birleştirerek, sporcu performansını bilimsel metodlarla en üst seviyeye çıkaran bir antrenördür. Boks ve Kick Boks alanlarında derin uzmanlığa sahiptir.\n\nKondisyon, güç antrenmanı ve atletik performans konularında uzmanlaşmış olan Salih Hoca, her sporcunun fiziksel kapasitesini analiz ederek kişiye özel antrenman programları tasarlar. Modern spor biliminin sunduğu tüm araçları kullanarak, sporcularının sadece teknik değil, fiziksel olarak da zirveye ulaşmasını hedefler.\n\nBesin ve beslenme planlaması, toparlanma stratejileri ve sakatlık önleme protokollerini antrenman sürecine entegre ederek bütünsel bir yaklaşım sergiler. Yoğun antrenman programlarının yanı sıra, sporcularının zihinsel dayanıklılığını artırmaya yönelik motivasyon teknikleri kullanır. Ölçülebilir sonuçlara odaklanan, disiplinli ve hedefe yönelik çalışma tarzıyla sporcularını sürekli gelişime teşvik eder."
       }
@@ -58,47 +58,27 @@ module Public::ClubsHelper
   end
 
   def schedule_data
-    weekday_schedule = {
-      "10:00" => { name: "Özel Ders", type: "private" },
-      "11:00" => { name: "Özel Ders", type: "private" },
-      "12:00" => { name: "Özel Ders", type: "private" },
-      "13:00" => { name: "Özel Ders", type: "private" },
-      "14:00" => { name: "Özel Ders", type: "private" },
-      "15:00" => { name: "Özel Ders", type: "private" },
-      "16:00" => { name: "Özel Ders", type: "private" },
-      "17:00" => { name: "Özel Ders", type: "private" },
-      "18:15" => { name: "Minikler", type: "group" },
-      "19:15" => { name: "Gençler", type: "group" },
-      "20:15" => { name: "Yetişkinler", type: "group" },
-      "21:15" => { name: "Yetişkinler 2", type: "group" }
+    mw_groups = {
+      "19:15" => "Gençler",
+      "20:15" => "Yetişkinler"
+    }
+
+    tt_groups = {
+      "17:00" => "Çocuklar 1",
+      "18:15" => "Çocuklar 2",
+      "19:15" => "Gençler",
+      "20:15" => "Yetişkinler 1",
+      "21:15" => "Yetişkinler 2"
     }
 
     {
-      "Pazartesi" => weekday_schedule,
-      "Salı" => weekday_schedule,
-      "Çarşamba" => weekday_schedule,
-      "Perşembe" => weekday_schedule,
-      "Cuma" => weekday_schedule,
-      "Cumartesi" => {
-        "10:00" => { name: "Özel Ders", type: "private" },
-        "11:00" => { name: "Özel Ders", type: "private" },
-        "12:00" => { name: "Özel Ders", type: "private" },
-        "13:00" => { name: "Özel Ders", type: "private" },
-        "14:00" => { name: "Özel Ders", type: "private" },
-        "15:00" => { name: "Özel Ders", type: "private" },
-        "16:00" => { name: "Özel Ders", type: "private" },
-        "17:00" => { name: "Özel Ders", type: "private" }
-      },
-      "Pazar" => {
-        "10:00" => { name: "Özel Ders", type: "private" },
-        "11:00" => { name: "Özel Ders", type: "private" },
-        "12:00" => { name: "Özel Ders", type: "private" },
-        "13:00" => { name: "Özel Ders", type: "private" },
-        "14:00" => { name: "Özel Ders", type: "private" },
-        "15:00" => { name: "Özel Ders", type: "private" },
-        "16:00" => { name: "Özel Ders", type: "private" },
-        "17:00" => { name: "Özel Ders", type: "private" }
-      }
+      "Pazartesi"  => build_day(groups: mw_groups),
+      "Salı"       => build_day(groups: tt_groups),
+      "Çarşamba"   => build_day(groups: mw_groups),
+      "Perşembe"   => build_day(groups: tt_groups),
+      "Cuma"       => build_day,
+      "Cumartesi"  => build_day(until_hour: "17:00"),
+      "Pazar"      => build_day(until_hour: "17:00")
     }
   end
 
@@ -107,8 +87,8 @@ module Public::ClubsHelper
       { src: "public/hero-desktop.jpeg", alt: "Antrenman salonu" },
       { src: "public/our-club.jpeg", alt: "Kulüp" },
       { src: "public/kleomarcus-philosophy.jpeg", alt: "Grup antrenmanı" },
-      { src: "public/quote-bg.jpeg", alt: "Teknik çalışma" },
-      { src: "public/gallery-break.jpeg", alt: "Kick boks dersi" },
+      { src: "public/gallery-break-one.jpeg", alt: "Teknik çalışma" },
+      { src: "public/gallery-break-two.jpeg", alt: "Kick boks dersi" },
       { src: "public/gallery11.jpeg", alt: "Müsabaka hazırlığı" },
       { src: "public/gallery1.jpeg", alt: "Ring içinde boks antrenmanı yapan sporcular" },
       { src: "public/gallery2.jpeg", alt: "Antrenör eşliğinde patlayıcı güç çalışması" },
@@ -121,5 +101,18 @@ module Public::ClubsHelper
       { src: "public/gallery9.jpeg", alt: "Antrenman öncesi ısınma ve esneme hareketleri" },
       { src: "public/gallery10.jpeg", alt: "Kleomarcus Fight Club salonunda yoğun antrenman atmosferi" }
     ]
+  end
+
+  private
+
+  def build_day(groups: {}, until_hour: nil)
+    hours = until_hour ? schedule_hours.select { |h| h[:start] <= until_hour } : schedule_hours
+    private_lesson = { name: "Özel Ders", type: "private" }.freeze
+
+    hours.to_h do |hour|
+      time = hour[:start]
+      lesson = groups.key?(time) ? { name: groups[time], type: "group" } : private_lesson
+      [ time, lesson ]
+    end
   end
 end
