@@ -64,5 +64,8 @@ volumes:
 asset_path: /rails/public/assets
 
 # Configure the image builder.
+# Build on the remote server to avoid QEMU emulation issues with Tailwind CSS v4's
+# Oxide scanner on Apple Silicon (ARM64 → amd64 cross-compilation).
 builder:
   arch: amd64
+  remote: ssh://root@65.21.149.188
