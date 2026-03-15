@@ -82,7 +82,7 @@ Rails.application.configure do
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
     "kleomarcus.com",
-    /.*\.kleomarcus\.com/
+    /\A(?:[a-z0-9-]+\.)*kleomarcus\.com\z/i
   ]
 
   # Skip DNS rebinding protection for the default health check endpoint.
