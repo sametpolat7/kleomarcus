@@ -1,4 +1,72 @@
 module Public::HomeHelper
+  def testimonials_data
+    [
+      {
+        name: "Ceyda Güven",
+        initials: "C.G.",
+        title: "Wushu Türkiye Şampiyonu",
+        quote: "Kleomarcus'a ilk adımımı attığımda Mazlum Hocam beni öyle sıcak karşıladı ki kendimi anında ailemin bir parçası gibi hissettim. Türkiye Şampiyonluğu ve Uluslararası Balkan Oyunları'ndaki ikinciliğimin temeli burada yaptığım sıkı antrenmanlar ve eğitmenlerimin özverili desteğiyle oluştu.",
+        rating: 5
+      },
+      {
+        name: "Samet Polat",
+        initials: "S.P.",
+        title: "Lisanslı Sporcu",
+        quote: "Kleomarcus sadece bir spor salonu değil; bunu içeri girdiğiniz andan itibaren hissedeceksiniz. İçeride samimi bir ortam var. 'Antrenmanımı yaptım, bitti.' değil — burada geçirdiğiniz her dakikadan keyif alıyor ve daha fazla çalışmak istiyorsunuz.",
+        rating: 5
+      },
+      {
+        name: "Ezgi Akyüz",
+        initials: "E.A.",
+        title: "Sporcu",
+        quote: "Burası benim için bir ilham kaynağı. Her dersten sonra kendimi daha güçlü ve kararlı hissediyorum. Kleomarcus'u seviyorum.",
+        rating: 5
+      },
+      {
+        name: "Salih Doruk Demir",
+        initials: "S.D.",
+        title: "Wushu Uluslararası Balkan Şampiyonu",
+        quote: "Kleomarcus'ta geçirdiğim zaman, sadece fiziksel olarak değil, aynı zamanda zihinsel olarak da gelişmeme yardımcı oldu. Burada kazandığım teknik birikim ve zihinsel dayanıklılık müsabakalarda en büyük avantajım oldu. Bu kulüp benim ikinci ailem.",
+        rating: 5
+      },
+      {
+        name: "Azra Kocakuşak",
+        initials: "A.K.",
+        title: "Wushu Türkiye Şampiyonu",
+        quote: "Hocalarım bana teknik becerinin ötesinde azim ve kararlılık aşıladı. Türkiye Şampiyonluğu'nu kazandığımda yaptığım çalışmaların ve hocalarımın desteğinin karşılığını aldım.",
+        rating: 5
+      },
+      {
+        name: "Öykü Yufka",
+        initials: "Ö.Y.",
+        title: "Sporcu",
+        quote: "Her antrenman bir öncekinden daha fazla geliştiğimi hissediyorum. Eğitmenim bireysel tempoma saygı gösterirken beni sürekli bir adım ileriye taşıyor. Kleomarcus'a gelmek günümün en verimli ve keyifli anı.",
+        rating: 5
+      },
+      {
+        name: "Eymen Çevik",
+        initials: "E.Ç.",
+        title: "Lisanslı Sporcu",
+        quote: "Burada hocalarım ve abilerimle birlikte çalışmak benim için büyük bir şans. Antrenmanlar geliştirici ve eğlenceli, ve her gün kendimi daha iyi hissediyorum.",
+        rating: 5
+      },
+      {
+        name: "Ecemsu Çıngı",
+        initials: "E.Ç.",
+        title: "Lisanslı Sporcu",
+        quote: "Daha önce spor salonlarını sıkıcı bulurdum ancak Kleomarcus tamamen farklı bir deneyim sunuyor. Antrenmanlar hem eğitici hem de son derece eğlenceli; üstelik burada edindiğim dostluklar hayatıma büyük değer kattı.",
+        rating: 5
+      },
+      {
+        name: "Aziz & Onur Koca",
+        initials: "A&O",
+        title: "Baba-Oğul Sporcular",
+        quote: "Oğlumla kendimizi geliştireceğimiz bir spor salonu arıyorduk ve Kleomarcus bunun için mükemmel bir ortam sağladı. Burada birlikte keyifle antrenman yapıp kaliteli zaman geçirmeyi seviyoruz.",
+        rating: 5
+      }
+    ]
+  end
+
   def star_rating(rating = 5, label: nil)
     label ||= "#{rating} yıldız değerlendirme"
 
