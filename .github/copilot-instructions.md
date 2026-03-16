@@ -420,12 +420,12 @@ Pages can extend the base schema with `.merge()` for page-specific data (opening
 
 ### Production Infrastructure
 
-- **Host**: Hetzner VPS (65.21.149.188)
-- **Domain**: kleomarcus.com (+ www subdomain, SSL via Kamal proxy)
-- **Container Registry**: Docker Hub (`sametpolat7/kleomarcus`)
-- **Database**: SQLite3 with persistent volume (`kleomarcus_storage:/rails/storage`)
-- **Background Jobs**: Solid Queue running in-process via Puma (`SOLID_QUEUE_IN_PUMA=true`)
-- **Builder**: Remote AMD64 build via SSH (avoids ARM64 → AMD64 QEMU emulation on macOS)
+- **Host**: Linux-based cloud VPS managed via Kamal
+- **Domain**: Production domain with `www` subdomain and SSL termination at the Kamal proxy
+- **Container Registry**: Remote container registry used by Kamal for image pushes and deploys
+- **Database & Storage**: SQLite3 in production with persistent storage configured at the infrastructure level
+- **Background Jobs**: Solid Queue running in-process alongside the Puma application server
+- **Builder**: Remote AMD64 build host accessed via SSH to avoid local ARM64 → AMD64 emulation on macOS
 
 ### Deploy Commands
 
