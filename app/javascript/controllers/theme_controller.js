@@ -11,7 +11,7 @@ export default class ThemeController extends Controller {
   }
 
   applyInitialTheme() {
-    const storedTheme = localStorage.getItem("theme") || this.darkThemeValue;
+    const storedTheme = localStorage.getItem("theme") || this.lightThemeValue;
     this.setTheme(storedTheme);
   }
 
