@@ -12,8 +12,8 @@ module ApplicationHelper
   #
   def set_seo_meta(title: nil, description: nil, keywords: nil, og_title: nil, og_description: nil, og_image: nil, og_type: "website")
     site_name = "Kleomarcus Spor Akademi"
-    default_description = "Çanakkale'de Boks, Kick Boks, Muay Thai, Wushu, MMA ve CrossFit eğitimleri."
-    default_keywords = "kleomarcus, boks, kick boks, muay thai, wushu, mma, crossfit, Çanakkale dövüş kulübü, Çanakkale spor salonu"
+    default_description = "Çanakkale'nin köklü dövüş sporları akademisi. Boks, Kick Boks, Muay Thai, Wushu, MMA, CrossFit, Hyrox ve Bodybuilding eğitimleri. Deneyimli antrenörler eşliğinde her yaş ve seviyeye uygun bireysel ve grup dersleri."
+    default_keywords = "kleomarcus, kleomarcus spor akademi, çanakkale boks, çanakkale kick boks, çanakkale muay thai, çanakkale wushu, çanakkale mma, çanakkale crossfit, çanakkale hyrox, çanakkale bodybuilding, dövüş sporları çanakkale, dövüş kulübü, spor salonu çanakkale, bireysel antrenman, grup dersleri, çocuk boks, yetişkin dövüş eğitimi"
 
     # Title
     full_title = title ? "#{title} | #{site_name}" : site_name
