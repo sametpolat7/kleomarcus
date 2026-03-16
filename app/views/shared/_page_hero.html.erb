@@ -15,6 +15,20 @@
   alt_text = local_assigns.fetch(:alt_text, title)
 %>
 
+<%# Mobile Hero - compact title bar %>
+<section class="md:hidden bg-neutral-950 py-8 sm:py-10" aria-label="<%= aria_label %>">
+  <div class="container mx-auto px-4 sm:px-6">
+    <p class="font-display text-2xl sm:text-3xl font-black text-white mb-3 leading-[0.95]">
+      <%= title %>
+    </p>
+    <div class="relative w-full max-w-xs">
+      <div class="h-[2px] w-full bg-gradient-to-r from-primary via-primary/70 to-transparent"></div>
+      <div class="absolute -left-1 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-primary rotate-45"></div>
+    </div>
+  </div>
+</section>
+
+<%# Desktop Hero - full visual %>
 <section class="relative min-h-[60svh] sm:min-h-[70svh] overflow-hidden bg-neutral-950 hidden md:block" aria-label="<%= aria_label %>">
   <%# Background %>
   <div class="absolute inset-0">

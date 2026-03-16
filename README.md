@@ -1,6 +1,6 @@
 # Kleomarcus
 
-A Rails 8.1 web application for Kleomarcus Fight Club.
+A Rails 8.1 web application for Kleomarcus Fight Club — a martial arts and combat sports academy based in Çanakkale, Turkey.
 
 ## Requirements
 
@@ -10,12 +10,13 @@ A Rails 8.1 web application for Kleomarcus Fight Club.
 ## Technology Stack
 
 - **Backend**: Ruby on Rails 8.1.1
-- **Frontend**: Tailwind CSS, DaisyUI, Hotwire (Turbo, Stimulus)
-- **Database**: PostgreSQL
+- **Frontend**: Tailwind CSS 4, DaisyUI, Hotwire (Turbo, Stimulus)
+- **Database**: SQLite3 with Solid adapters (cache, queue, cable)
 - **Asset Pipeline**: Propshaft
 - **JavaScript**: importmap-rails
 - **Testing**: RSpec, Factory Bot, Capybara, Selenium
-- **Code Quality**: RuboCop, Brakeman, Bundler Audit
+- **Deployment**: Kamal with Docker (Thruster)
+- **Code Quality**: RuboCop (Rails Omakase), Brakeman, Bundler Audit, Herb
 
 ## Installation
 

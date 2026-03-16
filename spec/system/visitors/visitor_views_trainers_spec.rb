@@ -9,13 +9,13 @@ RSpec.describe "Trainers Page", type: :system do
   describe "trainer modals", :js do
     it "opens modal when trainer card is clicked" do
       visit trainers_club_path
-      first(".cursor-pointer[onclick*='trainer_modal']").click
+      first(".cursor-pointer[data-action*='modal#open']").click
       expect(page).to have_selector("dialog.modal[open]", visible: true)
     end
 
     it "closes modal when close button is clicked" do
       visit trainers_club_path
-      first(".cursor-pointer[onclick*='trainer_modal']").click
+      first(".cursor-pointer[data-action*='modal#open']").click
       within("dialog.modal[open]") do
         find("button.btn-circle").click
       end
