@@ -56,7 +56,7 @@ module ApplicationHelper
       },
       "priceRange": "₺₺",
       "sameAs": [
-        "https://instagram.com/kleomarcus",
+        "https://www.instagram.com/kleomarcus",
         "https://www.facebook.com/kleomarcusss/"
       ]
     }

@@ -7,6 +7,18 @@
   og_image: "public/gallery-break-two.jpeg"
 ) %>
 
+<%# Structured Data %>
+<% content_for :structured_data do %>
+  <%= structured_data_tag({
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "Kleomarcus Spor Akademi Fotoğraf Galerisi",
+    "description": "Kleomarcus Spor Akademi fotoğraf galerisi — antrenmanlar, müsabakalar ve kulüp etkinliklerinden kareler.",
+    "url": request.original_url,
+    "provider": organization_schema
+  }) %>
+<% end %>
+
 <%# Hero Section %>
 <%= render "shared/page_hero", title: "Galeri", image: "public/gallery-break-two.jpeg", alt_text: "Kleomarcus Spor Akademi Galeri" %>
 
