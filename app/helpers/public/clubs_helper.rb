@@ -4,7 +4,7 @@ module Public::ClubsHelper
       {
         name: "Mazlum Orak",
         title: "Baş Antrenör",
-        image: "public/our-club.jpeg",
+        image: "public/mazlum-orak.jpeg",
         branches: [ "Boks", "Kick Boks", "Muay Thai", "Wushu", "MMA", "CrossFit" ],
         bio: ""
       },
