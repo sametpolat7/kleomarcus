@@ -6,7 +6,15 @@ module Public::ClubsHelper
         title: "Baş Antrenör",
         image: "public/mazlum-orak.jpeg",
         branches: [ "Boks", "Kick Boks", "Muay Thai", "Wushu", "MMA", "CrossFit" ],
-        bio: ""
+        bio: "Mazlum Orak, Çanakkale Onsekiz Mart Üniversitesi Beden Eğitimi ve Spor Öğretmenliği Bölümü’nden mezun olmuş ve spor kariyeri boyunca birçok farklı branşta aktif olarak yer almıştır. Spor hayatına 2006 yılında başlamış, 2014 yılında mücadele sporlarında milli sporcu unvanı kazanmıştır.
+
+        Ulusal ve uluslararası organizasyonlarda Türkiye’yi farklı branşlarda temsil eden Orak, elde ettiği başarılarla ülkesini üst düzeyde temsil etmiş ve İstiklal Marşı’mızı okutma onuruna erişmiştir.
+
+        2019 yılında Kleomarcus Spor Akademisi’ni kurarak sporcu yetiştirme ve milli sporcular kazandırma hedefiyle çalışmalarına kurumsal bir yapı kazandırmıştır. 2023 yılında Milli Takım Antrenörü olarak görevlendirilmiş ve antrenörlük kariyerini ileri seviyeye taşımıştır.
+
+        Sporu yalnızca fiziksel bir aktivite olarak değil, sürdürülebilir bir yaşam tarzı olarak ele alan Mazlum Orak, bu yaklaşımı sporcularına kazandırmayı amaçlamaktadır. 2026 yılında Kleomarcus Plus bünyesinde Fitness, CrossFit ve Hyrox alanlarında faaliyet göstermeye başlayarak antrenman kapsamını genişletmiştir.
+
+        Antrenörlük yaklaşımında disiplin, süreklilik ve performans odaklı gelişimi esas alan Orak, sporcuların hem fiziksel hem de mental olarak üst seviyeye ulaşmalarını hedeflemektedir."
       },
       {
         name: "Emir Efraim Demir",
