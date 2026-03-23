@@ -6,28 +6,71 @@ module Public::ClubsHelper
         title: "Baş Antrenör",
         image: "public/our-club.jpeg",
         branches: [ "Boks", "Kick Boks", "Muay Thai", "Wushu", "MMA", "CrossFit" ],
-        bio: "Mazlum Orak, 15 yılı aşkın profesyonel dövüş sporları kariyerinin ardından eğitmenliğe adım atmış, alanında öncü isimlerden biridir. Ulusal ve uluslararası müsabakalarda elde ettiği başarılarla birlikte, dövüş sanatlarının tüm inceliklerini sporcularına aktarmaktadır.\n\nBoks, Kick Boks, Muay Thai, Wushu, MMA ve CrossFit alanlarında uzmanlaşmış olan Mazlum Hoca, yüzlerce sporcuyu ulusal şampiyonluklara ve uluslararası başarılara taşımıştır. Teknik bilgisi kadar motivasyon ve liderlik yetenekleriyle de öne çıkan Mazlum Hoca, her seviyeden sporcu için ilham kaynağıdır.\n\nÖğrenci odaklı yaklaşımı ve bireysel gelişim planlarıyla her sporcunun potansiyelini maksimuma çıkarmayı hedefler. Sadece fiziksel kuvvet değil, zihinsel dayanıklılık ve stratejik düşünme becerilerini de geliştiren eğitim metoduyla sporcularını ring içinde ve dışında güçlendirir."
+        bio: ""
       },
       {
-        name: "Emir Yılmaz",
+        name: "Emir Efraim Demir",
         title: "Antrenör",
-        image: "public/our-club.jpeg",
-        branches: [ "MMA", "Kick Boks", "Muay Thai" ],
-        bio: "Emir Yılmaz, Türkiye Milli Takımı'nda geçirdiği başarılı yılların ardından eğitmenlik kariyerine başlamıştır, özellikle MMA, Kick Boks ve Muay Thai dallarında uzmanlığını kanıtlamıştır.\n\nMilli takım deneyiminden gelen disiplin anlayışı ve profesyonel yarışma tecrübesi, onun eğitim felsefesinin temelini oluşturur. Emir Hoca, özellikle kadın sporcuların gelişiminde uzmanlaşmış olup, güvenli ve motive edici bir ortamda teknik ve taktiksel gelişimi hedefler.\n\nDövüş sanatlarının sadece fiziksel bir aktivite değil, aynı zamanda özgüven geliştirme ve mental dayanıklılık kazandırma aracı olduğuna inanır. Her yaş ve seviyeden sporcuya özel program hazırlayarak, bireysel hedeflere ulaşmada rehberlik eder. Sabırlı, destekleyici ve sonuç odaklı yaklaşımıyla sporcularının hem ring içinde hem de günlük hayatta daha güçlü olmalarını sağlar."
+        image: "public/emir-efraim-demir.jpeg",
+        branches: [ "MMA", "Boks", "Kick Boks", "Muay Thai" ],
+        bio: "Emir Efraim Demir, dövüş sporları alanında uzmanlaşmış bir antrenör ve milli sporcudur. Spor kariyeri boyunca Türkiye’yi ulusal ve uluslararası organizasyonlarda temsil ederek önemli dereceler elde etmiştir.
+
+        Türkiye şampiyonluğu ve Balkan düzeyindeki başarılarıyla öne çıkan Demir, disiplin, azim ve kararlılığı kariyerinin temel prensipleri olarak benimsemiştir. Milli takım sporcusu olarak edindiği tecrübeler, teknik gelişiminin yanı sıra sporcu psikolojisi konusunda da yetkinlik kazanmasını sağlamıştır.
+
+        Aktif sporculuk kariyerini antrenörlük ile birlikte sürdüren Demir, bilgi ve deneyimlerini farklı seviyelerdeki sporculara aktarmaktadır. Antrenman yaklaşımında fiziksel gelişimin yanı sıra disiplin, özgüven ve mental dayanıklılığı ön planda tutmaktadır.
+
+        Sporun dönüştürücü gücüne inanan Emir Efraim Demir, sporcuların çok yönlü gelişimini destekleyen ve sürdürülebilir başarıyı hedefleyen bir eğitim anlayışı benimsemektedir"
+      },
+      {
+        name: "Ceyda Güven",
+        title: "Antrenör",
+        image: "public/ceyda-guven.jpeg",
+        branches: [ "Wushu", "Boks", "Kick Boks", "Fitness" ],
+        bio: "Ceyda, 10 yılı aşkın süredir aktif olarak sporun içinde yer almakta olup iki farklı branşta milli sporcu olarak ülkesini temsil etmiştir. Avrupa ve Balkan derecelerine sahiptir. Spor hayatına erken yaşlarda başlayarak disiplin, mücadele ve süreklilik ilkelerini benimsemiştir.
+
+        Çanakkale Onsekiz Mart Üniversitesi Antrenörlük Bölümü’nde fitness alanında uzmanlaşmakta; kickboks, temel dövüş teknikleri, kondisyon geliştirme ve müsabaka hazırlığı konularında çalışmalar yürütmektedir. Antrenman yaklaşımında teknik gelişimin yanı sıra dayanıklılık, hız ve mental performansın birlikte geliştirilmesini hedeflemektedir.
+
+        Her sporcunun bireysel farklılıklarını esas alarak kişiye özel antrenman programları hazırlamakta ve potansiyelin en üst seviyeye çıkarılmasına odaklanmaktadır. Disiplinli çalışma, doğru teknik ve istikrarlı gelişim ile hedeflere ulaşılabileceği anlayışını benimsemektedir.
+
+        Ceyda, dövüş sporlarını yalnızca fiziksel gelişim değil; aynı zamanda karakter, özgüven ve kontrol kazandıran bir yaşam disiplini olarak ele almakta, sporcularının çok yönlü gelişimini desteklemeyi amaçlamaktadır."
       },
       {
         name: "Muhammed Yay",
         title: "Antrenör",
         image: "public/kleomarcus-philosophy.jpeg",
-        branches: [ "Wushu", "Boks", "Kick Boks" ],
-        bio: "Muhammed Yay, geleneksel Çin dövüş sanatı Wushu'dan başlayarak Boks ve Kick Boks gibi modern dövüş disiplinlerinde de ustalaşmış, çok yönlü bir antrenördür.\n\nWushu'nun estetik ve akışkanlığını, boksun gücü ve stratejisiyle, kick boksun dinamizmiyle birleştirerek benzersiz bir eğitim metodolojisi geliştirmiştir. Teknik mükemmeliyetçiliğiyle tanınan Muhammed Hoca, her hareketin anatomik ve biyomekanik temellerine vurgu yaparak sporcularına derinlemesine anlayış kazandırır.\n\nÖzellikle genç sporcuların temel becerilerini geliştirmede uzman olan Muhammed Hoca, doğru teknik altyapısı oluşturmanın gelecekteki başarının anahtarı olduğuna inanır. Sabırlı öğretim tarzı ve detay odaklı yaklaşımı ile her sporcunun kendi hızında, ama sürekli ilerleyerek gelişmesini sağlar. Geleneksel değerleri modern antrenman bilimi ile harmanlayan eğitim felsefesi, sporcularına sadece dövüşçü kimliği değil, disiplin ve öz-kontrol kazandırır."
+        branches: [ "Boks", "Kick Boks", "Wushu" ],
+        bio: ""
       },
       {
-        name: "Sema Karaman",
+        name: "Semanur Karaman",
         title: "Antrenör",
-        image: "public/gallery-break-one.jpeg",
+        image: "public/kleomarcus-philosophy.jpeg",
         branches: [ "Taekwondo", "Wushu", "Kick Boks" ],
-        bio: "Sema Karaman, spor bilimleri eğitimi ve profesyonel dövüş deneyimini birleştirerek, sporcu performansını bilimsel metodlarla en üst seviyeye çıkaran bir antrenördür. Boks ve Kick Boks alanlarında derin uzmanlığa sahiptir.\n\nKondisyon, güç antrenmanı ve atletik performans konularında uzmanlaşmış olan Sema Hoca, her sporcunun fiziksel kapasitesini analiz ederek kişiye özel antrenman programları tasarlar. Modern spor biliminin sunduğu tüm araçları kullanarak, sporcularının sadece teknik değil, fiziksel olarak da zirveye ulaşmasını hedefler.\n\nBesin ve beslenme planlaması, toparlanma stratejileri ve sakatlık önleme protokollerini antrenman sürecine entegre ederek bütünsel bir yaklaşım sergiler. Yoğun antrenman programlarının yanı sıra, sporcularının zihinsel dayanıklılığını artırmaya yönelik motivasyon teknikleri kullanır. Ölçülebilir sonuçlara odaklanan, disiplinli ve hedefe yönelik çalışma tarzıyla sporcularını sürekli gelişime teşvik eder."
+        bio: "Semanur Karaman, spor hayatına 8 yaşında başlamış ve erken yaşlardan itibaren sporu yaşamının temel bir parçası haline getirmiştir. İlk olarak 4 yıl boyunca taekwondo ile ilgilenmiş; bu süreçte disiplin, sabır ve mücadele bilinci kazanmıştır. Ardından okul sporları kapsamında 2 yıl atletizmle ilgilenmiş, hem bireysel gelişimini sürdürmüş hem de ilini temsil etmiştir. Daha sonra wushu ve kickboks branşlarına yönelerek dövüş sporlarındaki deneyimini genişletmiştir.
+
+        Sporun yalnızca fiziksel değil, aynı zamanda zihinsel ve karakter gelişimine katkı sağladığına inanan Karaman, bu doğrultuda Spor Bilimleri alanında akademik eğitim almıştır. Eğitim süreci boyunca farklı branşlarda gelişimini sürdürürken, antrenörlük alanında da aktif olarak görev almaktadır. Sporculara hem fiziksel hem de motivasyonel destek sağlayarak gelişimlerine katkıda bulunmaktadır.
+
+        Semanur Karaman’ın temel hedefi, edindiği bilgi ve deneyimleri aktararak sporu daha geniş kitlelere sevdirmek ve sağlıklı yaşam bilincini yaygınlaştırmaktır."
+      },
+      {
+        name: "Göktürk Yiğit Terzi",
+        title: "Antrenör",
+        image: "public/gokturk-yigit.jpeg",
+        branches: [ "Taekwondo", "Kick Boks", "Boks" ],
+        bio: "Göktürk Yiğit Terzi, taekwondo branşında elde ettiği Avrupa ikinciliği derecesiyle öne çıkan milli bir sporcudur. Türkiye Taekwondo Milli Takımı bünyesinde kazandığı deneyimlerin ardından antrenörlük kariyerine yönelmiştir.
+
+        Taekwondo temelli teknik altyapısını kick boks ve boks branşlarıyla destekleyerek çok yönlü bir dövüş yaklaşımı geliştirmiştir. Sahip olduğu yarışma tecrübesi sayesinde sporcularına teknik bilginin yanı sıra strateji, zamanlama ve ring becerileri kazandırmayı hedeflemektedir.
+
+        Antrenörlük yaklaşımında disiplin, süreklilik ve bireysel gelişimi ön planda tutan Terzi, farklı seviyelerdeki sporculara yönelik yapılandırılmış antrenman programları uygulamaktadır. Sporun fiziksel gelişimin yanı sıra mental dayanıklılık ve özgüven kazandırdığına inanmakta; sporcularının hem sportif hem de kişisel gelişimlerini desteklemeyi amaçlamaktadır."
+      },
+      {
+        name: "Berra Sarı",
+        title: "Antrenör",
+        image: "public/berra-sari.jpeg",
+        branches: [ "Karate", "Kick Boks", "Fitness" ],
+        bio: "Berra Sarı, 2006 yılında Bandırma’da doğmuş ve spor hayatına 13 yaşında karate ile başlamıştır. Dövüş sporlarına olan ilgisini kısa sürede geliştirerek kick boks ve wushu branşlarında çalışmalarını sürdürmüş, ayrıca judo ile de ilgilenerek farklı savunma disiplinlerinde deneyim kazanmıştır.Yaklaşık üç buçuk yıllık aktif spor kariyeri boyunca disiplinli çalışmasıyla iki ilçe birinciliği elde etmiştir. Dövüş sporlarının yanı sıra fitness alanında da kendini geliştirmiştir. Spor Bilimleri alanında eğitimine devam ederek teorik ve pratik bilgisini güçlendirmektedir. Farklı branşlarda gelişimi desteklemek amacıyla pilates, cimnastik ve dans alanlarında da eğitim almış; bu alanlardaki çalışmalarını sürdürmektedir.
+
+        Antrenörlük alanında kendini geliştirmeye odaklanan Berra, güçlü iletişim becerileriyle özellikle çocuklar ve genç sporcularla etkili bir eğitim süreci yürütmeyi hedeflemektedir. Wushu, kickboks, pilates ve fitness branşlarında ders vererek sporcuların fiziksel gelişimlerinin yanı sıra özgüven kazanmalarına katkı sağlamaktadır. Sporu; disiplin, süreklilik ve kişisel gelişimin temel unsuru olarak gören Berra Sarı, edindiği bilgi ve deneyimleri aktararak bireylerin gelişimine katkıda bulunmayı amaçlamaktadır."
       }
     ]
   end
