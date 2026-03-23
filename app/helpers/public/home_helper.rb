@@ -73,7 +73,7 @@ module Public::HomeHelper
     full_stars = rating.floor
     half_star = (rating % 1) >= 0.5
     empty_stars = 5 - full_stars - (half_star ? 1 : 0)
-    gradient_id = "half-star-gradient-#{SecureRandom.hex(4)}" if half_star
+    gradient_id = "half-star-gradient" if half_star
 
     content_tag(:div, class: "flex gap-1 mt-4", role: "img", "aria-label": label) do
       stars = []
