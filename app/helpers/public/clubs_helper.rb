@@ -35,11 +35,19 @@ module Public::ClubsHelper
         Ceyda, dövüş sporlarını yalnızca fiziksel gelişim değil; aynı zamanda karakter, özgüven ve kontrol kazandıran bir yaşam disiplini olarak ele almakta, sporcularının çok yönlü gelişimini desteklemeyi amaçlamaktadır."
       },
       {
-        name: "Muhammed Yay",
+        name: "Muhammed Cemal Yay",
         title: "Antrenör",
-        image: "public/kleomarcus-philosophy.jpeg",
+        image: "public/muhammed-yay.jpeg",
         branches: [ "Boks", "Kick Boks", "Wushu" ],
-        bio: ""
+        bio: "Muhammed Cemal Yay, Wushu (Sanda) branşında aktif sporculuk ve antrenörlük faaliyetlerini sürdüren bir spor eğitmenidir. 65 kg kategorisinde mücadele eden Muhammed, ulusal ve uluslararası organizasyonlarda elde ettiği derecelerle öne çıkmaktadır.
+
+        Spor kariyeri boyunca Balkan Wushu Şampiyonası ikinciliği ve Türkiye Wushu Şampiyonası üçüncülüğü gibi önemli başarılar elde etmiş; ayrıca takım şampiyonluğu yaşamıştır. Bu süreçte hem bireysel performansını geliştirmiş hem de yüksek seviye müsabaka deneyimi kazanmıştır.
+
+        Aktif sporculuğunun yanı sıra antrenörlük alanında da görev alan Muhammed, başlangıç ve orta seviyedeki sporcuların gelişimine katkı sağlamaktadır. Teknik eğitim, kondisyon geliştirme ve performans odaklı antrenman planlaması konularında çalışmalar yürütmektedir.
+
+        Antrenman yaklaşımında disiplin, süreklilik ve bireysel gelişimi esas alan Muhammed Cemal Yay; sporcularına teknik becerilerin yanı sıra dayanıklılık, koordinasyon ve mücadele bilinci kazandırmayı hedeflemektedir. Sporcu motivasyonu ve gelişim takibini ön planda tutarak, sürdürülebilir başarıya odaklanan bir eğitim anlayışı benimsemektedir.
+
+        Kendi gelişimini de sürekli olarak sürdüren Muhammed, antrenörlük alanındaki eğitim ve sertifikasyon süreçlerine aktif şekilde devam etmektedir."
       },
       {
         name: "Semanur Karaman",
