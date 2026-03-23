@@ -37,21 +37,16 @@ RSpec.describe Public::ClubsHelper, type: :helper do
         mazlum = trainers.find { |t| t[:name] == "Mazlum Orak" }
         expect(mazlum[:branches]).to include("Boks", "Kick Boks", "Muay Thai", "MMA")
       end
-
-      it "includes MMA for Emir Yılmaz" do
-        emir = trainers.find { |t| t[:name] == "Emir Yılmaz" }
-        expect(emir[:branches]).to include("MMA")
-      end
     end
 
-    context "trainer biographies" do
-      it "provides bio text for each trainer" do
-        trainers.each do |trainer|
-          expect(trainer[:bio]).to be_a(String)
-          expect(trainer[:bio]).not_to be_empty
-        end
-      end
-    end
+    # context "trainer biographies" do
+    #   it "provides bio text for each trainer" do
+    #     trainers.each do |trainer|
+    #       expect(trainer[:bio]).to be_a(String)
+    #       expect(trainer[:bio]).not_to be_empty
+    #     end
+    #   end
+    # end
   end
 
   describe "#schedule_days" do

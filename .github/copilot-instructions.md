@@ -4,7 +4,7 @@
 
 Kleomarcus is the web presence of **Kleomarcus Spor Akademi**, a combat sports and fitness academy based in Çanakkale, Turkey.
 
-The site serves as a public-facing informational platform showcasing the academy's programs (Boks, Kick Boks, Muay Thai, Wushu, MMA, CrossFit, Hyrox, Powerlifting), trainer profiles, weekly schedules, photo gallery, membership pricing, and contact information. All user-facing content is in **Turkish**.
+The site serves as a public-facing informational platform showcasing the academy's programs (Boks, Kick Boks, Muay Thai, Wushu, MMA, CrossFit, Bodybuilding, Hyrox, Powerlifting, Functional Training), trainer profiles, weekly schedules, photo gallery, membership pricing, and contact information. All user-facing content is in **Turkish**.
 
 ---
 
@@ -225,7 +225,8 @@ app/javascript/controllers/
 ├── index.js                # Auto-loads all *_controller.js files
 ├── theme_controller.js     # Light/dark theme toggle (localStorage persistence)
 ├── carousel_controller.js  # Infinite carousel with touch/swipe support
-└── gallery_controller.js   # Lightbox gallery with keyboard navigation
+├── gallery_controller.js   # Lightbox gallery with keyboard navigation
+└── modal_controller.js     # Dialog modal opener for trainer bios
 ```
 
 | Controller   | Key Behavior                                                                                                                                   |
@@ -233,6 +234,7 @@ app/javascript/controllers/
 | **theme**    | Toggles between `pastel` (light) and `dracula` (dark) DaisyUI themes. Reads/writes `localStorage`. Uses `data-theme` attribute on `<html>`.    |
 | **carousel** | Infinite slide carousel with `next()`/`prev()`. Touch/swipe gestures. ResizeObserver for responsive gap calculation. Debounce on rapid clicks. |
 | **gallery**  | Creates a `<dialog>` lightbox dynamically. Arrow key and Escape keyboard bindings. Circular prev/next navigation. Image counter display.       |
+| **modal**    | Opens a `<dialog>` element via `showModal()`. Used on trainer cards to display detailed bios. Single `open()` action with a `dialog` target.   |
 
 ### Frontend Architecture
 
