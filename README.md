@@ -1,88 +1,55 @@
 # Kleomarcus
 
-A Rails 8.1 web application for Kleomarcus Fight Club — a martial arts and combat sports academy based in Çanakkale, Turkey.
+Web presence for **Kleomarcus Spor Akademi** — a combat sports and fitness academy in Çanakkale, Turkey. Built with Ruby on Rails 8.1.
 
-## Requirements
+## Tech Stack
 
-- Ruby 3.4.4
-- Rails 8.1.1
+| Layer      | Technology                                          |
+| ---------- | --------------------------------------------------- |
+| Backend    | Ruby 3.4.4, Rails 8.1.3                             |
+| Frontend   | Tailwind CSS 4, DaisyUI, Hotwire (Turbo + Stimulus) |
+| Database   | SQLite3, Solid Cache / Queue / Cable                |
+| Assets     | Propshaft, importmap-rails                          |
+| Deployment | Kamal 2, Docker, Thruster                           |
+| Testing    | RSpec, Factory Bot, Capybara, Selenium              |
+| Quality    | RuboCop, Brakeman, bundler-audit, Herb              |
 
-## Technology Stack
-
-- **Backend**: Ruby on Rails 8.1.1
-- **Frontend**: Tailwind CSS 4, DaisyUI, Hotwire (Turbo, Stimulus)
-- **Database**: SQLite3 with Solid adapters (cache, queue, cable)
-- **Asset Pipeline**: Propshaft
-- **JavaScript**: importmap-rails
-- **Testing**: RSpec, Factory Bot, Capybara, Selenium
-- **Deployment**: Kamal with Docker (Thruster)
-- **Code Quality**: RuboCop (Rails Omakase), Brakeman, Bundler Audit, Herb
-
-## Installation
-
-Clone the repository:
+## Getting Started
 
 ```bash
 git clone https://github.com/sametpolat7/kleomarcus.git
 cd kleomarcus
+bin/setup   # Install deps, prepare DB, seed data
+bin/dev     # Start Rails server + Tailwind watcher → http://localhost:3000
 ```
 
-Run the setup script:
+## Testing & CI
 
 ```bash
-bin/setup
-```
-
-This will install dependencies, create the database, run migrations, and seed initial data.
-
-## Development
-
-Start the development server:
-
-```bash
-bin/dev
-```
-
-This runs both the Rails server and Tailwind CSS watcher. The application will be available at `http://localhost:3000`.
-
-## Testing
-
-Run the test suite:
-
-```bash
-bundle exec rspec
-```
-
-Run the full CI suite (tests, linters, security checks):
-
-```bash
-bin/ci
-```
-
-Run specific test types:
-
-```bash
-bundle exec rspec spec/models/
-bundle exec rspec spec/requests/
-bundle exec rspec spec/system/
+bundle exec rspec   # Run all specs
+bin/ci              # Full pipeline: lint → audit → security → specs → seed check
 ```
 
 ## Code Quality
 
-Run RuboCop for style checks:
-
 ```bash
-bin/rubocop
-bin/rubocop -a  # Auto-fix violations
+bin/rubocop         # Style check (auto-fix with -a)
+bin/brakeman        # Security scan
+bin/bundler-audit   # Dependency audit
+herb                # ERB lint
 ```
 
-Run security checks:
+## Deployment
+
+The app deploys as a Docker container via [Kamal](https://kamal-deploy.org) to a Linux VPS.
 
 ```bash
-bin/brakeman
-bin/bundler-audit
+kamal setup    # First deploy: provision, push, start
+kamal deploy   # Build, push, rolling restart
+kamal console  # Remote Rails console
+kamal app logs # Tail production logs
 ```
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+All rights reserved. See [LICENSE](LICENSE) for details.
