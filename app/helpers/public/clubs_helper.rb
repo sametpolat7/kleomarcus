@@ -60,7 +60,7 @@ module Public::ClubsHelper
       {
         name: "Semanur Karaman",
         title: "Antrenör",
-        image: "public/kleomarcus-philosophy.jpeg",
+        image: "public/semanur-karaman.jpeg",
         branches: [ "Taekwondo", "Wushu", "Kick Boks" ],
         bio: "Semanur Karaman, spor hayatına 8 yaşında başlamış ve erken yaşlardan itibaren sporu yaşamının temel bir parçası haline getirmiştir. İlk olarak 4 yıl boyunca taekwondo ile ilgilenmiş; bu süreçte disiplin, sabır ve mücadele bilinci kazanmıştır. Ardından okul sporları kapsamında 2 yıl atletizmle ilgilenmiş, hem bireysel gelişimini sürdürmüş hem de ilini temsil etmiştir. Daha sonra wushu ve kickboks branşlarına yönelerek dövüş sporlarındaki deneyimini genişletmiştir.
 
@@ -87,6 +87,13 @@ module Public::ClubsHelper
         bio: "Berra Sarı, 2006 yılında Bandırma’da doğmuş ve spor hayatına 13 yaşında karate ile başlamıştır. Dövüş sporlarına olan ilgisini kısa sürede geliştirerek kick boks ve wushu branşlarında çalışmalarını sürdürmüş, ayrıca judo ile de ilgilenerek farklı savunma disiplinlerinde deneyim kazanmıştır.Yaklaşık üç buçuk yıllık aktif spor kariyeri boyunca disiplinli çalışmasıyla iki ilçe birinciliği elde etmiştir. Dövüş sporlarının yanı sıra fitness alanında da kendini geliştirmiştir. Spor Bilimleri alanında eğitimine devam ederek teorik ve pratik bilgisini güçlendirmektedir. Farklı branşlarda gelişimi desteklemek amacıyla pilates, cimnastik ve dans alanlarında da eğitim almış; bu alanlardaki çalışmalarını sürdürmektedir.
 
         Antrenörlük alanında kendini geliştirmeye odaklanan Berra, güçlü iletişim becerileriyle özellikle çocuklar ve genç sporcularla etkili bir eğitim süreci yürütmeyi hedeflemektedir. Wushu, kickboks, pilates ve fitness branşlarında ders vererek sporcuların fiziksel gelişimlerinin yanı sıra özgüven kazanmalarına katkı sağlamaktadır. Sporu; disiplin, süreklilik ve kişisel gelişimin temel unsuru olarak gören Berra Sarı, edindiği bilgi ve deneyimleri aktararak bireylerin gelişimine katkıda bulunmayı amaçlamaktadır."
+      },
+      {
+        name: "Çağkan Öztürk",
+        title: "Antrenör",
+        image: "public/cagkan-ozturk.jpeg",
+        branches: [ "Yüzme" ],
+        bio: ""
       }
     ]
   end
