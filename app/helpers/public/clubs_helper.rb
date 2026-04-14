@@ -93,7 +93,11 @@ module Public::ClubsHelper
         title: "Antrenör",
         image: "public/cagkan-ozturk.jpeg",
         branches: [ "Yüzme" ],
-        bio: ""
+        bio: "Çağkan Öztürk, Fenerbahçe Üniversitesi Antrenörlük Bölümü'nden Yüzme Uzmanlığı alanında mezun olmuş, 3. kademe yüzme antrenörü unvanına sahip bir spor eğitmenidir. Enerjisi yüksek ve iletişimi güçlü bir antrenör olarak sporcularının hem teknik gelişimini hem de özgüvenini artırmayı hedeflemekte; suda geçirilen her anın verimli olmasını temel önceliği olarak benimsemektedir.
+
+        Kariyeri boyunca farklı kurum ve kulüplerde geniş bir deneyim yelpazesi oluşturmuştur. Çanakkale Seramik Yüzme Okulları'nda başlangıç ve orta seviye sporculara yüzme teknikleri eğitimi vermiş; Fenerbahçe Yüzme Okulu'nda staj yaparak farklı yaş gruplarıyla çalışma ve performans takibi konusunda yetkinlik kazanmıştır. Let's Club Spor Tesisi'nde birebir ve grup dersleri aracılığıyla teknik gelişim, hata düzeltme ve su güvenliği üzerine çalışmalar yürütmüştür. Çanakkale Belediye Spor Kulübü'nde ise sporcuların antrenman programlarının hazırlanması, uygulanması ve yarışlara hazırlık süreçlerinde aktif rol üstlenmiştir. Bu deneyimler, farklı seviyelerdeki sporcularla etkili biçimde çalışma konusundaki yaklaşımını şekillendirmiştir.
+
+        Antrenörlük anlayışında bireysel gelişimi, teknik doğruluğu ve spora olan bağlılığı ön planda tutan Çağkan Öztürk, sporcularının su içinde özgüven ve performans açısından en üst seviyeye ulaşmalarını desteklemeyi amaçlamaktadır."
       }
     ]
   end
