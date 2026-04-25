@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   has_many :sessions, dependent: :destroy
 
-  enum role: { user: 0, admin: 1 }
+  enum :role, { user: 0, admin: 1 }
 
   validates :email_address, presence: true, uniqueness: true
 end
