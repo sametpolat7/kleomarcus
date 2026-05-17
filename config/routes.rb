@@ -4,11 +4,17 @@ Rails.application.routes.draw do
   # Root
   root "public/home#index"
 
+  # Admin
+  namespace :admin do
+    root to: "dashboard#index"
+    resource :session, only: %i[new create destroy]
+  end
+
   # Public
   scope module: :public do
     resource :club, only: [ :show ] do
       get :trainers
-      get :schedules
+      get :lessons
       get :gallery
     end
   end
