@@ -102,11 +102,11 @@ module Public::ClubsHelper
     ]
   end
 
-  def schedule_days
+  def lesson_days
     %w[Pazartesi Salı Çarşamba Perşembe Cuma Cumartesi Pazar]
   end
 
-  def schedule_hours
+  def lesson_hours
     [
       { start: "10:00", end: "11:00" },
       { start: "11:00", end: "12:00" },
@@ -127,7 +127,7 @@ module Public::ClubsHelper
     "#{hour[:start]}-#{hour[:end]}"
   end
 
-  def schedule_data
+  def lesson_data
     mw_groups = {
       "19:15" => "Gençler",
       "20:15" => "Yetişkinler"
@@ -176,7 +176,7 @@ module Public::ClubsHelper
   private
 
   def build_day(groups: {}, until_hour: nil)
-    hours = until_hour ? schedule_hours.select { |h| h[:start] <= until_hour } : schedule_hours
+    hours = until_hour ? lesson_hours.select { |h| h[:start] <= until_hour } : lesson_hours
     private_lesson = { name: "Özel Ders", type: "private" }.freeze
 
     hours.to_h do |hour|

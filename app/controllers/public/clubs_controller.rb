@@ -3,7 +3,7 @@ class Public::ClubsController < ApplicationController
 
   def trainers; end
 
-  def schedules; end
+  def lessons; end
 
   def gallery; end
 end

@@ -20,14 +20,14 @@
 <% end %>
 
 <%# Hero Section %>
-<%= render "shared/page_hero", title: "Ders Programı", image: "public/hero-desktop.jpeg", alt_text: "Kleomarcus Spor Akademi Ders Programı" %>
+<%= render "shared/public/page_hero", title: "Ders Programı", image: "public/hero-desktop.jpeg", alt_text: "Kleomarcus Spor Akademi Ders Programı" %>
 
-<%# Schedule Section %>
-<section id="schedule" class="py-12 sm:py-16 md:py-20 lg:py-24 bg-base-100" aria-labelledby="schedule-title">
+<%# Lessons Section %>
+<section id="lessons" class="py-12 sm:py-16 md:py-20 lg:py-24 bg-base-100" aria-labelledby="lessons-title">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
     <header class="mb-8 sm:mb-12 lg:mb-16">
-      <h2 id="schedule-title" class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-base-content mb-3 sm:mb-4">
+      <h2 id="lessons-title" class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-base-content mb-3 sm:mb-4">
         Haftalık Program
       </h2>
       <div class="flex items-center gap-2 sm:gap-3">
@@ -39,7 +39,7 @@
       </p>
     </header>
 
-    <%# Schedule Legend %>
+    <%# Lessons Legend %>
     <div class="mb-6 sm:mb-8">
       <div class="flex flex-wrap gap-4 sm:gap-6">
         <div class="flex items-center gap-2">
@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <%# Desktop Schedule Table %>
+    <%# Desktop Lessons Table %>
     <div class="hidden lg:block overflow-x-auto">
       <table class="w-full border-collapse bg-base-200 rounded-lg overflow-hidden shadow-lg">
         <thead>
@@ -61,7 +61,7 @@
             <th class="p-3 text-left font-display text-sm font-bold text-base-content border-b border-base-content/10 w-28">
               Saat
             </th>
-            <% schedule_days.each do |day| %>
+            <% lesson_days.each do |day| %>
               <th class="p-3 text-center font-display text-sm font-bold text-base-content border-b border-base-content/10">
                 <%= day %>
               </th>
@@ -69,17 +69,17 @@
           </tr>
         </thead>
         <tbody>
-          <% schedule_hours.each do |hour| %>
+          <% lesson_hours.each do |hour| %>
             <tr class="hover:bg-base-300/50 transition-colors">
               <td class="p-3 font-mono text-sm text-base-content/70 border-b border-base-content/5 bg-base-300/30">
                 <%= format_time_range(hour) %>
               </td>
-              <% schedule_days.each do |day| %>
-                <% program = schedule_data.dig(day, hour[:start]) %>
+              <% lesson_days.each do |day| %>
+                <% lesson = lesson_data.dig(day, hour[:start]) %>
                 <td class="p-2 border-b border-base-content/5 text-center">
-                  <% if program %>
-                    <div class="<%= program[:type] == 'group' ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-xs sm:text-sm font-medium py-2 px-2 rounded-md shadow-sm">
-                      <%= program[:name] %>
+                  <% if lesson %>
+                    <div class="<%= lesson[:type] == 'group' ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-xs sm:text-sm font-medium py-2 px-2 rounded-md shadow-sm">
+                      <%= lesson[:name] %>
                     </div>
                   <% else %>
                     <div class="text-base-content/20 text-xs">—</div>
@@ -92,23 +92,23 @@
       </table>
     </div>
 
-    <%# Mobile Schedule Cards %>
+    <%# Mobile Lesson Cards %>
     <div class="lg:hidden space-y-6">
-      <% schedule_days.each do |day| %>
-        <% day_programs = schedule_data[day] %>
-        <% if day_programs&.any? %>
+      <% lesson_days.each do |day| %>
+        <% day_lessons = lesson_data[day] %>
+        <% if day_lessons&.any? %>
           <div class="bg-base-200 rounded-lg overflow-hidden shadow-md">
             <div class="bg-base-300 px-4 py-3">
               <h3 class="font-display text-lg font-bold text-base-content"><%= day %></h3>
             </div>
             <div class="p-4 space-y-3">
-              <% schedule_hours.each do |hour| %>
-                <% program = day_programs[hour[:start]] %>
-                <% if program %>
+              <% lesson_hours.each do |hour| %>
+                <% lesson = day_lessons[hour[:start]] %>
+                <% if lesson %>
                   <div class="flex items-center gap-3">
                     <span class="font-mono text-sm text-base-content/70 w-24 flex-shrink-0"><%= format_time_range(hour) %></span>
-                    <div class="<%= program[:type] == 'group' ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-sm font-medium py-2 px-4 rounded-md shadow-sm flex-grow text-center">
-                      <%= program[:name] %>
+                    <div class="<%= lesson[:type] == 'group' ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-sm font-medium py-2 px-4 rounded-md shadow-sm flex-grow text-center">
+                      <%= lesson[:name] %>
                     </div>
                   </div>
                 <% end %>
@@ -138,10 +138,10 @@
 </section>
 
 <%# Call to Action Section %>
-<section id="schedules-cta" class="py-12 sm:py-16 md:py-20 bg-base-200" aria-labelledby="schedules-cta-title">
+<section id="lessons-cta" class="py-12 sm:py-16 md:py-20 bg-base-200" aria-labelledby="lessons-cta-title">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mx-auto text-center">
-      <h2 id="schedules-cta-title" class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-base-content mb-4 sm:mb-6">
+      <h2 id="lessons-cta-title" class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-base-content mb-4 sm:mb-6">
         Hemen Kayıt Olun
       </h2>
       <div class="flex items-center justify-center gap-2 sm:gap-3 mb-6">
