@@ -22,6 +22,13 @@ module Authentication
     resume_session || request_authentication
   end
 
+  def require_panel_access
+    return if Current.user&.panel_access?
+
+    terminate_session if Current.session
+    redirect_to new_admin_session_path, alert: "Bu sayfaya erişim yetkiniz yok."
+  end
+
   def resume_session
     Current.session ||= find_session_by_cookie
   end
