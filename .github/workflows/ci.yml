@@ -88,16 +88,23 @@ jobs:
     name: Run unit & integration tests (RSpec)
     runs-on: ubuntu-latest
 
-    # services:
-    #   redis:
-    #     image: valkey/valkey:8
-    #     ports:
-    #       - 6379:6379
-    #     options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libsqlite3-dev
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev
 
       - name: Checkout code
         uses: actions/checkout@v6
@@ -110,8 +117,9 @@ jobs:
       - name: Run RSpec tests (excluding system tests)
         env:
           RAILS_ENV: test
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
+          DATABASE_HOST: localhost
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
         run: |
           bin/rails db:test:prepare
           bundle exec rspec --exclude-pattern 'spec/system/**/*_spec.rb'
@@ -120,16 +128,23 @@ jobs:
     name: Run system tests (browser-based)
     runs-on: ubuntu-latest
 
-    # services:
-    #   redis:
-    #     image: valkey/valkey:8
-    #     ports:
-    #       - 6379:6379
-    #     options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libsqlite3-dev
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev
 
       - name: Checkout code
         uses: actions/checkout@v6
@@ -142,8 +157,9 @@ jobs:
       - name: Run RSpec system tests
         env:
           RAILS_ENV: test
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
+          DATABASE_HOST: localhost
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
         run: |
           bin/rails db:test:prepare
           bundle exec rspec spec/system
