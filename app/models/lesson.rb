@@ -19,4 +19,22 @@ class Lesson < ApplicationRecord
 
   # Scopes
   scope :ordered, -> { order(:day_of_week, :start_time) }
+
+  class << self
+    def schedule_days
+      day_of_weeks.keys.rotate(1)
+    end
+
+    def schedule_hours
+      distinct.order(:start_time).pluck(:start_time, :end_time).map do |start_time, end_time|
+        [ start_time.strftime("%H:%M"), end_time.strftime("%H:%M") ]
+      end
+    end
+
+    # day_of_week enum mirrors Date#wday (Sunday=0..Saturday=6), which is the index I18n's date.day_names uses.
+    def day_name(day)
+      wday_index = day_of_weeks.fetch(day.to_s)
+      I18n.t("date.day_names").fetch(wday_index)
+    end
+  end
 end
