@@ -7,6 +7,10 @@ RSpec.describe "Trainers Page", type: :system do
   end
 
   describe "trainer modals", :js do
+    before do
+      Trainer.create!(name: "Test Trainer", title: "Head Coach", bio: "Test bio paragraph.")
+    end
+
     it "opens modal when trainer card is clicked" do
       visit trainers_club_path
       first(".cursor-pointer[data-action*='modal#open']").click

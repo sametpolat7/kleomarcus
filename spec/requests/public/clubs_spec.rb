@@ -66,8 +66,8 @@ RSpec.describe Public::ClubsController, type: :request do
     end
   end
 
-  describe "GET /club/schedules" do
-    before { get schedules_club_path }
+  describe "GET /club/lessons" do
+    before { get lessons_club_path }
 
     it "returns http success" do
       expect(response).to have_http_status(:success)
