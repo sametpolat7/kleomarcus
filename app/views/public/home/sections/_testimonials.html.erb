@@ -26,25 +26,25 @@
       <!-- Carousel Track -->
       <div class="overflow-hidden md:mx-12 lg:mx-16">
         <div class="flex gap-4 sm:gap-6 lg:gap-8" data-carousel-target="track">
-          <% testimonials_data.each_with_index do |t, i| %>
-            <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="<%= "#{i + 1} / #{testimonials_data.size}: #{t[:name]}" %>">
+          <% @testimonials.each_with_index do |t, i| %>
+            <article class="flex-shrink-0 w-[90%] sm:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="<%= "#{i + 1} / #{@testimonials.size}: #{t.author_name}" %>">
               <div class="card bg-base-200 shadow-lg h-full">
                 <div class="card-body">
                   <div class="flex items-center gap-4 mb-4">
                     <div class="avatar placeholder">
                       <div class="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 bg-primary text-primary-content flex items-center justify-center">
-                        <span class="<%= t[:initials].length > 3 ? 'text-sm' : 'text-lg' %> font-bold"><%= t[:initials] %></span>
+                        <span class="<%= t.initials.length > 3 ? 'text-sm' : 'text-lg' %> font-bold"><%= t.initials %></span>
                       </div>
                     </div>
                     <div>
-                      <h3 class="font-display font-bold text-base-content"><%= t[:name] %></h3>
-                      <p class="text-primary text-sm"><%= t[:title] %></p>
+                      <h3 class="font-display font-bold text-base-content"><%= t.author_name %></h3>
+                      <p class="text-primary text-sm"><%= t.title %></p>
                     </div>
                   </div>
                   <blockquote class="text-base-content/70 italic">
-                    "<%= t[:quote] %>"
+                    "<%= t.content %>"
                   </blockquote>
-                  <%= star_rating(t[:rating]) %>
+                  <%= star_rating(t.rating) %>
                 </div>
               </div>
             </article>

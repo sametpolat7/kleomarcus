@@ -1,3 +1,5 @@
 class Public::HomeController < ApplicationController
-  def index; end
+  def index
+    @testimonials = Testimonial.ordered
+  end
 end
