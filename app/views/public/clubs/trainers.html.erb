@@ -41,31 +41,33 @@
     <%# Trainers Grid %>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
 
-      <% trainers_data.each_with_index do |trainer, index| %>
+      <% @trainers.each_with_index do |trainer, index| %>
       <div data-controller="modal">
         <div data-action="click->modal#open" class="bg-base-200 rounded-lg overflow-hidden shadow-md cursor-pointer flex flex-col h-full">
           <div class="aspect-[4/5] bg-gradient-to-br from-base-300 to-base-200 relative overflow-hidden">
-            <%= image_tag trainer[:image], alt: trainer[:name], class: 'w-full h-full object-cover object-center', loading: 'lazy', width: '400', height: '500' %>
+            <% if trainer.photo.attached? %>
+              <%= image_tag trainer.photo, alt: trainer.name, class: 'w-full h-full object-cover object-center', loading: 'lazy', width: '400', height: '500' %>
+            <% end %>
           </div>
 
           <div class="p-4 sm:p-5 lg:p-6 flex flex-col flex-grow">
             <h3 class="font-display text-lg sm:text-xl lg:text-2xl font-bold text-base-content mb-1">
-              <%= trainer[:name] %>
+              <%= trainer.name %>
             </h3>
             <p class="text-xs sm:text-sm lg:text-base text-primary font-medium mb-3">
-              <%= trainer[:title] %>
+              <%= trainer.title %>
             </p>
 
             <div class="flex flex-wrap gap-2 mb-3">
-              <% trainer[:branches].each do |branch| %>
+              <% trainer.disciplines.each do |discipline| %>
                 <span class="inline-flex items-center text-xs font-medium bg-primary/10 text-primary px-2.5 py-1 rounded-sm border border-primary/20">
-                  <%= branch %>
+                  <%= discipline.name %>
                 </span>
               <% end %>
             </div>
 
             <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed line-clamp-3 mt-auto">
-              <%= trainer[:bio] %>
+              <%= trainer.bio %>
             </p>
           </div>
         </div>
@@ -78,21 +80,21 @@
             </form>
 
             <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-base-content mb-2 sm:mb-3">
-              <%= trainer[:name] %>
+              <%= trainer.name %>
             </h3>
             <p class="text-sm sm:text-base lg:text-lg text-primary font-semibold mb-4 sm:mb-6">
-              <%= trainer[:title] %>
+              <%= trainer.title %>
             </p>
 
             <div class="flex flex-wrap gap-2 mb-6 sm:mb-8">
-              <% trainer[:branches].each do |branch| %>
+              <% trainer.disciplines.each do |discipline| %>
                 <span class="inline-flex items-center text-sm font-medium bg-primary/10 text-primary px-3 py-1.5 rounded-md border border-primary/20">
-                  <%= branch %>
+                  <%= discipline.name %>
                 </span>
               <% end %>
             </div>
 
-            <% trainer[:bio].split("\n\n").each do |paragraph| %>
+            <% trainer.bio.to_s.split("\n\n").each do |paragraph| %>
               <p class="text-sm sm:text-base lg:text-lg text-base-content/80 leading-relaxed mb-4 sm:mb-5">
                 <%= paragraph %>
               </p>

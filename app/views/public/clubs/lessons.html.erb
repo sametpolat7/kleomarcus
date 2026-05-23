@@ -61,25 +61,25 @@
             <th class="p-3 text-left font-display text-sm font-bold text-base-content border-b border-base-content/10 w-28">
               Saat
             </th>
-            <% lesson_days.each do |day| %>
+            <% @schedule_days.each do |day| %>
               <th class="p-3 text-center font-display text-sm font-bold text-base-content border-b border-base-content/10">
-                <%= day %>
+                <%= Lesson.day_name(day) %>
               </th>
             <% end %>
           </tr>
         </thead>
         <tbody>
-          <% lesson_hours.each do |hour| %>
+          <% @schedule_hours.each do |start_time, end_time| %>
             <tr class="hover:bg-base-300/50 transition-colors">
               <td class="p-3 font-mono text-sm text-base-content/70 border-b border-base-content/5 bg-base-300/30">
-                <%= format_time_range(hour) %>
+                <%= start_time %>-<%= end_time %>
               </td>
-              <% lesson_days.each do |day| %>
-                <% lesson = lesson_data.dig(day, hour[:start]) %>
+              <% @schedule_days.each do |day| %>
+                <% lesson = @schedule[ [ day, start_time ] ] %>
                 <td class="p-2 border-b border-base-content/5 text-center">
                   <% if lesson %>
-                    <div class="<%= lesson[:type] == 'group' ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-xs sm:text-sm font-medium py-2 px-2 rounded-md shadow-sm">
-                      <%= lesson[:name] %>
+                    <div class="<%= lesson.team? ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-xs sm:text-sm font-medium py-2 px-2 rounded-md shadow-sm">
+                      <%= lesson.name %>
                     </div>
                   <% else %>
                     <div class="text-base-content/20 text-xs">—</div>
@@ -94,21 +94,20 @@
 
     <%# Mobile Lesson Cards %>
     <div class="lg:hidden space-y-6">
-      <% lesson_days.each do |day| %>
-        <% day_lessons = lesson_data[day] %>
-        <% if day_lessons&.any? %>
+      <% @schedule_days.each do |day| %>
+        <% if @schedule_hours.any? { |start_time, _| @schedule[ [ day, start_time ] ] } %>
           <div class="bg-base-200 rounded-lg overflow-hidden shadow-md">
             <div class="bg-base-300 px-4 py-3">
-              <h3 class="font-display text-lg font-bold text-base-content"><%= day %></h3>
+              <h3 class="font-display text-lg font-bold text-base-content"><%= Lesson.day_name(day) %></h3>
             </div>
             <div class="p-4 space-y-3">
-              <% lesson_hours.each do |hour| %>
-                <% lesson = day_lessons[hour[:start]] %>
+              <% @schedule_hours.each do |start_time, end_time| %>
+                <% lesson = @schedule[ [ day, start_time ] ] %>
                 <% if lesson %>
                   <div class="flex items-center gap-3">
-                    <span class="font-mono text-sm text-base-content/70 w-24 flex-shrink-0"><%= format_time_range(hour) %></span>
-                    <div class="<%= lesson[:type] == 'group' ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-sm font-medium py-2 px-4 rounded-md shadow-sm flex-grow text-center">
-                      <%= lesson[:name] %>
+                    <span class="font-mono text-sm text-base-content/70 w-24 flex-shrink-0"><%= start_time %>-<%= end_time %></span>
+                    <div class="<%= lesson.team? ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-sm font-medium py-2 px-4 rounded-md shadow-sm flex-grow text-center">
+                      <%= lesson.name %>
                     </div>
                   </div>
                 <% end %>
