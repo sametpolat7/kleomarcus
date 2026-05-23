@@ -26,5 +26,7 @@ module Kleomarcus
 
     config.i18n.default_locale = :tr
     config.i18n.available_locales = [ :tr, :en ]
+
+    config.action_controller.include_all_helpers = false
   end
 end

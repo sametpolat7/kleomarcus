@@ -1,4 +1,4 @@
-class Public::ClubsController < ApplicationController
+class Public::ClubsController < Public::BaseController
   def show; end
 
   def trainers

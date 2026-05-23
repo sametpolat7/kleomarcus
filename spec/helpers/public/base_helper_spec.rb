@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Public::HomeHelper, type: :helper do
+RSpec.describe Public::BaseHelper, type: :helper do
   describe "#star_rating" do
     context "with default parameters" do
       it "renders 5 full stars by default" do
@@ -43,6 +43,30 @@ RSpec.describe Public::HomeHelper, type: :helper do
       it "returns safe HTML" do
         result = helper.star_rating
         expect(result).to be_html_safe
+      end
+    end
+  end
+
+  describe "#gallery_images" do
+    let(:images) { helper.gallery_images }
+
+    it "returns an array of images" do
+      expect(images).to be_an(Array)
+    end
+
+    it "includes src and alt for each image" do
+      images.each do |image|
+        expect(image).to have_key(:src)
+        expect(image).to have_key(:alt)
+      end
+    end
+
+    context "accessibility" do
+      it "provides alt text for all images" do
+        images.each do |image|
+          expect(image[:alt]).to be_a(String)
+          expect(image[:alt]).not_to be_empty
+        end
       end
     end
   end
