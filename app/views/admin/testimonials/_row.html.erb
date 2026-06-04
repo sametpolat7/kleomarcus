@@ -1,0 +1,32 @@
+<%# locals: row: %>
+<tr class="hover:bg-base-200/40 transition-colors">
+  <td class="font-medium">
+    <%= row.author_name %>
+  </td>
+  <td class="text-base-content/70">
+    <%= row.title.presence || "—" %>
+  </td>
+  <td class="whitespace-nowrap">
+    <span class="text-warning">
+      <%= "★" * row.rating %>
+    </span>
+    <span class="text-base-content/20">
+      <%= "★" * (5 - row.rating) %>
+    </span>
+  </td>
+  <td class="text-base-content/70 max-w-md">
+    <p class="line-clamp-2">
+      <%= row.content %>
+    </p>
+  </td>
+
+  <td class="text-right">
+    <div class="inline-flex gap-1">
+      <%= modal_trigger "Düzenle", edit_admin_testimonial_path(row), variant: :ghost %>
+      <%= button_to "Sil", admin_testimonial_path(row),
+            method: :delete,
+            class: "btn btn-sm btn-ghost text-error",
+            form: { data: { turbo_confirm: "“#{row.author_name}” yazarının yorumunu silmek istediğinize emin misiniz?" } } %>
+    </div>
+  </td>
+</tr>
