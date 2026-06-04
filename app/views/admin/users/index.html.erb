@@ -1,0 +1,11 @@
+<% content_for :title, "Kullanıcılar · Kleomarcus Admin" %>
+
+<%= admin_page_header "Kullanıcılar", subtitle: "Panel erişimi olan kullanıcılar." do %>
+  <%= modal_trigger "+ Yeni Kullanıcı", new_admin_user_path %>
+<% end %>
+
+<%= render "shared/admin/table",
+      columns: ["Kullanıcı Adı", "E-posta", "Rol", "Oluşturulma"],
+      rows: @users,
+      row_partial: "admin/users/row",
+      pagy: @pagy %>

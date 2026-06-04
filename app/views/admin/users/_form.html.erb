@@ -1,0 +1,52 @@
+<%# locals: user: %>
+<% role_options = User.roles.keys.map { |k| [Admin::BaseHelper::ROLE_LABELS.fetch(k, k.titleize), k] } %>
+
+<%= render "shared/admin/form_errors", resource: user %>
+
+<%= form_with model: [:admin, user], class: "grid grid-cols-1 sm:grid-cols-2 gap-5" do |f| %>
+  <div>
+    <label class="admin-form-label" for="user_username">Kullanıcı Adı</label>
+    <%= f.text_field :username, id: "user_username",
+          autocomplete: "off",
+          autocapitalize: "off",
+          spellcheck: "false",
+          class: "input input-bordered w-full",
+          required: true %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="user_email_address">E-posta</label>
+    <%= f.email_field :email_address, id: "user_email_address", class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="user_role">Rol</label>
+    <%= f.select :role, role_options, {}, class: "select select-bordered w-full" %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="user_password">Şifre</label>
+    <%= f.password_field :password, id: "user_password",
+          autocomplete: "new-password",
+          class: "input input-bordered w-full",
+          required: !user.persisted? %>
+    <% if user.persisted? %>
+      <p class="mt-1 text-xs text-base-content/50">Boş bırakılırsa mevcut şifre korunur.</p>
+    <% end %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="user_password_confirmation">Şifre (Tekrar)</label>
+    <%= f.password_field :password_confirmation, id: "user_password_confirmation",
+          autocomplete: "new-password",
+          class: "input input-bordered w-full",
+          required: !user.persisted? %>
+  </div>
+
+  <div class="sm:col-span-2 flex items-center justify-end gap-2 pt-3 border-t border-base-300">
+    <%= link_to "İptal", admin_users_path,
+          class: "btn btn-ghost",
+          data: { action: "click->modal#close" } %>
+    <%= f.submit (user.persisted? ? "Güncelle" : "Oluştur"), class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,12 @@
+<% content_for :title, "Kullanıcı Düzenle · Kleomarcus Admin" %>
+
+<div class="admin-card max-w-2xl mx-auto">
+  <%= turbo_frame_tag "admin_modal_frame" do %>
+    <%= admin_modal_header "Kullanıcı Düzenle",
+          subtitle: @user.username,
+          cancel_path: admin_users_path %>
+    <div class="p-6">
+      <%= render "admin/users/form", user: @user %>
+    </div>
+  <% end %>
+</div>

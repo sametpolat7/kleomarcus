@@ -1,0 +1,32 @@
+<%# locals: row: %>
+<tr class="hover:bg-base-200/40 transition-colors">
+  <td>
+    <span class="font-medium">
+      <%= row.username %>
+    </span>
+    <% if row == Current.user %>
+      <span class="ml-2 text-[10px] uppercase tracking-widest text-base-content/40">(siz)</span>
+    <% end %>
+  </td>
+  <td class="text-base-content/70">
+    <%= row.email_address %>
+  </td>
+  <td>
+    <%= role_label(row) %>
+  </td>
+  <td class="text-base-content/60 text-sm">
+    <%= format_date(row.created_at) %>
+  </td>
+
+  <td class="text-right">
+    <div class="inline-flex gap-1">
+      <%= modal_trigger "Düzenle", edit_admin_user_path(row), variant: :ghost %>
+      <% if row != Current.user %>
+        <%= button_to "Sil", admin_user_path(row),
+              method: :delete,
+              class: "btn btn-sm btn-ghost text-error",
+              form: { data: { turbo_confirm: "“#{row.username}” kullanıcısını silmek istediğinize emin misiniz?" } } %>
+      <% end %>
+    </div>
+  </td>
+</tr>
