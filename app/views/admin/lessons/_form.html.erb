@@ -1,0 +1,42 @@
+<%# locals: lesson: %>
+<% day_options = Lesson.day_of_weeks.keys.map { |k| [Lesson.day_name(k), k] } %>
+<% kind_options = Lesson.kinds.keys.map { |k| [Admin::BaseHelper::LESSON_KIND_LABELS.fetch(k, k.titleize), k] } %>
+
+<%= render "shared/admin/form_errors", resource: lesson %>
+
+<%= form_with model: [:admin, lesson], class: "grid grid-cols-1 sm:grid-cols-2 gap-5" do |f| %>
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="lesson_name">Ders Adı</label>
+    <%= f.text_field :name, id: "lesson_name", class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="lesson_day_of_week">Gün</label>
+    <%= f.select :day_of_week, day_options, { include_blank: "Seçin" }, class: "select select-bordered w-full" %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="lesson_kind">Tür</label>
+    <%= f.select :kind, kind_options, { include_blank: "Seçin" }, class: "select select-bordered w-full" %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="lesson_start_time">Başlangıç</label>
+    <%= f.time_field :start_time, class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="lesson_end_time">Bitiş</label>
+    <%= f.time_field :end_time, class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="lesson_trainer_id">Antrenör</label>
+    <%= f.collection_select :trainer_id, Trainer.ordered, :id, :name, { include_blank: "Atanmamış" }, class: "select select-bordered w-full" %>
+  </div>
+
+  <div class="sm:col-span-2 flex items-center justify-end gap-2 pt-3 border-t border-base-300">
+    <%= link_to "İptal", admin_lessons_path, class: "btn btn-ghost", data: { action: "click->modal#close" } %>
+    <%= f.submit (lesson.persisted? ? "Güncelle" : "Oluştur"), class: "btn btn-primary" %>
+  </div>
+<% end %>

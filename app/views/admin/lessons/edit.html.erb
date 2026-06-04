@@ -1,0 +1,12 @@
+<% content_for :title, "Ders Düzenle · Kleomarcus Admin" %>
+
+<div class="admin-card max-w-3xl mx-auto">
+  <%= turbo_frame_tag "admin_modal_frame" do %>
+    <%= admin_modal_header "Ders Düzenle",
+          subtitle: @lesson.name,
+          cancel_path: admin_lessons_path %>
+    <div class="p-6">
+      <%= render "admin/lessons/form", lesson: @lesson %>
+    </div>
+  <% end %>
+</div>

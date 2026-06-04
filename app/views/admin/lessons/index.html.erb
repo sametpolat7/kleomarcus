@@ -1,0 +1,11 @@
+<% content_for :title, "Dersler · Kleomarcus Admin" %>
+
+<%= admin_page_header "Dersler", subtitle: "Haftalık ders programını yönetin." do %>
+  <%= modal_trigger "+ Yeni Ders", new_admin_lesson_path %>
+<% end %>
+
+<%= render "shared/admin/table",
+      columns: ["Gün", "Saat", "Ders Adı", "Tür", "Antrenör"],
+      rows: @lessons,
+      row_partial: "admin/lessons/row",
+      pagy: @pagy %>

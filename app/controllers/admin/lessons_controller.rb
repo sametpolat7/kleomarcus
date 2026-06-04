@@ -1,0 +1,46 @@
+class Admin::LessonsController < Admin::BaseController
+  before_action :set_lesson, only: %i[edit update destroy]
+
+  def index
+    @pagy, @lessons = pagy(Lesson.ordered.includes(:trainer))
+  end
+
+  def new
+    @lesson = Lesson.new
+  end
+
+  def create
+    @lesson = Lesson.new(lesson_params)
+
+    if @lesson.save
+      redirect_to admin_lessons_path, notice: "Ders oluşturuldu."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit; end
+
+  def update
+    if @lesson.update(lesson_params)
+      redirect_to admin_lessons_path, notice: "Ders güncellendi."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @lesson.destroy
+    redirect_to admin_lessons_path, notice: "Ders silindi.", status: :see_other
+  end
+
+  private
+
+  def set_lesson
+    @lesson = Lesson.find(params[:id])
+  end
+
+  def lesson_params
+    params.expect(lesson: [ :name, :day_of_week, :start_time, :end_time, :kind, :trainer_id ])
+  end
+end
