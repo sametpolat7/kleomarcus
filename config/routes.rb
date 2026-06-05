@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
     resource :session, only: %i[new create destroy]
+
+    resources :trainers, except: :show
+    resources :lessons, except: :show
+    resources :testimonials, except: :show
+    resources :users, except: :show
   end
 
   # Public
