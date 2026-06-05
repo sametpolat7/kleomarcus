@@ -82,3 +82,33 @@
   --color-error: #EF5350;
   --color-error-content: #121212;
 }
+
+@layer components {
+  .admin-card {
+    @apply bg-base-100 border border-base-300 rounded-box shadow-sm;
+  }
+
+  .admin-form-label {
+    @apply label text-sm font-medium;
+  }
+
+  .pagy {
+    @apply inline-flex items-center gap-1 flex-wrap;
+  }
+
+  .pagy a {
+    @apply inline-flex items-center justify-center min-w-9 h-9 px-3 rounded-lg text-sm border border-base-300 bg-base-100 text-base-content/70 hover:bg-base-200 hover:text-base-content transition-colors;
+  }
+
+  .pagy a.current {
+    @apply bg-primary text-primary-content border-primary hover:bg-primary hover:text-primary-content;
+  }
+
+  .pagy a.gap {
+    @apply border-transparent bg-transparent cursor-default hover:bg-transparent hover:text-base-content/70;
+  }
+
+  .pagy a[aria-disabled="true"]:not(.current) {
+    @apply opacity-40 cursor-default hover:bg-base-100 hover:text-base-content/70;
+  }
+}
