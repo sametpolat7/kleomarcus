@@ -16,6 +16,7 @@ class Lesson < ApplicationRecord
 
   # Validations
   validates :name, :day_of_week, :start_time, :end_time, presence: true
+  validate :end_time_after_start_time
 
   # Scopes
   scope :ordered, -> { order(:day_of_week, :start_time) }
@@ -36,5 +37,14 @@ class Lesson < ApplicationRecord
       wday_index = day_of_weeks.fetch(day.to_s)
       I18n.t("date.day_names").fetch(wday_index)
     end
+  end
+
+  private
+
+  def end_time_after_start_time
+    return if start_time.blank? || end_time.blank?
+    return if end_time > start_time
+
+    errors.add(:end_time, "başlangıç saatinden sonra olmalıdır")
   end
 end

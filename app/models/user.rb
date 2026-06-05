@@ -13,10 +13,11 @@ class User < ApplicationRecord
             presence: true,
             uniqueness: { case_sensitive: false },
             format: { with: /\A[a-z0-9_]+\z/, message: "yalnızca küçük harf, rakam ve alt çizgi içerebilir" }
-  validates :email_address, presence: true, uniqueness: true
+  validates :email_address, presence: true, uniqueness: { case_sensitive: false }
 
   # Normalizations
   normalizes :username, with: ->(value) { value.strip.downcase }
+  normalizes :email_address, with: ->(value) { value.strip.downcase }
 
   def panel_access?
     admin? || staff?

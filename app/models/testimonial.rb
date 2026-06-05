@@ -7,7 +7,7 @@ class Testimonial < ApplicationRecord
   normalizes :author_name, :title, with: ->(value) { value&.titleize }
 
   # Scopes
-  scope :ordered, -> { order(:created_at) }
+  scope :ordered, -> { order(created_at: :desc) }
 
   # TODO: Can be removed?
   def initials
