@@ -1,0 +1,43 @@
+<header class="bg-base-100 border-b border-base-300 px-3 sm:px-4 lg:px-6 py-2.5 flex items-center gap-2 sm:gap-3 sticky top-0 z-30 backdrop-blur-sm bg-base-100/95">
+  <%# Hamburger - mobile only %>
+  <label for="admin-drawer" class="btn btn-ghost btn-sm btn-square lg:hidden cursor-pointer" aria-label="Menüyü aç">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </label>
+
+  <%# Brand - mobile only (sidebar shows it on desktop) %>
+  <%= link_to admin_root_path, class: "lg:hidden font-display text-base font-bold tracking-[0.2em] text-primary" do %>
+    KLEOMARCUS
+  <% end %>
+
+  <div class="ml-auto flex items-center gap-1 sm:gap-2">
+    <%= render "shared/theme_toggle" %>
+
+    <% if Current.user %>
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-sm gap-2 normal-case">
+          <span class="hidden sm:inline text-sm font-medium"><%= Current.user.username %></span>
+          <%= role_label(Current.user) %>
+        </div>
+        <ul tabindex="0" class="dropdown-content menu menu-sm mt-2 w-56 p-2 bg-base-100 rounded-box shadow-lg border border-base-300 z-50">
+          <li class="menu-title">
+            <div class="flex flex-col gap-0.5">
+              <span class="text-sm font-medium text-base-content"><%= Current.user.username %></span>
+              <span class="text-xs text-base-content/60 normal-case"><%= Current.user.email_address %></span>
+            </div>
+          </li>
+          <div class="divider my-1"></div>
+          <li>
+            <%= link_to admin_session_path, data: { turbo_method: :delete }, class: "flex items-center gap-2 text-error hover:bg-error/10 hover:text-error cursor-pointer" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              <span>Çıkış Yap</span>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</header>
