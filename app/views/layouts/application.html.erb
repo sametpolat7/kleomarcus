@@ -31,6 +31,17 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%# Apply theme before paint so the brand palette is correct on first load %>
+    <%= javascript_tag nonce: true do %>
+      (function () {
+        var theme = localStorage.getItem("theme");
+        if (!theme) {
+          theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dracula" : "pastel";
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    <% end %>
+
     <%# Favicons %>
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -55,6 +66,7 @@
 
   <body class="min-h-screen flex flex-col">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-[999] focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-content focus:rounded-md focus:text-sm focus:font-medium">Ana İçeriğe Atla</a>
+    <%= render "shared/flash" %>
     <%= render "shared/public/navbar" %>
 
     <main id="main-content" class="flex-1">
