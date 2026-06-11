@@ -17,6 +17,7 @@ class Lesson < ApplicationRecord
   # Validations
   validates :name, :day_of_week, :start_time, :end_time, presence: true
   validate :end_time_after_start_time
+  validate :not_duplicate_in_slot
 
   # Scopes
   scope :ordered, -> { order(:day_of_week, :start_time) }
@@ -30,6 +31,12 @@ class Lesson < ApplicationRecord
       distinct.order(:start_time).pluck(:start_time, :end_time).map do |start_time, end_time|
         [ start_time.strftime("%H:%M"), end_time.strftime("%H:%M") ]
       end
+    end
+
+    def kind_by_slot
+      ordered
+        .group_by { |lesson| [ lesson.day_of_week, lesson.start_time.strftime("%H:%M") ] }
+        .transform_values { |lessons| lessons.any?(&:team?) ? "team" : "solo" }
     end
 
     # day_of_week enum mirrors Date#wday (Sunday=0..Saturday=6), which is the index I18n's date.day_names uses.
@@ -46,5 +53,15 @@ class Lesson < ApplicationRecord
     return if end_time > start_time
 
     errors.add(:end_time, "başlangıç saatinden sonra olmalıdır")
+  end
+
+  def not_duplicate_in_slot
+    return if name.blank? || day_of_week.blank? || start_time.blank?
+
+    scope = self.class.where(name: name, day_of_week: day_of_week, start_time: start_time)
+    scope = scope.where.not(id: id) if persisted?
+    return unless scope.exists?
+
+    errors.add(:base, "Aynı isimle, aynı gün ve saatte ders eklenemez.")
   end
 end
