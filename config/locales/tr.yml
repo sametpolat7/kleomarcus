@@ -1,4 +1,14 @@
 tr:
+  activerecord:
+    attributes:
+      user:
+        role:
+          admin: Yönetici
+          staff: Personel
+      lesson:
+        kind:
+          solo: Özel Ders
+          team: Grup Dersi
   date:
     day_names:
       - Pazar

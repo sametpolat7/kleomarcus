@@ -1,4 +1,14 @@
 en:
+  activerecord:
+    attributes:
+      user:
+        role:
+          admin: Administrator
+          staff: Staff
+      lesson:
+        kind:
+          solo: Private Lesson
+          team: Group Lesson
   date:
     day_names:
       - Sunday

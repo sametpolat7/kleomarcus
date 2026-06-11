@@ -1,5 +1,5 @@
 <%# locals: user: %>
-<% role_options = User.roles.keys.map { |k| [Admin::BaseHelper::ROLE_LABELS.fetch(k, k.titleize), k] } %>
+<% role_options = User.roles.keys.map { |k| [User.enum_label(:role, k), k] } %>
 
 <%= render "shared/admin/form_errors", resource: user %>
 
