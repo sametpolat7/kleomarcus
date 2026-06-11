@@ -75,11 +75,11 @@
                 <%= start_time %>-<%= end_time %>
               </td>
               <% @schedule_days.each do |day| %>
-                <% lesson = @schedule[ [ day, start_time ] ] %>
+                <% kind = @schedule_kinds.dig(day, start_time) %>
                 <td class="p-2 border-b border-base-content/5 text-center">
-                  <% if lesson %>
-                    <div class="<%= lesson.team? ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-xs sm:text-sm font-medium py-2 px-2 rounded-md shadow-sm">
-                      <%= lesson.name %>
+                  <% if kind %>
+                    <div class="<%= kind == 'team' ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-xs sm:text-sm font-medium py-2 px-2 rounded-md shadow-sm">
+                      <%= kind == 'team' ? 'Grup Antrenmanı' : 'Özel Ders' %>
                     </div>
                   <% else %>
                     <div class="text-base-content/20 text-xs">—</div>
@@ -95,19 +95,19 @@
     <%# Mobile Lesson Cards %>
     <div class="lg:hidden space-y-6">
       <% @schedule_days.each do |day| %>
-        <% if @schedule_hours.any? { |start_time, _| @schedule[ [ day, start_time ] ] } %>
+        <% if @schedule_hours.any? { |start_time, _| @schedule_kinds.dig(day, start_time) } %>
           <div class="bg-base-200 rounded-lg overflow-hidden shadow-md">
             <div class="bg-base-300 px-4 py-3">
               <h3 class="font-display text-lg font-bold text-base-content"><%= Lesson.day_name(day) %></h3>
             </div>
             <div class="p-4 space-y-3">
               <% @schedule_hours.each do |start_time, end_time| %>
-                <% lesson = @schedule[ [ day, start_time ] ] %>
-                <% if lesson %>
+                <% kind = @schedule_kinds.dig(day, start_time) %>
+                <% if kind %>
                   <div class="flex items-center gap-3">
                     <span class="font-mono text-sm text-base-content/70 w-24 flex-shrink-0"><%= start_time %>-<%= end_time %></span>
-                    <div class="<%= lesson.team? ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-sm font-medium py-2 px-4 rounded-md shadow-sm flex-grow text-center">
-                      <%= lesson.name %>
+                    <div class="<%= kind == 'team' ? 'bg-primary text-primary-content' : 'bg-base-content/20 text-base-content/70' %> text-sm font-medium py-2 px-4 rounded-md shadow-sm flex-grow text-center">
+                      <%= kind == 'team' ? 'Grup Antrenmanı' : 'Özel Ders' %>
                     </div>
                   </div>
                 <% end %>

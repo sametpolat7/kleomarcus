@@ -8,7 +8,7 @@ class Public::ClubsController < Public::BaseController
   def lessons
     @schedule_days  = Lesson.schedule_days
     @schedule_hours = Lesson.schedule_hours
-    @schedule       = Lesson.ordered.index_by { |lesson| [ lesson.day_of_week, lesson.start_time.strftime("%H:%M") ] }
+    @schedule_kinds = Lesson.schedule_kinds
   end
 
   def gallery; end
