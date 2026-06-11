@@ -3,24 +3,14 @@ module Admin::BaseHelper
 
   MODAL_FRAME = "admin_modal_frame".freeze
 
-  ROLE_LABELS = {
-    "admin" => "Yönetici",
-    "staff" => "Personel"
-  }.freeze
-
   ROLE_BADGE_VARIANTS = {
     "admin" => :primary,
     "staff" => :secondary
   }.freeze
 
-  LESSON_KIND_LABELS = {
-    "solo" => "Özel Ders",
-    "team" => "Grup Dersi"
-  }.freeze
-
   LESSON_KIND_VARIANTS = {
-    "solo" => :primary,
-    "team" => :secondary
+    "solo" => :neutral,
+    "team" => :primary
   }.freeze
 
   MODAL_CLOSE_ICON = <<~SVG.html_safe.freeze
@@ -34,15 +24,11 @@ module Admin::BaseHelper
   end
 
   def role_label(user)
-    badge(ROLE_LABELS[user.role], variant: ROLE_BADGE_VARIANTS[user.role])
+    badge(User.enum_label(:role, user.role), variant: ROLE_BADGE_VARIANTS[user.role])
   end
 
   def lesson_kind_label(lesson)
-    badge(LESSON_KIND_LABELS[lesson.kind], variant: LESSON_KIND_VARIANTS[lesson.kind])
-  end
-
-  def lesson_time_range(lesson)
-    "#{lesson.start_time.strftime("%H:%M")}–#{lesson.end_time.strftime("%H:%M")}"
+    badge(Lesson.enum_label(:kind, lesson.kind), variant: LESSON_KIND_VARIANTS[lesson.kind])
   end
 
   def modal_trigger(label, path, variant: :primary, **opts)

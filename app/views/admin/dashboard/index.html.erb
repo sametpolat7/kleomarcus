@@ -36,7 +36,7 @@
             <div class="min-w-0">
               <p class="text-sm font-medium text-base-content truncate"><%= lesson.name %></p>
               <p class="text-xs text-base-content/60">
-                <%= Lesson.day_name(lesson.day_of_week) %> · <%= lesson_time_range(lesson) %>
+                <%= Lesson.day_name(lesson.day_of_week) %> · <%= lesson.time_range %>
                 <% if lesson.trainer %> · <%= lesson.trainer.name %><% end %>
               </p>
             </div>

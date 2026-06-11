@@ -1,4 +1,6 @@
 class Lesson < ApplicationRecord
+  TIME_FORMAT = "%H:%M".freeze
+
   # Enums
   enum :day_of_week, {
     sunday: 0,
@@ -23,20 +25,27 @@ class Lesson < ApplicationRecord
   scope :ordered, -> { order(:day_of_week, :start_time) }
 
   class << self
+    # The weekly grid itself: { day => { "HH:MM" => [lessons] } }.
+    def schedule
+      ordered.includes(:trainer).group_by(&:day_of_week).transform_values do |lessons|
+        lessons.group_by(&:start_label)
+      end
+    end
+
     def schedule_days
       day_of_weeks.keys.rotate(1)
     end
 
     def schedule_hours
       distinct.order(:start_time).pluck(:start_time, :end_time).map do |start_time, end_time|
-        [ start_time.strftime("%H:%M"), end_time.strftime("%H:%M") ]
+        [ start_time.strftime(TIME_FORMAT), end_time.strftime(TIME_FORMAT) ]
       end
     end
 
-    def kind_by_slot
-      ordered
-        .group_by { |lesson| [ lesson.day_of_week, lesson.start_time.strftime("%H:%M") ] }
-        .transform_values { |lessons| lessons.any?(&:team?) ? "team" : "solo" }
+    def schedule_kinds
+      schedule.transform_values do |lessons_by_hour|
+        lessons_by_hour.transform_values { |lessons| lessons.any?(&:team?) ? "team" : "solo" }
+      end
     end
 
     # day_of_week enum mirrors Date#wday (Sunday=0..Saturday=6), which is the index I18n's date.day_names uses.
@@ -44,6 +53,18 @@ class Lesson < ApplicationRecord
       wday_index = day_of_weeks.fetch(day.to_s)
       I18n.t("date.day_names").fetch(wday_index)
     end
+  end
+
+  def start_label
+    start_time.strftime(TIME_FORMAT)
+  end
+
+  def end_label
+    end_time.strftime(TIME_FORMAT)
+  end
+
+  def time_range
+    "#{start_label}–#{end_label}"
   end
 
   private

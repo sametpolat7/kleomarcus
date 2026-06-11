@@ -1,10 +1,10 @@
 <%# locals: lesson: %>
 <% day_options = Lesson.day_of_weeks.keys.map { |k| [Lesson.day_name(k), k] } %>
-<% kind_options = Lesson.kinds.keys.map { |k| [Admin::BaseHelper::LESSON_KIND_LABELS.fetch(k, k.titleize), k] } %>
+<% kind_options = Lesson.kinds.keys.map { |k| [Lesson.enum_label(:kind, k), k] } %>
 
 <%= render "shared/admin/form_errors", resource: lesson %>
 
-<%= form_with model: [:admin, lesson], class: "grid grid-cols-1 sm:grid-cols-2 gap-5" do |f| %>
+<%= form_with model: [:admin, lesson], class: "grid grid-cols-1 sm:grid-cols-2 gap-5", data: { controller: "lesson-form" } do |f| %>
   <div class="sm:col-span-2">
     <label class="admin-form-label" for="lesson_name">Ders Adı</label>
     <%= f.text_field :name, id: "lesson_name", class: "input input-bordered w-full", required: true %>
@@ -22,12 +22,14 @@
 
   <div>
     <label class="admin-form-label" for="lesson_start_time">Başlangıç</label>
-    <%= f.time_field :start_time, class: "input input-bordered w-full", required: true %>
+    <%= f.time_field :start_time, class: "input input-bordered w-full", required: true,
+          data: { lesson_form_target: "start", action: "input->lesson-form#syncEnd" } %>
   </div>
 
   <div>
     <label class="admin-form-label" for="lesson_end_time">Bitiş</label>
-    <%= f.time_field :end_time, class: "input input-bordered w-full", required: true %>
+    <%= f.time_field :end_time, class: "input input-bordered w-full", required: true,
+          data: { lesson_form_target: "end" } %>
   </div>
 
   <div class="sm:col-span-2">
@@ -35,8 +37,18 @@
     <%= f.collection_select :trainer_id, Trainer.ordered, :id, :name, { include_blank: "Atanmamış" }, class: "select select-bordered w-full" %>
   </div>
 
-  <div class="sm:col-span-2 flex items-center justify-end gap-2 pt-3 border-t border-base-300">
-    <%= link_to "İptal", admin_lessons_path, class: "btn btn-ghost", data: { action: "click->modal#close" } %>
-    <%= f.submit (lesson.persisted? ? "Güncelle" : "Oluştur"), class: "btn btn-primary" %>
+  <div class="sm:col-span-2 flex items-center justify-between gap-2 pt-3 border-t border-base-300">
+    <div>
+      <% if lesson.persisted? %>
+        <%= button_to "Sil", admin_lesson_path(lesson),
+              method: :delete,
+              class: "btn btn-ghost text-error",
+              form: { data: { turbo_confirm: "“#{lesson.name}” dersini silmek istediğinize emin misiniz?" } } %>
+      <% end %>
+    </div>
+    <div class="flex items-center gap-2">
+      <%= link_to "İptal", admin_lessons_path, class: "btn btn-ghost", data: { action: "click->modal#close" } %>
+      <%= f.submit (lesson.persisted? ? "Güncelle" : "Oluştur"), class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>

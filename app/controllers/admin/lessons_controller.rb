@@ -2,11 +2,11 @@ class Admin::LessonsController < Admin::BaseController
   before_action :set_lesson, only: %i[edit update destroy]
 
   def index
-    @pagy, @lessons = pagy(Lesson.ordered.includes(:trainer))
+    @schedule = Lesson.schedule
   end
 
   def new
-    @lesson = Lesson.new
+    @lesson = Lesson.new(new_lesson_defaults)
   end
 
   def create
@@ -42,5 +42,9 @@ class Admin::LessonsController < Admin::BaseController
 
   def lesson_params
     params.expect(lesson: [ :name, :day_of_week, :start_time, :end_time, :kind, :trainer_id ])
+  end
+
+  def new_lesson_defaults
+    params.permit(:day_of_week, :start_time, :end_time).to_h.compact_blank
   end
 end

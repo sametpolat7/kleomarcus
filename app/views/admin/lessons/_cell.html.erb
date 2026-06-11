@@ -1,0 +1,14 @@
+<%# locals: (lesson:) %>
+<% variant = Admin::BaseHelper::LESSON_KIND_VARIANTS.fetch(lesson.kind, :neutral) %>
+<%= link_to edit_admin_lesson_path(lesson),
+      class: "group/cell flex flex-1 flex-col justify-center rounded-lg border border-base-300 bg-base-100 px-2 py-1.5 hover:border-primary hover:bg-base-200/40 transition-colors",
+      data: { turbo_frame: Admin::BaseHelper::MODAL_FRAME },
+      title: "#{lesson.name} · #{lesson.time_range}" do %>
+  <span class="flex items-center gap-1.5 min-w-0">
+    <span class="size-1.5 shrink-0 rounded-full bg-<%= variant %>" aria-hidden="true"></span>
+    <span class="text-xs font-medium text-base-content leading-tight truncate"><%= lesson.name %></span>
+  </span>
+  <% if lesson.trainer %>
+    <span class="block pl-3 text-[0.65rem] text-base-content/50 truncate"><%= lesson.trainer.name %></span>
+  <% end %>
+<% end %>
