@@ -9,6 +9,7 @@
 @source "../../helpers";
 @source "../../javascript";
 @source not "./daisyui{,*}.mjs";
+@source inline("bg-{primary,secondary,neutral}");
 
 @plugin "./daisyui.mjs" {
   themes: pastel --default, dracula --prefersdark;
