@@ -1,10 +1,12 @@
 class Testimonial < ApplicationRecord
+  include Normalizable
+
   # Validations
   validates :author_name, :content, presence: true
   validates :rating, presence: true, inclusion: { in: 1..5 }
 
   # Normalizations
-  normalizes :author_name, :title, with: ->(value) { value&.titleize }
+  normalizes_titlecase :author_name, :title
 
   # Scopes
   scope :ordered, -> { order(created_at: :desc) }

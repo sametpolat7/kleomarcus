@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Normalizable
+
   # Attributes
   has_secure_password
 
@@ -16,8 +18,7 @@ class User < ApplicationRecord
   validates :email_address, presence: true, uniqueness: { case_sensitive: false }
 
   # Normalizations
-  normalizes :username, with: ->(value) { value.strip.downcase }
-  normalizes :email_address, with: ->(value) { value.strip.downcase }
+  normalizes_downcased :username, :email_address
 
   def panel_access?
     admin? || staff?

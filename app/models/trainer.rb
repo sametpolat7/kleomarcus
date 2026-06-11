@@ -1,4 +1,6 @@
 class Trainer < ApplicationRecord
+  include Normalizable
+
   # Associations
   has_one_attached :photo
   has_many :lessons
@@ -9,7 +11,7 @@ class Trainer < ApplicationRecord
   validates :name, :title, presence: true
 
   # Normalizations
-  normalizes :name, :title, with: ->(value) { value.titleize }
+  normalizes_titlecase :name, :title
 
   # Callbacks
   before_validation :assign_default_position, on: :create
