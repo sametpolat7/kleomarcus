@@ -6,10 +6,11 @@
      { label: "Antrenörler",  count: @stats[:trainers],     path: admin_trainers_path,     accent: "bg-primary" },
      { label: "Dersler",      count: @stats[:lessons],      path: admin_lessons_path,      accent: "bg-secondary" },
      { label: "Yorumlar",     count: @stats[:testimonials], path: admin_testimonials_path, accent: "bg-accent" },
-     { label: "Kullanıcılar", count: @stats[:users],        path: admin_users_path,        accent: "bg-info" }
+     { label: "Kullanıcılar", count: @stats[:users],        path: admin_users_path,        accent: "bg-info" },
+     { label: "Yüzme Başvuruları", count: @stats[:swims],   path: admin_swims_path,        accent: "bg-success" }
    ] %>
 
-<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
   <% cards.each do |c| %>
     <%= link_to c[:path],
           class: "group admin-card relative overflow-hidden p-5 hover:shadow-md hover:border-base-content/20 transition" do %>
@@ -70,6 +71,28 @@
       </ul>
     <% else %>
       <div class="px-5 py-8 text-center text-sm text-base-content/60">Henüz yorum yok.</div>
+    <% end %>
+  </div>
+
+  <div class="admin-card overflow-hidden">
+    <div class="px-5 py-4 border-b border-base-300 flex items-center justify-between">
+      <h2 class="text-sm font-semibold tracking-wide text-base-content">Yeni Yüzme Başvuruları</h2>
+      <%= link_to "Tümü", admin_swims_path(status: :received), class: "text-xs text-base-content/60 hover:text-base-content" %>
+    </div>
+    <% if @recent_swims.any? %>
+      <ul class="divide-y divide-base-300">
+        <% @recent_swims.each do |swim| %>
+          <li class="px-5 py-3 flex items-center justify-between gap-3">
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-base-content truncate"><%= swim.full_name %></p>
+              <p class="text-xs text-base-content/60"><%= swim.phone %> · <%= format_date(swim.created_at) %></p>
+            </div>
+            <%= swim_status_label(swim) %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="px-5 py-8 text-center text-sm text-base-content/60">Henüz başvuru yok.</div>
     <% end %>
   </div>
 </section>
