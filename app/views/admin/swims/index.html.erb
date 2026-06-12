@@ -1,0 +1,19 @@
+<% content_for :title, "Yüzme Başvuruları · Kleomarcus Admin" %>
+
+<%= admin_page_header "Yüzme Başvuruları", subtitle: "Yüzme birimi başvuru listesi ve durum takibi." %>
+
+<div class="flex flex-wrap items-center gap-2 mb-4">
+  <%= link_to "Tümü", admin_swims_path, class: "btn btn-sm #{@status.nil? ? "btn-primary" : "btn-ghost"}" %>
+
+  <% Swim.statuses.keys.each do |status| %>
+    <%= link_to Swim.enum_label(:statuses, status),
+          admin_swims_path(status: status), class: "btn btn-sm #{@status == status ? "btn-primary" : "btn-ghost"}" %>
+  <% end %>
+</div>
+
+<%= render "shared/admin/table",
+      columns: ["Ad Soyad", "İletişim", "Yaş", "Seviye", "Durum", "Tarih"],
+      rows: @swims,
+      row_partial: "admin/swims/row",
+      pagy: @pagy,
+      empty_text: "Henüz başvuru yok." %>

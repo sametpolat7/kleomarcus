@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :lessons, except: :show
     resources :testimonials, except: :show
     resources :users, except: :show
+    resources :swims, only: %i[index edit update destroy]
   end
 
   # Public
@@ -22,6 +23,10 @@ Rails.application.routes.draw do
       get :lessons
       get :gallery
     end
+
+    get "yuzme", to: "swims#new", as: :new_swim
+    post "yuzme", to: "swims#create", as: :swims
+    get "yuzme/tesekkurler", to: "swims#thanks", as: :swim_thanks
   end
 
   # PWA routes (uncomment when PWA is enabled)
