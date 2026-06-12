@@ -1,0 +1,193 @@
+<%# SEO Meta Tags for Swimming Application Page %>
+<%= set_seo_meta(
+  title: "Yüzme",
+  description: "Kleomarcus Yüzme başvuru formu. Çanakkale'de her yaş ve seviyeye uygun yüzme eğitimi için başvurunuzu bırakın, ekibimiz sizi arayarak bilgilendirsin ve rezervasyonunuzu oluştursun.",
+  keywords: "kleomarcus yüzme, çanakkale yüzme, yüzme kursu çanakkale, yüzme dersi çanakkale, çocuk yüzme kursu, yetişkin yüzme dersi, yüzme başvuru",
+  og_description: "Kleomarcus Yüzme — Çanakkale'de her yaş ve seviyeye uygun yüzme eğitimi. Başvurunuzu bırakın, sizi arayalım.",
+  og_image: "public/kleomarcus-yuzme.jpeg"
+) %>
+
+<%# Structured Data for SEO %>
+<% content_for :structured_data do %>
+  <%= structured_data_tag({
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Yüzme Başvurusu - Kleomarcus Spor Akademi",
+    "description": "Kleomarcus Yüzme birimi başvuru formu. Başvurunuzu bırakın, ekibimiz sizi arayarak bilgilendirsin.",
+    "url": request.original_url,
+    "mainEntity": organization_schema
+  }) %>
+<% end %>
+
+<%# Hero Section %>
+<%= render "shared/public/page_hero", title: "Kleomarcus Yüzme", image: "public/yuzme-banner.jpeg", alt_text: "Kleomarcus Yüzme" %>
+
+<%# Application Form Section %>
+<section class="py-10 sm:py-12 md:py-16 lg:py-20 bg-base-100" aria-labelledby="application-title" data-controller="modal">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 max-w-6xl mx-auto items-start">
+
+      <%# Info / Trust Content %>
+      <div>
+        <header class="mb-5 sm:mb-6 md:mb-7">
+          <h2 id="application-title" class="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-base-content mb-2 sm:mb-3 md:mb-4">
+            Yüzme Başvuru Formu
+          </h2>
+          <div class="flex items-center gap-2 sm:gap-3">
+            <div class="h-[2px] w-8 sm:w-10 md:w-12 bg-primary"></div>
+            <div class="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-primary rotate-45"></div>
+          </div>
+        </header>
+
+        <p class="text-sm sm:text-base text-base-content/80 leading-relaxed mb-6">
+          Kleomarcus Yüzme birimi olarak yüzme eğitimlerimizi disiplinli ve güvenlik öncelikli bir anlayışla yürütüyoruz.
+          Formu doldurmanız yeterli; ekibimiz sizi arayarak kurs hakkında bilgilendirir ve rezervasyonunuzu oluşturur.
+        </p>
+
+        <div class="space-y-4 sm:space-y-5">
+          <div class="flex items-start gap-4 bg-base-200 p-4 sm:p-5">
+            <span class="font-display text-2xl sm:text-3xl font-bold text-primary leading-none">01</span>
+            <div>
+              <h3 class="font-display text-sm sm:text-base font-bold text-base-content mb-1">Deneyimli Eğitmenler</h3>
+              <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">Eğitimler, alanında deneyimli ve sertifikalı eğitmenler eşliğinde yürütülür.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 bg-base-200 p-4 sm:p-5">
+            <span class="font-display text-2xl sm:text-3xl font-bold text-primary leading-none">02</span>
+            <div>
+              <h3 class="font-display text-sm sm:text-base font-bold text-base-content mb-1">Güvenli Ortam</h3>
+              <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">Dersler güvenlik öncelikli, hijyenik ve kontrollü bir ortamda gerçekleştirilir.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 bg-base-200 p-4 sm:p-5">
+            <span class="font-display text-2xl sm:text-3xl font-bold text-primary leading-none">03</span>
+            <div>
+              <h3 class="font-display text-sm sm:text-base font-bold text-base-content mb-1">Seviyeye Uygun Program</h3>
+              <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">Başlangıçtan ileri seviyeye, yaş ve seviyeye göre planlanan gruplarla ilerlersiniz.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-6 text-xs sm:text-sm text-base-content/60 leading-relaxed">
+          Paylaştığınız bilgiler yalnızca sizinle iletişim kurmak amacıyla kullanılır ve üçüncü kişilerle paylaşılmaz.
+        </p>
+      </div>
+
+      <%# Form Card %>
+      <div class="bg-base-200 p-5 sm:p-7 lg:p-8">
+        <%= render "shared/public/form_errors", resource: @swim %>
+
+        <%= form_with model: @swim, class: "grid grid-cols-1 sm:grid-cols-2 gap-4" do |f| %>
+          <div class="sm:col-span-2">
+            <label class="label text-sm font-medium" for="swim_full_name">Ad Soyad</label>
+            <%= f.text_field :full_name, id: "swim_full_name", required: true, autocomplete: "name",
+                  class: "input input-bordered w-full #{"input-error" if @swim.errors[:full_name].any?}" %>
+          </div>
+
+          <div>
+            <label class="label text-sm font-medium" for="swim_phone">Telefon</label>
+            <%= f.telephone_field :phone, id: "swim_phone", required: true, autocomplete: "tel", placeholder: "05XX XXX XX XX",
+                  inputmode: "tel",
+                  data: {
+                    controller: "numeric-input",
+                    numeric_input_max_length_value: 11,
+                    action: "input->numeric-input#format"
+                  },
+                  class: "input input-bordered w-full #{"input-error" if @swim.errors[:phone].any?}" %>
+          </div>
+
+          <div>
+            <label class="label text-sm font-medium" for="swim_email">E-posta</label>
+            <%= f.email_field :email, id: "swim_email", autocomplete: "email",
+                  class: "input input-bordered w-full #{"input-error" if @swim.errors[:email].any?}" %>
+            <p class="mt-1 text-xs text-base-content/50">İsteğe bağlı.</p>
+          </div>
+
+          <div>
+            <label class="label text-sm font-medium" for="swim_age">Yaş</label>
+            <%= f.text_field :age, id: "swim_age", required: true, inputmode: "numeric", autocomplete: "off",
+                  data: {
+                    controller: "numeric-input",
+                    numeric_input_max_length_value: 2,
+                    action: "input->numeric-input#format"
+                  },
+                  class: "input input-bordered w-full #{"input-error" if @swim.errors[:age].any?}" %>
+            <p class="mt-1 text-xs text-base-content/50">Kursa katılacak kişinin yaşı.</p>
+          </div>
+
+          <div>
+            <label class="label text-sm font-medium" for="swim_level">Yüzme Seviyesi</label>
+            <%= f.select :level,
+                  Swim.levels.keys.map { |k| [ Swim.enum_label(:levels, k), k ] },
+                  { include_blank: "Seçiniz" },
+                  { id: "swim_level", required: true,
+                    class: "select select-bordered w-full #{"select-error" if @swim.errors[:level].any?}" } %>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="label text-sm font-medium" for="swim_message">Mesajınız</label>
+            <%= f.text_area :message, id: "swim_message", rows: 4, maxlength: 1000,
+                  class: "textarea textarea-bordered w-full #{"textarea-error" if @swim.errors[:message].any?}" %>
+            <p class="mt-1 text-xs text-base-content/50">İsteğe bağlı.</p>
+          </div>
+
+          <div class="sm:col-span-2 space-y-2 pt-3 border-t border-base-300">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <%= f.check_box :info_consent,
+                    class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @swim.errors[:info_consent].any?}" %>
+              <span class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                Verdiğim bilgilerin doğru olduğunu onaylıyor, benimle iletişime geçilmesini kabul ediyorum.
+              </span>
+            </label>
+
+            <label class="flex items-start gap-3 cursor-pointer">
+              <%= f.check_box :kvkk_consent,
+                    class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @swim.errors[:kvkk_consent].any?}" %>
+              <span class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                <button type="button" class="link link-primary font-medium" data-action="click->modal#open">KVKK Aydınlatma Metni</button>'ni okudum ve kabul ediyorum.
+              </span>
+            </label>
+          </div>
+
+          <div class="sm:col-span-2 pt-1">
+            <%= f.submit "Başvuruyu Gönder", class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all duration-200" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%# KVKK Modal — static content, no turbo frame %>
+  <dialog data-modal-target="dialog" class="modal">
+    <div class="modal-box w-full max-w-2xl">
+      <h3 class="font-display text-lg font-bold text-base-content mb-3">KVKK Aydınlatma Metni</h3>
+      <div class="max-h-[60vh] overflow-y-auto space-y-3 text-sm text-base-content/70 leading-relaxed">
+        <p>
+          <strong>Veri Sorumlusu:</strong> Kleomarcus Spor Akademi.
+        </p>
+        <p>
+          Bu form aracılığıyla paylaştığınız ad soyad, telefon numarası, e-posta adresi (isteğe bağlı), yaş,
+          yüzme seviyesi ve mesaj bilgileriniz; 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK)
+          kapsamında, yalnızca yüzme kursu başvurunuzun değerlendirilmesi, sizinle iletişime geçilmesi ve
+          kurs kaydınızın planlanması amacıyla, açık rızanıza dayanarak işlenir.
+        </p>
+        <p>
+          Bilgileriniz reklam veya pazarlama amacıyla kullanılmaz; üçüncü kişilerle paylaşılmaz ve yurt dışına
+          aktarılmaz. Yalnızca yasal bir yükümlülük doğması halinde yetkili kurum ve kuruluşlarla paylaşılabilir.
+        </p>
+        <p>
+          KVKK'nın 11. maddesi kapsamında; verilerinize erişme, düzeltilmesini veya silinmesini talep etme
+          haklarına sahipsiniz. Taleplerinizi
+          <a href="mailto:info@kleomarcus.com" class="link link-primary">info@kleomarcus.com</a>
+          adresine iletebilirsiniz.
+        </p>
+      </div>
+      <div class="modal-action">
+        <button type="button" class="btn btn-ghost" data-action="click->modal#close">Kapat</button>
+      </div>
+    </div>
+  </dialog>
+</section>
