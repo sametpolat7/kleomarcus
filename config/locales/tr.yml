@@ -9,48 +9,29 @@ tr:
         kind:
           solo: Özel Ders
           team: Grup Dersi
-  date:
-    day_names:
-      - Pazar
-      - Pazartesi
-      - Salı
-      - Çarşamba
-      - Perşembe
-      - Cuma
-      - Cumartesi
-    abbr_day_names:
-      - Paz
-      - Pzt
-      - Sal
-      - Çar
-      - Per
-      - Cum
-      - Cmt
-    month_names:
-      -
-      - Ocak
-      - Şubat
-      - Mart
-      - Nisan
-      - Mayıs
-      - Haziran
-      - Temmuz
-      - Ağustos
-      - Eylül
-      - Ekim
-      - Kasım
-      - Aralık
-    abbr_month_names:
-      -
-      - Oca
-      - Şub
-      - Mar
-      - Nis
-      - May
-      - Haz
-      - Tem
-      - Ağu
-      - Eyl
-      - Eki
-      - Kas
-      - Ara
+      swim:
+        full_name: Ad Soyad
+        phone: Telefon
+        email: E-posta
+        age: Yaş
+        level: Yüzme seviyesi
+        message: Mesaj
+        status: Durum
+        info_consent: Bilgi doğruluğu ve iletişim onayı
+        kvkk_consent: KVKK aydınlatma metni onayı
+        levels:
+          beginner: Başlangıç
+          intermediate: Orta
+          advanced: İleri
+        statuses:
+          received: Yeni
+          called: Arandı
+          positive: Olumlu
+          negative: Olumsuz
+          undecided: Kararsız
+    errors:
+      models:
+        swim:
+          attributes:
+            phone:
+              invalid: geçerli bir cep telefonu numarası olmalı (örn. 05XX XXX XX XX)
