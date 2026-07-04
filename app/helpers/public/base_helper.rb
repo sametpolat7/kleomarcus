@@ -1,47 +1,70 @@
 module Public::BaseHelper
-  STAR_PATH = "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z".freeze
+  # SEO Meta Tags Helper
+  # Simplifies setting page SEO metadata with sensible defaults
+  #
+  # @example In a view:
+  #   <%= set_seo_meta(
+  #     title: "Antrenörlerimiz",
+  #     description: "Profesyonel antrenör kadromuz...",
+  #     keywords: "antrenörler, boks eğitmeni",
+  #     og_image: "trainers.jpg"
+  #   ) %>
+  #
+  def set_seo_meta(title: nil, description: nil, keywords: nil, og_title: nil, og_description: nil, og_image: nil, og_type: "website")
+    site_name = "Kleomarcus Spor Akademi"
+    default_description = "Çanakkale'nin köklü dövüş sporları akademisi. Boks, Kick Boks, Muay Thai, Wushu, MMA, CrossFit, Hyrox ve Bodybuilding eğitimleri. Deneyimli antrenörler eşliğinde her yaş ve seviyeye uygun bireysel ve grup dersleri."
+    default_keywords = "kleomarcus, kleomarcus spor akademi, çanakkale boks, çanakkale kick boks, çanakkale muay thai, çanakkale wushu, çanakkale mma, çanakkale crossfit, çanakkale hyrox, çanakkale bodybuilding, dövüş sporları çanakkale, dövüş kulübü, spor salonu çanakkale, bireysel antrenman, grup dersleri, çocuk boks, yetişkin dövüş eğitimi"
 
-  def star_rating(rating = 5, label: nil)
-    label ||= "#{rating} yıldız değerlendirme"
-    empty_stars = 5 - rating
+    # Title
+    full_title = title ? "#{title} | #{site_name}" : site_name
+    content_for :title, full_title
 
-    content_tag(:div, class: "flex gap-1 mt-4", role: "img", "aria-label": label) do
-      stars = []
+    # Meta Description & Keywords
+    content_for :description, description || default_description
+    content_for :keywords, keywords || default_keywords
 
-      rating.times do
-        stars << content_tag(:svg, class: "w-5 h-5 text-primary", fill: "currentColor", viewBox: "0 0 20 20", "aria-hidden": "true") do
-          tag.path(d: STAR_PATH)
-        end
-      end
+    # Open Graph
+    content_for :og_title, og_title || full_title
+    content_for :og_description, og_description || description || default_description
+    content_for :og_image, og_image ? image_url(og_image) : image_url("public/hero-desktop.jpeg")
+    content_for :og_type, og_type
 
-      empty_stars.times do
-        stars << content_tag(:svg, class: "w-5 h-5 text-primary", fill: "none", stroke: "currentColor", "stroke-width": "1", viewBox: "0 0 20 20", "aria-hidden": "true") do
-          tag.path(d: STAR_PATH)
-        end
-      end
+    # Canonical URL
+    content_for :canonical, request.original_url
 
-      safe_join(stars)
-    end
+    nil
   end
 
-  def gallery_images
-    [
-      { src: "public/hero-desktop.jpeg", alt: "Antrenman salonu" },
-      { src: "public/our-club.jpeg", alt: "Kulüp" },
-      { src: "public/kleomarcus-philosophy.jpeg", alt: "Grup antrenmanı" },
-      { src: "public/gallery-break-one.jpeg", alt: "Teknik çalışma" },
-      { src: "public/gallery-break-two.jpeg", alt: "Kick boks dersi" },
-      { src: "public/gallery11.jpeg", alt: "Müsabaka hazırlığı" },
-      { src: "public/gallery1.jpeg", alt: "Ring içinde boks antrenmanı yapan sporcular" },
-      { src: "public/gallery2.jpeg", alt: "Antrenör eşliğinde patlayıcı güç çalışması" },
-      { src: "public/gallery3.jpeg", alt: "Kick boks kombine vuruş çalışması" },
-      { src: "public/gallery4.jpeg", alt: "Grup halinde kondisyon ve dayanıklılık antrenmanı" },
-      { src: "public/gallery5.jpeg", alt: "Partnerle ring içinde teknik sparring" },
-      { src: "public/gallery6.jpeg", alt: "Antrenman sonrası takım fotoğrafı" },
-      { src: "public/gallery7.jpeg", alt: "Hedef ve eldivenle pad çalışması yapan sporcu" },
-      { src: "public/gallery8.jpeg", alt: "Genç sporcularla temel boks eğitimi" },
-      { src: "public/gallery9.jpeg", alt: "Antrenman öncesi ısınma ve esneme hareketleri" },
-      { src: "public/gallery10.jpeg", alt: "Kleomarcus Fight Club salonunda yoğun antrenman atmosferi" }
-    ]
+  def organization_schema
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsClub",
+      "name": "Kleomarcus Spor Akademi",
+      "url": request.base_url,
+      "telephone": "+90-547-023-08-99",
+      "email": "info@kleomarcus.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Merkez",
+        "addressRegion": "Çanakkale",
+        "addressCountry": "TR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "40.16089",
+        "longitude": "26.41582"
+      },
+      "priceRange": "₺₺",
+      "sameAs": [
+        "https://www.instagram.com/kleomarcus",
+        "https://www.facebook.com/kleomarcusss/"
+      ]
+    }
+  end
+
+  def structured_data_tag(schema)
+    content_tag :script, type: "application/ld+json" do
+      json_escape(schema.to_json).html_safe
+    end
   end
 end
