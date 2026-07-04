@@ -1,8 +1,11 @@
-class Swim < ApplicationRecord
+class Enrollment < ApplicationRecord
   include Normalizable
 
   # Constants
   PHONE_REGEXP = /\A(?:\+90|0)?5\d{9}\z/
+
+  # Associations
+  belongs_to :discipline
 
   # Attributes
   attribute :info_consent, :boolean
@@ -16,7 +19,9 @@ class Swim < ApplicationRecord
   validates :full_name, presence: true, length: { maximum: 100 }
   validates :phone, presence: true, format: { with: PHONE_REGEXP, allow_blank: true }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
-  validates :age, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 3, less_than_or_equal_to: 75, allow_nil: true }
+  validates :age, presence: true, numericality: {
+    only_integer: true, greater_than_or_equal_to: 3, less_than_or_equal_to: 75, allow_nil: true
+  }
   validates :level, presence: true
   validates :message, length: { maximum: 1000 }
   validates :info_consent, acceptance: true
@@ -31,7 +36,6 @@ class Swim < ApplicationRecord
   before_save :stamp_kvkk_acceptance
 
   # Scopes
-  scope :applications, -> { all }
   scope :recent, -> { order(created_at: :desc) }
 
   private

@@ -1,6 +1,7 @@
-class CreateSwims < ActiveRecord::Migration[8.1]
+class CreateEnrollments < ActiveRecord::Migration[8.1]
   def change
-    create_table :swims do |t|
+    create_table :enrollments do |t|
+      t.references :discipline, null: false, foreign_key: true
       t.string :full_name, null: false
       t.string :phone, null: false
       t.string :email
@@ -13,7 +14,7 @@ class CreateSwims < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :swims, :status
-    add_index :swims, :created_at
+    add_index :enrollments, :status
+    add_index :enrollments, :created_at
   end
 end
