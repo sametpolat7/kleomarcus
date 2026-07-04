@@ -7,22 +7,21 @@ Rails.application.routes.draw do
   # Admin
   namespace :admin do
     root to: "dashboard#index"
-    resource :session, only: %i[new create destroy]
+    resource :session, only: %i[new create destroy], path: "oturum"
 
-    resources :trainers, except: :show
-    resources :lessons, except: :show
-    resources :testimonials, except: :show
-    resources :users, except: :show
-    resources :enrollments, only: %i[index edit update destroy]
+    resources :trainers,     except: :show, path: "egitmenler"
+    resources :lessons,      except: :show, path: "dersler"
+    resources :testimonials, except: :show, path: "yorumlar"
+    resources :users,        except: :show, path: "kullanicilar"
+    resources :enrollments,  only: %i[index edit update destroy], path: "basvurular"
   end
 
   # Public
   scope module: :public do
-    resource :club, only: [ :show ] do
-      get :trainers
-      get :lessons
-      get :gallery
-    end
+    resource  :club,     only: :show,  path: "kulubumuz"
+    resources :trainers, only: :index, path: "egitmenlerimiz"
+    resources :lessons,  only: :index, path: "derslerimiz"
+    resource  :gallery,  only: :show,  path: "galeri"
 
     get "/:discipline/basvuru", to: "enrollments#new", as: :new_enrollment
     post "/:discipline/basvuru", to: "enrollments#create", as: :enrollments
