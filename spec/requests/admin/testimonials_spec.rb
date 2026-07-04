@@ -18,7 +18,7 @@ RSpec.describe "Admin Testimonials", type: :request do
   context "authenticated as admin" do
     before { sign_in(admin) }
 
-    describe "GET /admin/testimonials" do
+    describe "GET /admin/yorumlar" do
       it "returns 200 and lists existing testimonials" do
         testimonial = create(:testimonial)
 
@@ -29,7 +29,7 @@ RSpec.describe "Admin Testimonials", type: :request do
       end
     end
 
-    describe "GET /admin/testimonials/new" do
+    describe "GET /admin/yorumlar/new" do
       it "returns 200" do
         get new_admin_testimonial_path
 
@@ -37,7 +37,7 @@ RSpec.describe "Admin Testimonials", type: :request do
       end
     end
 
-    describe "POST /admin/testimonials with valid params" do
+    describe "POST /admin/yorumlar with valid params" do
       it "creates the testimonial and redirects to the index" do
         expect {
           post admin_testimonials_path, params: { testimonial: valid_params }
@@ -47,7 +47,7 @@ RSpec.describe "Admin Testimonials", type: :request do
       end
     end
 
-    describe "POST /admin/testimonials with invalid params" do
+    describe "POST /admin/yorumlar with invalid params" do
       it "returns 422 when the rating is out of range" do
         expect {
           post admin_testimonials_path, params: { testimonial: valid_params.merge(rating: 6) }
@@ -58,7 +58,7 @@ RSpec.describe "Admin Testimonials", type: :request do
       end
     end
 
-    describe "PATCH /admin/testimonials/:id" do
+    describe "PATCH /admin/yorumlar/:id" do
       it "updates the testimonial and redirects to the index" do
         testimonial = create(:testimonial)
 
@@ -69,7 +69,7 @@ RSpec.describe "Admin Testimonials", type: :request do
       end
     end
 
-    describe "DELETE /admin/testimonials/:id" do
+    describe "DELETE /admin/yorumlar/:id" do
       it "deletes the testimonial and redirects to the index" do
         testimonial = create(:testimonial)
 

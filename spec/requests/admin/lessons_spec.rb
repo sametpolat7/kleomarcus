@@ -26,7 +26,7 @@ RSpec.describe "Admin Lessons", type: :request do
   context "authenticated as admin" do
     before { sign_in(admin) }
 
-    describe "GET /admin/lessons" do
+    describe "GET /admin/dersler" do
       it "returns 200 and wires the + Yeni link to the modal frame" do
         get admin_lessons_path
 
@@ -37,7 +37,7 @@ RSpec.describe "Admin Lessons", type: :request do
       end
     end
 
-    describe "GET /admin/lessons/new" do
+    describe "GET /admin/dersler/new" do
       it "returns 200 with the form wrapped in the modal turbo-frame" do
         get new_admin_lesson_path
 
@@ -47,7 +47,7 @@ RSpec.describe "Admin Lessons", type: :request do
       end
     end
 
-    describe "POST /admin/lessons with valid params" do
+    describe "POST /admin/dersler with valid params" do
       it "creates the lesson and redirects to the index" do
         expect {
           post admin_lessons_path, params: { lesson: valid_params }
@@ -57,7 +57,7 @@ RSpec.describe "Admin Lessons", type: :request do
       end
     end
 
-    describe "POST /admin/lessons with invalid params" do
+    describe "POST /admin/dersler with invalid params" do
       it "returns 422 with the error block (so Turbo can replace the frame)" do
         expect {
           post admin_lessons_path, params: { lesson: valid_params.merge(name: "") }
@@ -68,7 +68,7 @@ RSpec.describe "Admin Lessons", type: :request do
       end
     end
 
-    describe "PATCH /admin/lessons/:id" do
+    describe "PATCH /admin/dersler/:id" do
       it "updates the lesson and redirects to the index" do
         lesson = create(:lesson)
 
@@ -79,7 +79,7 @@ RSpec.describe "Admin Lessons", type: :request do
       end
     end
 
-    describe "DELETE /admin/lessons/:id" do
+    describe "DELETE /admin/dersler/:id" do
       it "deletes the lesson and redirects to the index" do
         lesson = create(:lesson)
 

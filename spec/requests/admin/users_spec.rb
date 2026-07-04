@@ -24,7 +24,7 @@ RSpec.describe "Admin Users", type: :request do
   context "authenticated as admin" do
     before { sign_in(admin) }
 
-    describe "GET /admin/users" do
+    describe "GET /admin/kullanicilar" do
       it "returns 200 and lists existing users" do
         get admin_users_path
 
@@ -33,7 +33,7 @@ RSpec.describe "Admin Users", type: :request do
       end
     end
 
-    describe "POST /admin/users with valid params" do
+    describe "POST /admin/kullanicilar with valid params" do
       it "creates the user and redirects to the index" do
         expect {
           post admin_users_path, params: { user: valid_params }
@@ -43,7 +43,7 @@ RSpec.describe "Admin Users", type: :request do
       end
     end
 
-    describe "POST /admin/users with mismatched passwords" do
+    describe "POST /admin/kullanicilar with mismatched passwords" do
       it "returns 422 and does not create a user" do
         expect {
           post admin_users_path, params: { user: valid_params.merge(password_confirmation: "different") }
@@ -54,7 +54,7 @@ RSpec.describe "Admin Users", type: :request do
       end
     end
 
-    describe "PATCH /admin/users/:id" do
+    describe "PATCH /admin/kullanicilar/:id" do
       it "updates the user and redirects to the index" do
         user = create(:user, :staff)
 
@@ -76,7 +76,7 @@ RSpec.describe "Admin Users", type: :request do
       end
     end
 
-    describe "DELETE /admin/users/:id" do
+    describe "DELETE /admin/kullanicilar/:id" do
       it "deletes another user and redirects to the index" do
         other = create(:user, :staff)
 

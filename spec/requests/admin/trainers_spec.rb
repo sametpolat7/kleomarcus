@@ -18,7 +18,7 @@ RSpec.describe "Admin Trainers", type: :request do
   context "authenticated as admin" do
     before { sign_in(admin) }
 
-    describe "GET /admin/trainers" do
+    describe "GET /admin/egitmenler" do
       it "returns 200 and lists existing trainers" do
         trainer = create(:trainer)
 
@@ -29,7 +29,7 @@ RSpec.describe "Admin Trainers", type: :request do
       end
     end
 
-    describe "GET /admin/trainers/new" do
+    describe "GET /admin/egitmenler/new" do
       it "returns 200" do
         get new_admin_trainer_path
 
@@ -37,7 +37,7 @@ RSpec.describe "Admin Trainers", type: :request do
       end
     end
 
-    describe "POST /admin/trainers with valid params" do
+    describe "POST /admin/egitmenler with valid params" do
       it "creates the trainer and redirects to the index" do
         expect {
           post admin_trainers_path, params: { trainer: valid_params }
@@ -47,7 +47,7 @@ RSpec.describe "Admin Trainers", type: :request do
       end
     end
 
-    describe "POST /admin/trainers with invalid params" do
+    describe "POST /admin/egitmenler with invalid params" do
       it "returns 422 and does not create a trainer" do
         expect {
           post admin_trainers_path, params: { trainer: valid_params.merge(name: "") }
@@ -58,7 +58,7 @@ RSpec.describe "Admin Trainers", type: :request do
       end
     end
 
-    describe "PATCH /admin/trainers/:id" do
+    describe "PATCH /admin/egitmenler/:id" do
       it "updates the trainer and redirects to the index" do
         trainer = create(:trainer)
 
@@ -69,7 +69,7 @@ RSpec.describe "Admin Trainers", type: :request do
       end
     end
 
-    describe "DELETE /admin/trainers/:id" do
+    describe "DELETE /admin/egitmenler/:id" do
       it "deletes the trainer and redirects to the index" do
         trainer = create(:trainer)
 
