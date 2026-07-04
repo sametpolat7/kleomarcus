@@ -9,12 +9,12 @@ tr:
         kind:
           solo: Özel Ders
           team: Grup Dersi
-      swim:
+      enrollment:
         full_name: Ad Soyad
         phone: Telefon
         email: E-posta
         age: Yaş
-        level: Yüzme seviyesi
+        level: Seviye
         message: Mesaj
         status: Durum
         info_consent: Bilgi doğruluğu ve iletişim onayı
@@ -31,7 +31,7 @@ tr:
           undecided: Kararsız
     errors:
       models:
-        swim:
+        enrollment:
           attributes:
             phone:
               invalid: geçerli bir cep telefonu numarası olmalı (örn. 05XX XXX XX XX)
