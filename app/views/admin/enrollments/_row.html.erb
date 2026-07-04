@@ -1,5 +1,6 @@
 <tr class="hover:bg-base-200/40 transition-colors">
   <td><span class="font-medium"><%= row.full_name %></span></td>
+  <td class="text-base-content/70"><%= row.discipline.name %></td>
   <td>
     <div class="flex flex-col">
       <a href="tel:<%= row.phone %>" class="text-sm hover:text-primary transition-colors"><%= format_phone(row.phone) %></a>
@@ -9,14 +10,14 @@
     </div>
   </td>
   <td class="text-base-content/70"><%= row.age %></td>
-  <td><%= swim_level_label(row) %></td>
-  <td><%= swim_status_label(row) %></td>
+  <td><%= enrollment_level_label(row) %></td>
+  <td><%= enrollment_status_label(row) %></td>
   <td class="text-base-content/70"><%= format_date(row.created_at) %></td>
 
   <td class="text-right">
     <div class="inline-flex gap-1">
-      <%= modal_trigger "Düzenle", edit_admin_swim_path(row), variant: :ghost %>
-      <%= button_to "Sil", admin_swim_path(row),
+      <%= modal_trigger "Düzenle", edit_admin_enrollment_path(row), variant: :ghost %>
+      <%= button_to "Sil", admin_enrollment_path(row),
             method: :delete,
             class: "btn btn-sm btn-ghost text-error",
             form: { data: { turbo_confirm: "“#{row.full_name}” başvurusunu silmek istediğinize emin misiniz?" } } %>

@@ -1,4 +1,4 @@
-<%# SEO Meta Tags for Swimming Application Page %>
+<%# SEO Meta Tags for the enrollment application page %>
 <%= set_seo_meta(
   title: "Yüzme",
   description: "Kleomarcus Yüzme başvuru formu. Çanakkale'de her yaş ve seviyeye uygun yüzme eğitimi için başvurunuzu bırakın, ekibimiz sizi arayarak bilgilendirsin ve rezervasyonunuzu oluştursun.",
@@ -78,66 +78,66 @@
 
       <%# Form Card %>
       <div class="bg-base-200 p-5 sm:p-7 lg:p-8">
-        <%= render "shared/public/form_errors", resource: @swim %>
+        <%= render "shared/public/form_errors", resource: @enrollment %>
 
-        <%= form_with model: @swim, class: "grid grid-cols-1 sm:grid-cols-2 gap-4" do |f| %>
+        <%= form_with model: @enrollment, url: enrollments_path(@discipline), scope: :enrollment, class: "grid grid-cols-1 sm:grid-cols-2 gap-4" do |f| %>
           <div class="sm:col-span-2">
-            <label class="label text-sm font-medium" for="swim_full_name">Ad Soyad</label>
-            <%= f.text_field :full_name, id: "swim_full_name", required: true, autocomplete: "name",
-                  class: "input input-bordered w-full #{"input-error" if @swim.errors[:full_name].any?}" %>
+            <label class="label text-sm font-medium" for="enrollment_full_name">Ad Soyad</label>
+            <%= f.text_field :full_name, id: "enrollment_full_name", required: true, autocomplete: "name",
+                  class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:full_name].any?}" %>
           </div>
 
           <div>
-            <label class="label text-sm font-medium" for="swim_phone">Telefon</label>
-            <%= f.telephone_field :phone, id: "swim_phone", required: true, autocomplete: "tel", placeholder: "05XX XXX XX XX",
+            <label class="label text-sm font-medium" for="enrollment_phone">Telefon</label>
+            <%= f.telephone_field :phone, id: "enrollment_phone", required: true, autocomplete: "tel", placeholder: "05XX XXX XX XX",
                   inputmode: "tel",
                   data: {
                     controller: "numeric-input",
                     numeric_input_max_length_value: 11,
                     action: "input->numeric-input#format"
                   },
-                  class: "input input-bordered w-full #{"input-error" if @swim.errors[:phone].any?}" %>
+                  class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:phone].any?}" %>
           </div>
 
           <div>
-            <label class="label text-sm font-medium" for="swim_email">E-posta</label>
-            <%= f.email_field :email, id: "swim_email", autocomplete: "email",
-                  class: "input input-bordered w-full #{"input-error" if @swim.errors[:email].any?}" %>
+            <label class="label text-sm font-medium" for="enrollment_email">E-posta</label>
+            <%= f.email_field :email, id: "enrollment_email", autocomplete: "email",
+                  class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:email].any?}" %>
             <p class="mt-1 text-xs text-base-content/50">İsteğe bağlı.</p>
           </div>
 
           <div>
-            <label class="label text-sm font-medium" for="swim_age">Yaş</label>
-            <%= f.text_field :age, id: "swim_age", required: true, inputmode: "numeric", autocomplete: "off",
+            <label class="label text-sm font-medium" for="enrollment_age">Yaş</label>
+            <%= f.text_field :age, id: "enrollment_age", required: true, inputmode: "numeric", autocomplete: "off",
                   data: {
                     controller: "numeric-input",
                     numeric_input_max_length_value: 2,
                     action: "input->numeric-input#format"
                   },
-                  class: "input input-bordered w-full #{"input-error" if @swim.errors[:age].any?}" %>
+                  class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:age].any?}" %>
             <p class="mt-1 text-xs text-base-content/50">Kursa katılacak kişinin yaşı.</p>
           </div>
 
           <div>
-            <label class="label text-sm font-medium" for="swim_level">Yüzme Seviyesi</label>
+            <label class="label text-sm font-medium" for="enrollment_level">Yüzme Seviyesi</label>
             <%= f.select :level,
-                  Swim.levels.keys.map { |k| [ Swim.enum_label(:levels, k), k ] },
+                  Enrollment.levels.keys.map { |k| [ Enrollment.enum_label(:levels, k), k ] },
                   { include_blank: "Seçiniz" },
-                  { id: "swim_level", required: true,
-                    class: "select select-bordered w-full #{"select-error" if @swim.errors[:level].any?}" } %>
+                  { id: "enrollment_level", required: true,
+                    class: "select select-bordered w-full #{"select-error" if @enrollment.errors[:level].any?}" } %>
           </div>
 
           <div class="sm:col-span-2">
-            <label class="label text-sm font-medium" for="swim_message">Mesajınız</label>
-            <%= f.text_area :message, id: "swim_message", rows: 4, maxlength: 1000,
-                  class: "textarea textarea-bordered w-full #{"textarea-error" if @swim.errors[:message].any?}" %>
+            <label class="label text-sm font-medium" for="enrollment_message">Mesajınız</label>
+            <%= f.text_area :message, id: "enrollment_message", rows: 4, maxlength: 1000,
+                  class: "textarea textarea-bordered w-full #{"textarea-error" if @enrollment.errors[:message].any?}" %>
             <p class="mt-1 text-xs text-base-content/50">İsteğe bağlı.</p>
           </div>
 
           <div class="sm:col-span-2 space-y-2 pt-3 border-t border-base-300">
             <label class="flex items-start gap-3 cursor-pointer">
               <%= f.check_box :info_consent,
-                    class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @swim.errors[:info_consent].any?}" %>
+                    class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @enrollment.errors[:info_consent].any?}" %>
               <span class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
                 Verdiğim bilgilerin doğru olduğunu onaylıyor, benimle iletişime geçilmesini kabul ediyorum.
               </span>
@@ -145,7 +145,7 @@
 
             <label class="flex items-start gap-3 cursor-pointer">
               <%= f.check_box :kvkk_consent,
-                    class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @swim.errors[:kvkk_consent].any?}" %>
+                    class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @enrollment.errors[:kvkk_consent].any?}" %>
               <span class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
                 <button type="button" class="link link-primary font-medium" data-action="click->modal#open">KVKK Aydınlatma Metni</button>'ni okudum ve kabul ediyorum.
               </span>

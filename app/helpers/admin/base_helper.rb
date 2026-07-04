@@ -13,7 +13,7 @@ module Admin::BaseHelper
     "team" => :primary
   }.freeze
 
-  SWIM_STATUS_VARIANTS = {
+  ENROLLMENT_STATUS_VARIANTS = {
     "received" => :info,
     "called" => :warning,
     "positive" => :success,
@@ -39,12 +39,12 @@ module Admin::BaseHelper
     badge(Lesson.enum_label(:kind, lesson.kind), variant: LESSON_KIND_VARIANTS[lesson.kind])
   end
 
-  def swim_status_label(swim)
-    badge(Swim.enum_label(:statuses, swim.status), variant: SWIM_STATUS_VARIANTS[swim.status])
+  def enrollment_status_label(enrollment)
+    badge(Enrollment.enum_label(:statuses, enrollment.status), variant: ENROLLMENT_STATUS_VARIANTS[enrollment.status])
   end
 
-  def swim_level_label(swim)
-    badge(Swim.enum_label(:levels, swim.level), variant: :ghost)
+  def enrollment_level_label(enrollment)
+    badge(Enrollment.enum_label(:levels, enrollment.level), variant: :ghost)
   end
 
   def modal_trigger(label, path, variant: :primary, **opts)

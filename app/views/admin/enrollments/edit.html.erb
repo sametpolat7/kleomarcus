@@ -4,11 +4,11 @@
   <%= turbo_frame_tag "admin_modal_frame" do %>
 
     <%= admin_modal_header "Başvuru Detayı",
-          subtitle: @swim.full_name,
-          cancel_path: admin_swims_path %>
+          subtitle: @enrollment.full_name,
+          cancel_path: admin_enrollments_path %>
 
     <div class="p-6">
-      <%= render "admin/swims/form", swim: @swim %>
+      <%= render "admin/enrollments/form", enrollment: @enrollment %>
     </div>
 
   <% end %>
