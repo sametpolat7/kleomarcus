@@ -27,6 +27,7 @@ module Kleomarcus
     config.i18n.default_locale = :tr
     config.i18n.available_locales = [ :tr, :en ]
 
+    # With config.action_controller.include_all_helpers = false, each controller only includes its own matching helper module (e.g. UsersController gets UsersHelper) instead of all app/helpers modules, so helpers aren't globally shared across controllers.
     config.action_controller.include_all_helpers = false
   end
 end
