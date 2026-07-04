@@ -5,10 +5,11 @@ class Admin::DashboardController < Admin::BaseController
       lessons: Lesson.count,
       testimonials: Testimonial.count,
       users: User.count,
-      swims: Swim.applications.count
+      enrollments: Enrollment.count
     }
+
     @recent_lessons = Lesson.ordered.includes(:trainer).limit(5)
     @recent_testimonials = Testimonial.ordered.limit(5)
-    @recent_swims = Swim.applications.received.recent.limit(5)
+    @recent_enrollments = Enrollment.includes(:discipline).received.recent.limit(5)
   end
 end
