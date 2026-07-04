@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Public::ClubsController, type: :request do
-  describe "GET /club" do
+  describe "GET /kulubumuz" do
     before { get club_path }
 
     it "returns http success" do
@@ -41,62 +41,6 @@ RSpec.describe Public::ClubsController, type: :request do
         structured_data = JSON.parse(json_ld_match[1])
         expect(structured_data["@type"]).to eq("AboutPage")
       end
-    end
-  end
-
-  describe "GET /club/trainers" do
-    before { get trainers_club_path }
-
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
-    end
-
-    it "returns HTML content" do
-      expect(response.content_type).to match(%r{text/html})
-    end
-
-    context "response content" do
-      it "sets correct content type" do
-        expect(response.content_type).to match(%r{text/html})
-      end
-
-      it "includes charset in content type" do
-        expect(response.content_type).to include("charset=utf-8")
-      end
-    end
-  end
-
-  describe "GET /club/lessons" do
-    before { get lessons_club_path }
-
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
-    end
-
-    it "returns HTML content" do
-      expect(response.content_type).to match(%r{text/html})
-    end
-
-    context "response content" do
-      it "sets correct content type" do
-        expect(response.content_type).to match(%r{text/html})
-      end
-    end
-  end
-
-  describe "GET /club/gallery" do
-    before { get gallery_club_path }
-
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
-    end
-
-    it "returns HTML content" do
-      expect(response.content_type).to match(%r{text/html})
-    end
-
-    it "sets correct charset" do
-      expect(response.content_type).to include("charset=utf-8")
     end
   end
 end
