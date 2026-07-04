@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :lessons, except: :show
     resources :testimonials, except: :show
     resources :users, except: :show
-    resources :swims, only: %i[index edit update destroy]
+    resources :enrollments, only: %i[index edit update destroy]
   end
 
   # Public
@@ -24,9 +24,9 @@ Rails.application.routes.draw do
       get :gallery
     end
 
-    get "yuzme", to: "swims#new", as: :new_swim
-    post "yuzme", to: "swims#create", as: :swims
-    get "yuzme/tesekkurler", to: "swims#thanks", as: :swim_thanks
+    get "/:discipline/basvuru", to: "enrollments#new", as: :new_enrollment
+    post "/:discipline/basvuru", to: "enrollments#create", as: :enrollments
+    get "/:discipline/basvuru/tesekkurler", to: "enrollments#thanks", as: :enrollment_thanks
   end
 
   # PWA routes (uncomment when PWA is enabled)
