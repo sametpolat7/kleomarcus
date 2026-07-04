@@ -1,4 +1,6 @@
 class Admin::DashboardController < Admin::BaseController
+  helper Admin::LessonsHelper, Admin::EnrollmentsHelper
+
   def index
     @stats = {
       trainers: Trainer.count,

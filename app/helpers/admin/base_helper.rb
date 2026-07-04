@@ -8,19 +8,6 @@ module Admin::BaseHelper
     "staff" => :secondary
   }.freeze
 
-  LESSON_KIND_VARIANTS = {
-    "solo" => :neutral,
-    "team" => :primary
-  }.freeze
-
-  ENROLLMENT_STATUS_VARIANTS = {
-    "received" => :info,
-    "called" => :warning,
-    "positive" => :success,
-    "negative" => :error,
-    "undecided" => :neutral
-  }.freeze
-
   MODAL_CLOSE_ICON = <<~SVG.html_safe.freeze
     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -35,31 +22,10 @@ module Admin::BaseHelper
     badge(User.enum_label(:role, user.role), variant: ROLE_BADGE_VARIANTS[user.role])
   end
 
-  def lesson_kind_label(lesson)
-    badge(Lesson.enum_label(:kind, lesson.kind), variant: LESSON_KIND_VARIANTS[lesson.kind])
-  end
-
-  def enrollment_status_label(enrollment)
-    badge(Enrollment.enum_label(:statuses, enrollment.status), variant: ENROLLMENT_STATUS_VARIANTS[enrollment.status])
-  end
-
-  def enrollment_level_label(enrollment)
-    badge(Enrollment.enum_label(:levels, enrollment.level), variant: :ghost)
-  end
-
   def modal_trigger(label, path, variant: :primary, **opts)
     classes = [ "btn", "btn-sm", "btn-#{variant}", opts.delete(:class) ].compact.join(" ")
     data = (opts[:data] || {}).merge(turbo_frame: MODAL_FRAME)
     link_to label, path, opts.merge(class: classes, data: data)
-  end
-
-  def format_phone(value)
-    digits = value.to_s.delete("^0-9")
-    digits = "0#{digits.delete_prefix("90")}" if digits.length == 12 && digits.start_with?("90")
-    digits = "0#{digits}" if digits.length == 10
-    return value.to_s unless digits.length == 11
-
-    [ digits[0, 4], digits[4, 3], digits[7, 2], digits[9, 2] ].join(" ")
   end
 
   def format_date(value, format: "%d %B %Y")
