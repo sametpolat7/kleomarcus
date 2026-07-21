@@ -1,22 +1,14 @@
 tr:
   activerecord:
     attributes:
-      user:
-        role:
-          admin: Yönetici
-          staff: Personel
-      lesson:
-        kind:
-          solo: Özel Ders
-          team: Grup Dersi
       enrollment:
         full_name: Ad Soyad
+        discipline: Branş
         phone: Telefon
         email: E-posta
         age: Yaş
         level: Seviye
         message: Mesaj
-        status: Durum
         info_consent: Bilgi doğruluğu ve iletişim onayı
         kvkk_consent: KVKK aydınlatma metni onayı
         levels:
@@ -29,9 +21,31 @@ tr:
           positive: Olumlu
           negative: Olumsuz
           undecided: Kararsız
-    errors:
-      models:
-        enrollment:
-          attributes:
-            phone:
-              invalid: geçerli bir cep telefonu numarası olmalı (örn. 05XX XXX XX XX)
+      lesson:
+        name: Ders Adı
+        day_of_week: Gün
+        start_time: Başlangıç
+        end_time: Bitiş
+        kind:
+          solo: Özel Ders
+          team: Grup Dersi
+      testimonial:
+        author_name: Yazar
+        content: İçerik
+        rating: Puan
+      trainer:
+        name: İsim
+        title: Ünvan
+      user:
+        username: Kullanıcı Adı
+        email_address: E-posta
+        password: Şifre
+        password_confirmation: Şifre Tekrarı
+        role:
+          admin: Yönetici
+          staff: Personel
+  # rails-i18n ships no Turkish for has_secure_password's :password_too_long
+  # message (bcrypt's 72-byte limit); fill that single framework gap here.
+  errors:
+    messages:
+      password_too_long: çok uzun (en fazla 72 karakter)

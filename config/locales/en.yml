@@ -1,22 +1,14 @@
 en:
   activerecord:
     attributes:
-      user:
-        role:
-          admin: Administrator
-          staff: Staff
-      lesson:
-        kind:
-          solo: Private Lesson
-          team: Group Lesson
       enrollment:
         full_name: Full Name
+        discipline: Discipline
         phone: Phone
         email: Email
         age: Age
         level: Level
         message: Message
-        status: Status
         info_consent: Information accuracy and contact consent
         kvkk_consent: KVKK privacy notice consent
         levels:
@@ -29,9 +21,26 @@ en:
           positive: Positive
           negative: Negative
           undecided: Undecided
-    errors:
-      models:
-        enrollment:
-          attributes:
-            phone:
-              invalid: must be a valid mobile phone number (e.g. 05XX XXX XX XX)
+      lesson:
+        name: Name
+        day_of_week: Day
+        start_time: Start Time
+        end_time: End Time
+        kind:
+          solo: Private Lesson
+          team: Group Lesson
+      testimonial:
+        author_name: Author
+        content: Content
+        rating: Rating
+      trainer:
+        name: Name
+        title: Title
+      user:
+        username: Username
+        email_address: Email
+        password: Password
+        password_confirmation: Password Confirmation
+        role:
+          admin: Administrator
+          staff: Staff
