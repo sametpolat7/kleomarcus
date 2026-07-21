@@ -11,7 +11,6 @@ class Testimonial < ApplicationRecord
   # Scopes
   scope :ordered, -> { order(created_at: :desc) }
 
-  # TODO: Can be removed?
   def initials
     parts = author_name.to_s.scan(/\p{L}+/u).first(2)
     return "?" if parts.empty?
