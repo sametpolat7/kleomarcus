@@ -1,5 +1,5 @@
 class Public::HomeController < Public::BaseController
   def index
-    @testimonials = Testimonial.ordered
+    @testimonials = Testimonial.all
   end
 end
