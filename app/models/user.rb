@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :username,
             presence: true,
             uniqueness: { case_sensitive: false },
-            format: { with: /\A[a-z0-9_]+\z/, message: "yalnızca küçük harf, rakam ve alt çizgi içerebilir" }
+            format: { with: /\A[a-z0-9_]+\z/ }
   validates :email_address, presence: true, uniqueness: { case_sensitive: false }
 
   # Normalizations
