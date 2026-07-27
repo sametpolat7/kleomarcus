@@ -85,7 +85,7 @@
           <li class="px-5 py-3 flex items-center justify-between gap-3">
             <div class="min-w-0">
               <p class="text-sm font-medium text-base-content truncate"><%= enrollment.full_name %></p>
-              <p class="text-xs text-base-content/60"><%= enrollment.discipline.name %> · <%= enrollment.phone %> · <%= format_date(enrollment.created_at) %></p>
+              <p class="text-xs text-base-content/60"><%= enrollment.phone %> · <%= format_date(enrollment.created_at) %></p>
             </div>
             <%= enrollment_status_label(enrollment) %>
           </li>
