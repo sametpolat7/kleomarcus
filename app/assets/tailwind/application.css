@@ -115,38 +115,4 @@
   .pagy a[aria-disabled="true"]:not(.current) {
     @apply opacity-40 cursor-default hover:bg-base-100 hover:text-base-content/70;
   }
-
-  /* Water shimmer for the swimming CTA. CSS-only (CSP-safe). */
-  .swim-cta {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .swim-cta::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -75%;
-    width: 50%;
-    transform: skewX(-20deg);
-    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--color-secondary-content) 22%, transparent), transparent);
-    animation: swim-shimmer 4s ease-in-out infinite;
-    pointer-events: none;
-  }
-
-  @keyframes swim-shimmer {
-    0%, 55% {
-      left: -75%;
-    }
-    100% {
-      left: 125%;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .swim-cta::after {
-      animation: none;
-    }
-  }
 }
