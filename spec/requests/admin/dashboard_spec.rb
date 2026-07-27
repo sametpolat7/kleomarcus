@@ -33,11 +33,30 @@ RSpec.describe "Admin Dashboard", type: :request do
         expect(response.body).to include(testimonial.author_name)
       end
 
+      it "lists new applications by name and phone number" do
+        create(:enrollment, full_name: "Deniz Kaya", phone: "05321234567")
+
+        get admin_root_path
+
+        expect(response.body).to include("Deniz Kaya")
+        expect(response.body).to include("05321234567")
+      end
+
+      it "keeps applications that have already been handled out of the new applications panel" do
+        create(:enrollment, full_name: "Deniz Kaya", status: :positive)
+
+        get admin_root_path
+
+        expect(response.body).not_to include("Deniz Kaya")
+        expect(response.body).to include("Henüz başvuru yok.")
+      end
+
       it "renders an empty state when there is no activity" do
         get admin_root_path
 
         expect(response.body).to include("Henüz ders yok.")
         expect(response.body).to include("Henüz yorum yok.")
+        expect(response.body).to include("Henüz başvuru yok.")
       end
     end
   end

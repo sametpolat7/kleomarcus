@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Admin Sessions", type: :request do
   let(:password) { "secret123" }
 
-  describe "GET /admin/oturum/new" do
+  describe "GET /admin/session/new" do
     it "renders the unauthenticated login page" do
       get new_admin_session_path
 
@@ -13,7 +13,7 @@ RSpec.describe "Admin Sessions", type: :request do
     end
   end
 
-  describe "POST /admin/oturum" do
+  describe "POST /admin/session" do
     it "signs in a user with panel access and redirects to the admin root" do
       admin = create(:user, :admin, password: password)
 
@@ -35,7 +35,7 @@ RSpec.describe "Admin Sessions", type: :request do
     end
   end
 
-  describe "DELETE /admin/oturum" do
+  describe "DELETE /admin/session" do
     it "terminates the session and blocks the panel afterwards" do
       admin = create(:user, :admin, password: password)
       post admin_session_path, params: { username: admin.username, password: password }
