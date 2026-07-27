@@ -1,10 +1,9 @@
 <%# SEO Meta Tags for the enrollment application page %>
 <%= set_seo_meta(
-  title: "Yüzme",
-  description: "Kleomarcus Yüzme başvuru formu. Çanakkale'de her yaş ve seviyeye uygun yüzme eğitimi için başvurunuzu bırakın, ekibimiz sizi arayarak bilgilendirsin ve rezervasyonunuzu oluştursun.",
-  keywords: "kleomarcus yüzme, çanakkale yüzme, yüzme kursu çanakkale, yüzme dersi çanakkale, çocuk yüzme kursu, yetişkin yüzme dersi, yüzme başvuru",
-  og_description: "Kleomarcus Yüzme — Çanakkale'de her yaş ve seviyeye uygun yüzme eğitimi. Başvurunuzu bırakın, sizi arayalım.",
-  og_image: "public/kleomarcus-yuzme.jpeg"
+  title: "Başvuru",
+  description: "Kleomarcus Spor Akademi başvuru formu. Çanakkale'de Boks, Kick Boks, Muay Thai, Wushu, MMA, CrossFit ve Yüzme branşlarında her yaşa uygun eğitim için başvurunuzu bırakın, ekibimiz sizi arayarak bilgilendirsin.",
+  keywords: "kleomarcus başvuru, çanakkale spor akademi başvuru, boks kursu çanakkale, kick boks çanakkale, muay thai çanakkale, mma çanakkale, crossfit çanakkale, yüzme kursu çanakkale, spor kursu başvuru",
+  og_description: "Kleomarcus Spor Akademi — Çanakkale'de her yaşa uygun spor eğitimi. Başvurunuzu bırakın, sizi arayalım."
 ) %>
 
 <%# Structured Data for SEO %>
@@ -12,15 +11,15 @@
   <%= structured_data_tag({
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "name": "Yüzme Başvurusu - Kleomarcus Spor Akademi",
-    "description": "Kleomarcus Yüzme birimi başvuru formu. Başvurunuzu bırakın, ekibimiz sizi arayarak bilgilendirsin.",
+    "name": "Başvuru - Kleomarcus Spor Akademi",
+    "description": "Kleomarcus Spor Akademi başvuru formu. Başvurunuzu bırakın, ekibimiz sizi arayarak bilgilendirsin.",
     "url": request.original_url,
     "mainEntity": organization_schema
   }) %>
 <% end %>
 
 <%# Hero Section %>
-<%= render "shared/public/page_hero", title: "Kleomarcus Yüzme", image: "public/yuzme-banner.jpeg", alt_text: "Kleomarcus Yüzme" %>
+<%= render "shared/public/page_hero", title: "Başvuru", image: "public/hero-desktop.jpeg", alt_text: "Kleomarcus Spor Akademi Başvuru" %>
 
 <%# Application Form Section %>
 <section class="py-10 sm:py-12 md:py-16 lg:py-20 bg-base-100" aria-labelledby="application-title" data-controller="modal">
@@ -32,7 +31,7 @@
       <div>
         <header class="mb-5 sm:mb-6 md:mb-7">
           <h2 id="application-title" class="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-base-content mb-2 sm:mb-3 md:mb-4">
-            Yüzme Başvuru Formu
+            Başvuru Formu
           </h2>
           <div class="flex items-center gap-2 sm:gap-3">
             <div class="h-[2px] w-8 sm:w-10 md:w-12 bg-primary"></div>
@@ -41,8 +40,8 @@
         </header>
 
         <p class="text-sm sm:text-base text-base-content/80 leading-relaxed mb-6">
-          Kleomarcus Yüzme birimi olarak yüzme eğitimlerimizi disiplinli ve güvenlik öncelikli bir anlayışla yürütüyoruz.
-          Formu doldurmanız yeterli; ekibimiz sizi arayarak kurs hakkında bilgilendirir ve rezervasyonunuzu oluşturur.
+          Kleomarcus Spor Akademi olarak eğitimlerimizi disiplinli ve güvenlik öncelikli bir anlayışla yürütüyoruz.
+          Formu doldurmanız yeterli; ekibimiz sizi arayarak bilgilendirir ve kaydınızı oluşturur.
         </p>
 
         <div class="space-y-4 sm:space-y-5">
@@ -65,8 +64,8 @@
           <div class="flex items-start gap-4 bg-base-200 p-4 sm:p-5">
             <span class="font-display text-2xl sm:text-3xl font-bold text-primary leading-none">03</span>
             <div>
-              <h3 class="font-display text-sm sm:text-base font-bold text-base-content mb-1">Seviyeye Uygun Program</h3>
-              <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">Başlangıçtan ileri seviyeye, yaş ve seviyeye göre planlanan gruplarla ilerlersiniz.</p>
+              <h3 class="font-display text-sm sm:text-base font-bold text-base-content mb-1">Size Uygun Program</h3>
+              <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">Yaşınıza ve hedeflerinize göre planlanan gruplarla ilerlersiniz.</p>
             </div>
           </div>
         </div>
@@ -80,7 +79,7 @@
       <div class="bg-base-200 p-5 sm:p-7 lg:p-8">
         <%= render "shared/public/form_errors", resource: @enrollment %>
 
-        <%= form_with model: @enrollment, url: enrollments_path(@discipline), scope: :enrollment, class: "grid grid-cols-1 sm:grid-cols-2 gap-4" do |f| %>
+        <%= form_with model: @enrollment, url: enrollment_path, class: "grid grid-cols-1 sm:grid-cols-2 gap-4" do |f| %>
           <div class="sm:col-span-2">
             <label class="label text-sm font-medium" for="enrollment_full_name">Ad Soyad</label>
             <%= f.text_field :full_name, id: "enrollment_full_name", required: true, autocomplete: "name",
@@ -116,15 +115,6 @@
                   },
                   class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:age].any?}" %>
             <p class="mt-1 text-xs text-base-content/50">Kursa katılacak kişinin yaşı.</p>
-          </div>
-
-          <div>
-            <label class="label text-sm font-medium" for="enrollment_level">Yüzme Seviyesi</label>
-            <%= f.select :level,
-                  Enrollment.levels.keys.map { |k| [ Enrollment.enum_label(:levels, k), k ] },
-                  { include_blank: "Seçiniz" },
-                  { id: "enrollment_level", required: true,
-                    class: "select select-bordered w-full #{"select-error" if @enrollment.errors[:level].any?}" } %>
           </div>
 
           <div class="sm:col-span-2">
@@ -169,9 +159,9 @@
           <strong>Veri Sorumlusu:</strong> Kleomarcus Spor Akademi.
         </p>
         <p>
-          Bu form aracılığıyla paylaştığınız ad soyad, telefon numarası, e-posta adresi (isteğe bağlı), yaş,
-          yüzme seviyesi ve mesaj bilgileriniz; 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK)
-          kapsamında, yalnızca yüzme kursu başvurunuzun değerlendirilmesi, sizinle iletişime geçilmesi ve
+          Bu form aracılığıyla paylaştığınız ad soyad, telefon numarası, e-posta adresi (isteğe bağlı), yaş
+          ve mesaj bilgileriniz; 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK)
+          kapsamında, yalnızca kurs başvurunuzun değerlendirilmesi, sizinle iletişime geçilmesi ve
           kurs kaydınızın planlanması amacıyla, açık rızanıza dayanarak işlenir.
         </p>
         <p>
