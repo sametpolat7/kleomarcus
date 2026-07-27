@@ -3,18 +3,12 @@ tr:
     attributes:
       enrollment:
         full_name: Ad Soyad
-        discipline: Branş
         phone: Telefon
         email: E-posta
         age: Yaş
-        level: Seviye
         message: Mesaj
         info_consent: Bilgi doğruluğu ve iletişim onayı
         kvkk_consent: KVKK aydınlatma metni onayı
-        levels:
-          beginner: Başlangıç
-          intermediate: Orta
-          advanced: İleri
         statuses:
           received: Yeni
           called: Arandı

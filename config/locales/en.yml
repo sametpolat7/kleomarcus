@@ -3,18 +3,12 @@ en:
     attributes:
       enrollment:
         full_name: Full Name
-        discipline: Discipline
         phone: Phone
         email: Email
         age: Age
-        level: Level
         message: Message
         info_consent: Information accuracy and contact consent
         kvkk_consent: KVKK privacy notice consent
-        levels:
-          beginner: Beginner
-          intermediate: Intermediate
-          advanced: Advanced
         statuses:
           received: New
           called: Called
