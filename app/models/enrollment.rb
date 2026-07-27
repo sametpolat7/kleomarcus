@@ -4,15 +4,11 @@ class Enrollment < ApplicationRecord
   # Constants
   PHONE_REGEXP = /\A(?:\+90|0)?5\d{9}\z/
 
-  # Associations
-  belongs_to :discipline
-
   # Attributes
   attribute :info_consent, :boolean
   attribute :kvkk_consent, :boolean
 
   # Enums
-  enum :level, { beginner: 0, intermediate: 1, advanced: 2 }
   enum :status, { received: 0, called: 1, positive: 2, negative: 3, undecided: 4 }
 
   # Validations
@@ -22,7 +18,6 @@ class Enrollment < ApplicationRecord
   validates :age, presence: true, numericality: {
     only_integer: true, greater_than_or_equal_to: 3, less_than_or_equal_to: 75, allow_nil: true
   }
-  validates :level, presence: true
   validates :message, length: { maximum: 1000 }
   validates :info_consent, acceptance: true
   validates :kvkk_consent, acceptance: true
