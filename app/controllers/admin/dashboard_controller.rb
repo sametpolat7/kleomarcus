@@ -12,6 +12,6 @@ class Admin::DashboardController < Admin::BaseController
 
     @recent_lessons = Lesson.ordered.includes(:trainer).limit(5)
     @recent_testimonials = Testimonial.ordered.limit(5)
-    @recent_enrollments = Enrollment.includes(:discipline).received.recent.limit(5)
+    @recent_enrollments = Enrollment.received.recent.limit(5)
   end
 end
