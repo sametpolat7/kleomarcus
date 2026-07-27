@@ -3,11 +3,9 @@ class Admin::EnrollmentsController < Admin::BaseController
 
   def index
     @status = params[:status].presence_in(Enrollment.statuses.keys)
-    @discipline = Discipline.find_by(slug: params[:discipline])
 
-    scope = Enrollment.includes(:discipline).recent
+    scope = Enrollment.recent
     scope = scope.where(status: @status) if @status
-    scope = scope.where(discipline: @discipline) if @discipline
     @pagy, @enrollments = pagy(scope)
   end
 
