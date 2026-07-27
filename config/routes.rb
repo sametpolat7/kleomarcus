@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # Admin
   namespace :admin do
     root to: "dashboard#index"
-    resource :session, only: %i[new create destroy], path: "oturum"
+    resource :session, only: %i[new create destroy]
 
     resources :trainers,     except: :show, path: "egitmenler"
     resources :lessons,      except: :show, path: "dersler"
@@ -23,9 +23,9 @@ Rails.application.routes.draw do
     resources :lessons,  only: :index, path: "derslerimiz"
     resource  :gallery,  only: :show,  path: "galeri"
 
-    get "/:discipline/basvuru", to: "enrollments#new", as: :new_enrollment
-    post "/:discipline/basvuru", to: "enrollments#create", as: :enrollments
-    get "/:discipline/basvuru/tesekkurler", to: "enrollments#thanks", as: :enrollment_thanks
+    resource :enrollment, only: %i[new create], path: "basvuru", path_names: { new: "" } do
+      get "tesekkurler", action: :thanks, as: :thanks
+    end
   end
 
   # PWA routes (uncomment when PWA is enabled)
