@@ -11,10 +11,6 @@ module Admin::EnrollmentsHelper
     badge(Enrollment.enum_label(:statuses, enrollment.status), variant: ENROLLMENT_STATUS_VARIANTS[enrollment.status])
   end
 
-  def enrollment_level_label(enrollment)
-    badge(Enrollment.enum_label(:levels, enrollment.level), variant: :ghost)
-  end
-
   def format_phone(value)
     digits = value.to_s.delete("^0-9")
     digits = "0#{digits.delete_prefix("90")}" if digits.length == 12 && digits.start_with?("90")

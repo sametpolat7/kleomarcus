@@ -1,6 +1,5 @@
 <tr class="hover:bg-base-200/40 transition-colors">
   <td><span class="font-medium"><%= row.full_name %></span></td>
-  <td class="text-base-content/70"><%= row.discipline.name %></td>
   <td>
     <div class="flex flex-col">
       <a href="tel:<%= row.phone %>" class="text-sm hover:text-primary transition-colors"><%= format_phone(row.phone) %></a>
@@ -10,7 +9,6 @@
     </div>
   </td>
   <td class="text-base-content/70"><%= row.age %></td>
-  <td><%= enrollment_level_label(row) %></td>
   <td><%= enrollment_status_label(row) %></td>
   <td class="text-base-content/70"><%= format_date(row.created_at) %></td>
 

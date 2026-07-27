@@ -1,18 +1,18 @@
 <% content_for :title, "Başvurular · Kleomarcus Admin" %>
 
-<%= admin_page_header "Başvurular", subtitle: "Tüm branşların başvuru listesi ve durum takibi." %>
+<%= admin_page_header "Başvurular", subtitle: "Başvuru listesi ve durum takibi." %>
 
 <div class="flex flex-wrap items-center gap-2 mb-4">
-  <%= link_to "Tümü", admin_enrollments_path(discipline: @discipline&.slug), class: "btn btn-sm #{@status.nil? ? "btn-primary" : "btn-ghost"}" %>
+  <%= link_to "Tümü", admin_enrollments_path, class: "btn btn-sm #{@status.nil? ? "btn-primary" : "btn-ghost"}" %>
 
   <% Enrollment.statuses.keys.each do |status| %>
     <%= link_to Enrollment.enum_label(:statuses, status),
-          admin_enrollments_path(status: status, discipline: @discipline&.slug), class: "btn btn-sm #{@status == status ? "btn-primary" : "btn-ghost"}" %>
+          admin_enrollments_path(status: status), class: "btn btn-sm #{@status == status ? "btn-primary" : "btn-ghost"}" %>
   <% end %>
 </div>
 
 <%= render "shared/admin/table",
-      columns: ["Ad Soyad", "Branş", "İletişim", "Yaş", "Seviye", "Durum", "Tarih"],
+      columns: ["Ad Soyad", "İletişim", "Yaş", "Durum", "Tarih"],
       rows: @enrollments,
       row_partial: "admin/enrollments/row",
       pagy: @pagy,
