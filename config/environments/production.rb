@@ -60,8 +60,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "kleomarcus.com" }
 
   # Outgoing SMTP — credentials are stored in credentials.yml.enc (bin/rails credentials:edit).
-  # Enrollment application notifications read their recipient from credentials (enrollment.notification_email)
-  # or the ENROLLMENT_NOTIFICATION_EMAIL env var — see EnrollmentMailer#notification_email.
   # config.action_mailer.smtp_settings = {
   #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
   #   password: Rails.application.credentials.dig(:smtp, :password),
