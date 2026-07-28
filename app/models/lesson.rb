@@ -17,7 +17,7 @@ class Lesson < ApplicationRecord
   belongs_to :trainer, optional: true
 
   # Validations
-  validates :name, :day_of_week, :start_time, :end_time, presence: true
+  validates :name, :day_of_week, :kind, :start_time, :end_time, presence: true
   validate :end_time_after_start_time
   validate :not_duplicate_in_slot
 
@@ -37,7 +37,7 @@ class Lesson < ApplicationRecord
     end
 
     def schedule_hours
-      distinct.order(:start_time).pluck(:start_time, :end_time).map do |start_time, end_time|
+      order(:start_time).group(:start_time).maximum(:end_time).map do |start_time, end_time|
         [ start_time.strftime(TIME_FORMAT), end_time.strftime(TIME_FORMAT) ]
       end
     end
