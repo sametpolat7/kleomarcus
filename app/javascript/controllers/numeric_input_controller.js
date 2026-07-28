@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static values = {
     maxLength: Number,
+    countryCode: { type: String, default: "" },
   };
 
   connect() {
@@ -17,13 +18,13 @@ export default class extends Controller {
     ).length;
 
     let digits = this.element.value.replace(/\D/g, "");
-    // A pasted "+90 5XX ..." arrives as "905XX..." — convert it to the local "05XX..." form.
+
     if (
-      this.hasMaxLengthValue &&
-      digits.startsWith("90") &&
+      this.countryCodeValue &&
+      digits.startsWith(this.countryCodeValue) &&
       digits.length > this.maxLengthValue
     ) {
-      digits = `0${digits.slice(2)}`;
+      digits = `0${digits.slice(this.countryCodeValue.length)}`;
     }
     if (this.hasMaxLengthValue && this.maxLengthValue > 0) {
       digits = digits.slice(0, this.maxLengthValue);

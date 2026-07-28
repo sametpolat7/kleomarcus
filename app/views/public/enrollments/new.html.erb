@@ -77,6 +77,7 @@
                       data: {
                         controller: "numeric-input",
                         numeric_input_max_length_value: 11,
+                        numeric_input_country_code_value: "90",
                         action: "input->numeric-input#format"
                       },
                       class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:phone].any?}" %>
