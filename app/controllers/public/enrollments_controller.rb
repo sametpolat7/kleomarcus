@@ -1,4 +1,9 @@
 class Public::EnrollmentsController < Public::BaseController
+  rate_limit to: 5,
+             within: 1.hour,
+             only: :create,
+             with: -> { redirect_to new_enrollment_path, alert: "Çok fazla başvuru gönderdiniz. Lütfen daha sonra tekrar deneyin." }
+
   def new
     @enrollment = Enrollment.new
   end

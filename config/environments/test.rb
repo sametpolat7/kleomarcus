@@ -22,6 +22,12 @@ Rails.application.configure do
   config.consider_all_requests_local = true
   config.cache_store = :null_store
 
+  # `rate_limit` counts requests in the Action Controller cache store, and the null store
+  # above drops every counter — which would leave the login and application throttles
+  # silently inert, and untestable. Give the controllers a real store of their own; the
+  # request specs clear it between examples (spec/support/rate_limiting.rb).
+  config.action_controller.cache_store = :memory_store
+
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
 
