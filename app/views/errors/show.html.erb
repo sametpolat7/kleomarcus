@@ -1,0 +1,32 @@
+<section class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
+  <div class="w-full max-w-2xl text-center">
+
+    <p class="font-display text-primary text-7xl sm:text-8xl lg:text-9xl font-black leading-none tracking-tight" aria-hidden="true">
+      <%= status_code %>
+    </p>
+
+    <div class="relative mx-auto mt-8 w-full max-w-[16rem]">
+      <div class="h-[2px] sm:h-[3px] w-full bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-primary rotate-45"></div>
+    </div>
+
+    <h1 class="font-display mt-8 sm:mt-10 text-2xl sm:text-3xl lg:text-4xl font-bold text-base-content leading-tight">
+      <%= status_title %>
+    </h1>
+
+    <p class="mt-4 sm:mt-5 text-base sm:text-lg text-base-content/70 leading-relaxed">
+      <%= status_message %>
+    </p>
+
+    <div class="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-3">
+      <%= link_to "Ana Sayfa", root_path, class: "btn btn-primary px-6 shadow-md hover:shadow-lg transition-shadow" %>
+      <%= link_to "İletişim", root_path(anchor: "contact"), class: "btn btn-ghost px-6" %>
+    </div>
+
+    <% if status_code >= 500 && error_reference.present? %>
+      <p class="mt-10 sm:mt-12 text-xs text-base-content/40">
+        Hata referansı: <span class="font-mono select-all"><%= error_reference %></span>
+      </p>
+    <% end %>
+  </div>
+</section>

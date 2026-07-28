@@ -1,0 +1,33 @@
+<%= turbo_frame_tag turbo_frame_request_id do %>
+  <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-base-300">
+    <div>
+      <h2 class="text-base font-semibold text-base-content"><%= status_title %></h2>
+      <p class="mt-0.5 text-xs text-base-content/60">Hata kodu: <%= status_code %></p>
+    </div>
+
+    <button type="button" class="btn btn-ghost btn-sm btn-square -mr-2" data-action="click->modal#close" aria-label="Kapat">
+      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="p-6">
+    <div role="alert" class="flex items-start gap-3 rounded-md border border-error/30 bg-error/10 px-4 py-3">
+      <svg class="w-5 h-5 shrink-0 text-error" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z" />
+      </svg>
+      <p class="text-sm text-base-content leading-relaxed"><%= status_message %></p>
+    </div>
+
+    <% if status_code >= 500 && error_reference.present? %>
+      <p class="mt-4 text-xs text-base-content/40">
+        Hata referansı: <span class="font-mono select-all"><%= error_reference %></span>
+      </p>
+    <% end %>
+
+    <div class="mt-5 flex justify-end">
+      <button type="button" class="btn btn-sm btn-primary" data-action="click->modal#close">Kapat</button>
+    </div>
+  </div>
+<% end %>

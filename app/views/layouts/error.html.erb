@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8">
+    <title><%= status_code %> · <%= status_title %> | Kleomarcus</title>
+    <meta name="application-name" content="Kleomarcus">
+
+    <%# Mobile-First Viewport %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+
+    <%= javascript_tag nonce: true do %>
+      (function () {
+        var theme = localStorage.getItem("theme");
+        if (!theme) {
+          theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dracula" : "pastel";
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    <% end %>
+
+    <%# Favicons %>
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <%# Fonts %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <%# Stylesheets & Scripts %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="min-h-screen flex flex-col">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-[999] focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-content focus:rounded-md focus:text-sm focus:font-medium">Ana İçeriğe Atla</a>
+
+    <%= render "shared/public/navbar" %>
+
+    <main id="main-content" class="flex-1 flex flex-col">
+      <%= yield %>
+    </main>
+
+    <%= render "shared/public/floating_social" %>
+    <%= render "shared/public/footer" %>
+  </body>
+</html>
