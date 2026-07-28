@@ -54,6 +54,35 @@ RSpec.describe "Admin Lessons", type: :request do
           new_admin_lesson_path(day_of_week: "tuesday", start_time: "19:15", end_time: "20:15")
         )
       end
+
+      it "renders the empty state when there is nothing on the schedule yet" do
+        get admin_lessons_path
+
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include("Henüz ders eklenmemiş")
+        expect(Nokogiri::HTML(response.body).css("div.sticky.text-right")).to be_empty
+      end
+
+      it "draws lessons that share a start time once each rather than once per end time" do
+        genclar = create(:lesson, name: "Gençler", day_of_week: :monday, start_time: "18:15", end_time: "19:15")
+        yogun = create(:lesson, name: "Yoğun", day_of_week: :monday, start_time: "18:15", end_time: "20:00")
+
+        get admin_lessons_path
+
+        expect(response).to have_http_status(:ok)
+        page = Nokogiri::HTML(response.body)
+
+        [ genclar, yogun ].each do |lesson|
+          expect(page.css("a[href='#{edit_admin_lesson_path(lesson)}']").size).to eq(2)
+        end
+
+        expect(response.body.scan("Gençler").size).to eq(4)
+        expect(response.body.scan("Yoğun").size).to eq(4)
+
+        hour_rows = page.css("div.sticky.text-right")
+        expect(hour_rows.size).to eq(1)
+        expect(hour_rows.first.text.split).to eq([ "18:15", "20:00" ])
+      end
     end
 
     describe "GET /admin/dersler/new" do
@@ -93,6 +122,34 @@ RSpec.describe "Admin Lessons", type: :request do
 
         expect(response).to have_http_status(:unprocessable_content)
         expect(response.body).to include("hata oluştu")
+      end
+
+      it "rejects a day_of_week outside the enum instead of raising out of the controller" do
+        expect {
+          post admin_lessons_path, params: { lesson: valid_params.merge(day_of_week: "notaday") }
+        }.not_to change(Lesson, :count)
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.body).to include("Gün kabul edilen bir kelime değil")
+        expect(Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame form")).to be_present
+      end
+
+      it "rejects a kind outside the enum instead of raising out of the controller" do
+        expect {
+          post admin_lessons_path, params: { lesson: valid_params.merge(kind: "hybrid") }
+        }.not_to change(Lesson, :count)
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.body).to include("Tür kabul edilen bir kelime değil")
+      end
+
+      it "rejects a blank kind — the form's “Seçin” prompt — with the presence message" do
+        expect {
+          post admin_lessons_path, params: { lesson: valid_params.merge(kind: "") }
+        }.not_to change(Lesson, :count)
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.body).to include("Tür doldurulmalı")
       end
     end
 

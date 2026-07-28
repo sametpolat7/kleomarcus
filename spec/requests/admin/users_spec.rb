@@ -83,6 +83,30 @@ RSpec.describe "Admin Users", type: :request do
       end
     end
 
+    describe "GET /admin/kullanicilar/:id/edit" do
+      it "renders the role as a select when the panel can assign it" do
+        user = create(:user, :staff)
+
+        get edit_admin_user_path(user)
+
+        expect(response).to have_http_status(:ok)
+        select = Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame select[name='user[role]']")
+        expect(select.css("option").map { |option| [ option.text, option[:value] ] })
+          .to contain_exactly([ "Yönetici", "admin" ], [ "Personel", "staff" ])
+      end
+
+      it "renders a role the panel cannot assign as a read-only badge instead of a select" do
+        athlete = create(:user, :athlete)
+
+        get edit_admin_user_path(athlete)
+
+        expect(response).to have_http_status(:ok)
+        frame = Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame")
+        expect(frame.at_css("select[name='user[role]']")).to be_nil
+        expect(frame.text).to include("Sporcu").and include("Bu rol panelden değiştirilemez.")
+      end
+    end
+
     describe "PATCH /admin/kullanicilar/:id" do
       it "updates the user and redirects to the index" do
         user = create(:user, :staff)
@@ -119,6 +143,44 @@ RSpec.describe "Admin Users", type: :request do
         expect(user.reload.username).to eq("renamed_user")
         expect(user.authenticate(AdminAuth::PASSWORD)).to be_truthy
       end
+
+      it "revokes every session the target's old password opened, keeping the admin's own" do
+        victim = create(:user, :staff)
+        3.times { victim.sessions.create! }
+        admin_session = admin.sessions.sole
+
+        patch admin_user_path(victim), params: {
+          user: { password: "brandnewpw", password_confirmation: "brandnewpw" }
+        }
+
+        expect(victim.sessions.reload).to be_empty
+        expect(Session.exists?(admin_session.id)).to be(true)
+        expect(response).to redirect_to(admin_users_path)
+      end
+
+      it "leaves the target's sessions alone when only the email changes" do
+        victim = create(:user, :staff)
+        3.times { victim.sessions.create! }
+
+        patch admin_user_path(victim), params: {
+          user: { email_address: "yeni_adres@test.local", password: "", password_confirmation: "" }
+        }
+
+        expect(victim.reload.email_address).to eq("yeni_adres@test.local")
+        expect(victim.sessions.reload.count).to eq(3)
+      end
+
+      it "keeps the admin signed in when they reset their own password" do
+        patch admin_user_path(admin), params: {
+          user: { password: "mybrandnew", password_confirmation: "mybrandnew" }
+        }
+
+        expect(admin.sessions.reload.count).to eq(1)
+
+        get admin_root_path
+
+        expect(response).to have_http_status(:ok)
+      end
     end
 
     describe "DELETE /admin/kullanicilar/:id" do
@@ -139,6 +201,64 @@ RSpec.describe "Admin Users", type: :request do
 
         expect(response).to redirect_to(admin_users_path)
         expect(flash[:alert]).to include("Kendi hesabınızı")
+      end
+    end
+  end
+
+  context "authenticated as staff" do
+    let(:staff) { create(:user, :staff) }
+    let(:forbidden_alert) { "Bu bölüme yalnızca yöneticiler erişebilir." }
+
+    before { sign_in(staff) }
+
+    describe "GET /admin/kullanicilar, /admin/kullanicilar/new and /admin/kullanicilar/:id/edit" do
+      it "turns a staff member away from every read action" do
+        other = create(:user, :admin)
+
+        [ admin_users_path, new_admin_user_path, edit_admin_user_path(other) ].each do |path|
+          get path
+
+          expect(response).to redirect_to(admin_root_path)
+          expect(flash[:alert]).to eq(forbidden_alert)
+        end
+      end
+    end
+
+    describe "POST /admin/kullanicilar" do
+      it "creates no user" do
+        expect {
+          post admin_users_path, params: { user: valid_params }
+        }.not_to change(User, :count)
+
+        expect(response).to redirect_to(admin_root_path)
+        expect(flash[:alert]).to eq(forbidden_alert)
+      end
+    end
+
+    describe "PATCH /admin/kullanicilar/:id" do
+      it "cannot reset an administrator's password" do
+        target = create(:user, :admin)
+
+        expect {
+          patch admin_user_path(target), params: {
+            user: { password: "takenoverpw", password_confirmation: "takenoverpw" }
+          }
+        }.not_to change { target.reload.password_digest }
+
+        expect(response).to redirect_to(admin_root_path)
+      end
+    end
+
+    describe "DELETE /admin/kullanicilar/:id" do
+      it "keeps the target user" do
+        target = create(:user, :admin)
+
+        expect {
+          delete admin_user_path(target)
+        }.not_to change(User, :count)
+
+        expect(User.exists?(target.id)).to be(true)
+        expect(response).to redirect_to(admin_root_path)
       end
     end
   end

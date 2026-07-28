@@ -65,13 +65,13 @@ RSpec.describe "Admin Dashboard", type: :request do
         expect(response.body).to include(testimonial.author_name)
       end
 
-      it "lists new applications by name and phone number" do
+      it "lists new applications by name and formatted phone number" do
         create(:enrollment, full_name: "Deniz Kaya", phone: "05321234567")
 
         get admin_root_path
 
         expect(response.body).to include("Deniz Kaya")
-        expect(response.body).to include("05321234567")
+        expect(response.body).to include("0532 123 45 67")
       end
 
       it "keeps applications that have already been handled out of the new applications panel" do
@@ -89,6 +89,66 @@ RSpec.describe "Admin Dashboard", type: :request do
         expect(response.body).to include("Henüz ders yok.")
         expect(response.body).to include("Henüz yorum yok.")
         expect(response.body).to include("Henüz başvuru yok.")
+      end
+
+      it "offers the users screen from the sidebar and from its own stat tile" do
+        get admin_root_path
+
+        doc = Nokogiri::HTML(response.body)
+        expect(doc.css(%(aside a[href="#{admin_users_path}"]))).not_to be_empty
+        expect(doc.css(%(a.admin-card[href="#{admin_users_path}"]))).not_to be_empty
+        expect(doc.at_css("aside").text).to include("Sistem")
+      end
+    end
+
+    describe "the flash after a write" do
+      let(:frame_headers) { { "Turbo-Frame" => "admin_modal_frame" } }
+      let(:trainer_params) { { name: "Mehmet Demir", title: "Baş Antrenör" } }
+
+      context "submitted from inside the modal frame" do
+        it "survives the frame's own fetch and shows up on the visit that follows it" do
+          post admin_trainers_path, params: { trainer: trainer_params }, headers: frame_headers
+          expect(response).to redirect_to(admin_trainers_path)
+          follow_redirect!(headers: frame_headers)
+          get admin_trainers_path
+          expect(response.body).to include("Antrenör oluşturuldu.")
+        end
+
+        it "survives a destroy the same way" do
+          trainer = create(:trainer)
+
+          delete admin_trainer_path(trainer), headers: frame_headers
+          follow_redirect!(headers: frame_headers)
+          get admin_trainers_path
+
+          expect(response.body).to include("Antrenör silindi.")
+        end
+      end
+
+      context "submitted outside the modal frame" do
+        it "shows up on the very next page and on that page only" do
+          post admin_trainers_path, params: { trainer: trainer_params }
+          follow_redirect!
+          expect(response.body).to include("Antrenör oluşturuldu.")
+          get admin_trainers_path
+          expect(response.body).not_to include("Antrenör oluşturuldu.")
+        end
+      end
+    end
+  end
+
+  context "authenticated as staff" do
+    before { sign_in(create(:user, :staff)) }
+
+    describe "GET /admin" do
+      it "hides both entry points to the admin-only users screen" do
+        get admin_root_path
+
+        doc = Nokogiri::HTML(response.body)
+        expect(doc.css(%(a[href="#{admin_users_path}"]))).to be_empty
+        expect(doc.at_css("aside").text).not_to include("Sistem")
+        expect(doc.css("a.admin-card").map { |card| card.text.squish })
+          .not_to include(a_string_starting_with("Kullanıcılar"))
       end
     end
   end

@@ -11,6 +11,34 @@ RSpec.describe "Admin Sessions", type: :request do
       expect(response.body).to include("Giriş Yapın")
       expect(response.body).not_to include("Çıkış Yap")
     end
+
+    it "carries the modal frame, empty, so a modal fetched without a session can recover" do
+      get new_admin_session_path
+
+      frame = Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame")
+      expect(frame).to be_present
+      expect(frame.text).to be_blank
+    end
+
+    it "sends a signed-in user to the panel instead of the form" do
+      sign_in(create(:user, :admin))
+
+      get new_admin_session_path
+
+      expect(response).to redirect_to(admin_root_path)
+    end
+
+    it "still renders the form for a session that has lost panel access" do
+      user = create(:user, :staff)
+      sign_in(user)
+      user.update_column(:role, User.roles[:athlete])
+
+      get new_admin_session_path
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("Giriş Yapın")
+      expect(user.sessions.reload).to be_present
+    end
   end
 
   describe "POST /admin/session" do
@@ -61,6 +89,60 @@ RSpec.describe "Admin Sessions", type: :request do
       expect(response).to redirect_to(new_admin_session_path)
       expect(flash[:alert]).to include("kullanıcı adı")
     end
+
+    it "opens no second session when someone already signed in submits the form again" do
+      admin = create(:user, :admin)
+      sign_in(admin)
+
+      expect do
+        post admin_session_path, params: { username: admin.username, password: password }
+      end.not_to change(admin.sessions, :count)
+
+      expect(response).to redirect_to(admin_root_path)
+    end
+  end
+
+  describe "POST /admin/session with credentials the form could not have sent" do
+    {
+      "no params at all" => {},
+      "only a username" => { username: "kleomarcus" },
+      "an array where the password belongs" => { username: "kleomarcus", password: %w[a b] },
+      "both fields blank" => { username: "", password: "" }
+    }.each do |description, params|
+      it "redirects back to the login page given #{description}" do
+        post admin_session_path, params: params
+
+        expect(response).to have_http_status(:found)
+        expect(response).to redirect_to(new_admin_session_path)
+        expect(flash[:alert]).to include("kullanıcı adı")
+        expect(Session.count).to be_zero
+      end
+    end
+  end
+
+  describe "returning to the page that demanded a login" do
+    it "hands the operator the deep page they were turned away from" do
+      trainer = create(:trainer)
+
+      get edit_admin_trainer_path(trainer)
+      expect(response).to redirect_to(new_admin_session_path)
+
+      sign_in(create(:user, :admin))
+
+      expect(response).to redirect_to(edit_admin_trainer_url(trainer))
+    end
+
+    it "does not replay a url that answers to no GET route" do
+      other = create(:user, :staff)
+
+      delete admin_user_path(other)
+      expect(response).to redirect_to(new_admin_session_path)
+      expect(User.exists?(other.id)).to be(true)
+
+      sign_in(create(:user, :admin))
+
+      expect(response).to redirect_to(admin_root_url)
+    end
   end
 
   describe "DELETE /admin/session" do
@@ -102,6 +184,20 @@ RSpec.describe "Admin Sessions", type: :request do
 
       expect(response).to redirect_to(new_admin_session_path)
       expect(admin.sessions.reload).to be_empty
+    end
+
+    it "leaves a modal fetch on a login page that still carries the modal frame" do
+      admin = create(:user, :admin)
+      sign_in(admin)
+      admin.sessions.sole.update_column(:expires_at, 1.minute.ago)
+
+      get new_admin_trainer_path, headers: { "Turbo-Frame" => "admin_modal_frame" }
+      expect(response).to redirect_to(new_admin_session_path)
+
+      follow_redirect!
+
+      expect(response).to have_http_status(:ok)
+      expect(Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame")).to be_present
     end
   end
 end

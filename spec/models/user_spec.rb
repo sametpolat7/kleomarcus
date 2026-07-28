@@ -23,6 +23,29 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
       expect(user.errors[:password]).to be_present
     end
+
+    it "rejects a role outside the enum instead of raising" do
+      user = build(:user)
+
+      expect { user.role = "superadmin" }.not_to raise_error
+
+      expect(user).not_to be_valid
+      expect(user.errors[:role]).to be_present
+      expect(user.errors.full_messages.first).to start_with("Rol")
+    end
+
+    it "accepts each of the three roles the panel knows about" do
+      expect(build(:user, :admin)).to be_valid
+      expect(build(:user, :staff)).to be_valid
+      expect(build(:user, :athlete)).to be_valid
+    end
+  end
+
+  describe "role labels" do
+    it "keeps the attribute label reachable now that the values live in their own scope" do
+      expect(described_class.human_attribute_name(:role)).to eq("Rol")
+      expect(described_class.enum_label(:role, :athlete)).to eq("Sporcu")
+    end
   end
 
   describe "normalization" do

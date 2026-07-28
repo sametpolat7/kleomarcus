@@ -7,12 +7,13 @@ RSpec.describe "Admin pagination bounds", type: :request do
 
   describe "GET /admin/kullanicilar" do
     it "falls back to the last page when the requested page is past the end" do
-      usernames = create_list(:user, 12).map(&:username).push(admin.username)
-
+      create_list(:user, 12)
       get admin_users_path(page: 999)
-
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include(usernames.max)
+      others = User.where.not(id: admin.id).order(:username)
+
+      expect(response.body).to include(others.last.username)
+      expect(response.body).not_to include(others.first.username)
     end
 
     [ "0", "-1", "abc", "" ].each do |value|

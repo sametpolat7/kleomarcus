@@ -15,6 +15,25 @@ RSpec.describe Enrollment, type: :model do
       expect(enrollment.errors[:phone]).to be_present
     end
 
+    it "accepts an email address that fills the 255 character cap exactly" do
+      email = "#{"a" * (255 - "@example.com".length)}@example.com"
+
+      expect(email.length).to eq(255)
+      expect(build(:enrollment, email: email)).to be_valid
+    end
+
+    it "rejects an otherwise valid email address that runs one character over the cap" do
+      enrollment = build(:enrollment, email: "#{"a" * (256 - "@example.com".length)}@example.com")
+
+      expect(enrollment).not_to be_valid
+      expect(enrollment.errors[:email]).to include("çok uzun (en fazla 255 karakter)")
+    end
+
+    it "accepts an application that leaves the email address blank" do
+      expect(build(:enrollment, email: nil)).to be_valid
+      expect(build(:enrollment, email: "")).to be_valid
+    end
+
     it "rejects an age outside the range the club teaches" do
       expect(build(:enrollment, age: 2)).not_to be_valid
       expect(build(:enrollment, age: 76)).not_to be_valid
@@ -65,9 +84,34 @@ RSpec.describe Enrollment, type: :model do
     end
   end
 
+  describe "status labels" do
+    it "reads each label from the activerecord.enums scope" do
+      expect(described_class.enum_label(:status, :received)).to eq("Yeni")
+      expect(described_class.enum_label(:status, "undecided")).to eq("Kararsız")
+    end
+
+    it "leaves the attribute's own label reachable instead of shadowing it with the values" do
+      expect(described_class.human_attribute_name(:status)).to eq("Durum")
+    end
+  end
+
   describe "normalizations" do
     it "strips the formatting characters out of a phone number" do
       expect(build(:enrollment, phone: "0532 123-45.67").phone).to eq("05321234567")
+    end
+
+    it "folds every accepted phone shape into the local one, so tel: links dial correctly" do
+      expect(build(:enrollment, phone: "05321234567").phone).to eq("05321234567")
+      expect(build(:enrollment, phone: "+90 532 123 45 67").phone).to eq("05321234567")
+      expect(build(:enrollment, phone: "905321234567").phone).to eq("05321234567")
+      expect(build(:enrollment, phone: "5321234567").phone).to eq("05321234567")
+    end
+
+    it "leaves an unrecognisable number alone for the format validation to reject" do
+      enrollment = build(:enrollment, phone: "telefonum yok")
+
+      expect(enrollment.phone).to eq("telefonumyok")
+      expect(enrollment).not_to be_valid
     end
 
     it "title-cases the full name without dropping Turkish characters" do

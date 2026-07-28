@@ -8,7 +8,7 @@ RSpec.describe "Public Club", type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("<title>Kulübümüz | Kleomarcus Spor Akademi</title>")
 
-      schema = JSON.parse(response.body[%r{<script type="application/ld\+json">(.+?)</script>}m, 1])
+      schema = JSON.parse(response.body[%r{<script type="application/ld\+json"[^>]*>(.+?)</script>}m, 1])
       expect(schema["@type"]).to eq("AboutPage")
     end
   end
