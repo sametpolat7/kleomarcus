@@ -41,7 +41,7 @@
     <%# Trainers Grid %>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
 
-      <% @trainers.each_with_index do |trainer, index| %>
+      <% @trainers.each do |trainer| %>
       <div data-controller="modal">
         <div data-action="click->modal#open" class="bg-base-200 rounded-lg overflow-hidden shadow-md cursor-pointer flex flex-col h-full">
           <div class="aspect-[4/5] bg-gradient-to-br from-base-300 to-base-200 relative overflow-hidden">
@@ -73,7 +73,7 @@
         </div>
 
         <%# Modal for Trainer Details %>
-        <dialog data-modal-target="dialog" id="trainer_modal_<%= index %>" class="modal modal-bottom sm:modal-middle transition-all duration-200">
+        <dialog data-modal-target="dialog" class="modal modal-bottom sm:modal-middle transition-all duration-200">
           <div class="modal-box max-w-3xl p-6 sm:p-8 lg:p-10">
             <form method="dialog">
               <button class="btn btn-sm sm:btn-md btn-circle btn-ghost absolute right-2 top-2 sm:right-4 sm:top-4">✕</button>
