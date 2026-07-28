@@ -6,8 +6,9 @@
 #
 # Production: DATABASE_URL must be set. Kamal injects it into the container
 # from .kamal/secrets at deploy time (declared under env.secret in deploy.yml).
-# The "postgres" host inside the URL resolves to the Kamal postgres accessory
-# over the private Docker network on the same VPS.
+# Its host must be the accessory's container name, "kleomarcus-postgres", which is
+# what resolves on the shared "kamal" Docker network — Kamal names accessory
+# containers "<service>-<accessory>" and adds no shorter network alias.
 
 default: &default
   adapter: postgresql
