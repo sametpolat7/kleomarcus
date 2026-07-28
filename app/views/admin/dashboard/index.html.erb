@@ -3,12 +3,14 @@
 <%= admin_page_header "Pano", subtitle: "Genel bakış ve son etkinlikler." %>
 
 <% cards = [
-     { label: "Antrenörler",  count: @stats[:trainers],     path: admin_trainers_path,     accent: "bg-primary" },
-     { label: "Dersler",      count: @stats[:lessons],      path: admin_lessons_path,      accent: "bg-secondary" },
-     { label: "Yorumlar",     count: @stats[:testimonials], path: admin_testimonials_path, accent: "bg-accent" },
-     { label: "Kullanıcılar", count: @stats[:users],        path: admin_users_path,        accent: "bg-info" },
-     { label: "Başvurular",   count: @stats[:enrollments], path: admin_enrollments_path,  accent: "bg-success" }
-   ] %>
+     { label: "Antrenörler", count: @stats[:trainers],     path: admin_trainers_path,     accent: "bg-primary" },
+     { label: "Dersler",     count: @stats[:lessons],      path: admin_lessons_path,      accent: "bg-secondary" },
+     { label: "Yorumlar",    count: @stats[:testimonials], path: admin_testimonials_path, accent: "bg-accent" },
+     { label: "Başvurular",  count: @stats[:enrollments],  path: admin_enrollments_path,  accent: "bg-success" }
+   ] 
+%>
+
+<% cards << { label: "Kullanıcılar", count: @stats[:users], path: admin_users_path, accent: "bg-info" } if Current.user.admin? %>
 
 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
   <% cards.each do |c| %>
@@ -85,7 +87,7 @@
           <li class="px-5 py-3 flex items-center justify-between gap-3">
             <div class="min-w-0">
               <p class="text-sm font-medium text-base-content truncate"><%= enrollment.full_name %></p>
-              <p class="text-xs text-base-content/60"><%= enrollment.phone %> · <%= format_date(enrollment.created_at) %></p>
+              <p class="text-xs text-base-content/60"><%= format_phone(enrollment.phone) %> · <%= format_date(enrollment.created_at) %></p>
             </div>
             <%= enrollment_status_label(enrollment) %>
           </li>
