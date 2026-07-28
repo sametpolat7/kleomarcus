@@ -1,5 +1,4 @@
-# Idempotent seed data for trainers, lessons, and testimonials.
-# Safe to run multiple times — uses find_or_create_by on stable keys.
+# Idempotent. Safe to run multiple times.
 
 trainers_data = [
   {
@@ -201,7 +200,6 @@ testimonials_data.each do |attrs|
   testimonial.save!
 end
 
-# Weekly lesson schedule. Mirrors the previous Public::ClubsHelper#lesson_data.
 hours = [
   [ "10:00", "11:00" ],
   [ "11:00", "12:00" ],
@@ -255,4 +253,4 @@ schedule.each do |day, config|
   end
 end
 
-puts "Seeded #{User.count} users, #{Trainer.count} trainers, #{Discipline.count} disciplines, #{Testimonial.count} testimonials, #{Lesson.count} lessons."
+puts "Seeded #{Trainer.count} trainers, #{Discipline.count} disciplines, #{Testimonial.count} testimonials, #{Lesson.count} lessons."
