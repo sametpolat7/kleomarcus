@@ -45,7 +45,7 @@ module Authentication
   end
 
   def request_authentication
-    session[:return_to_after_authenticating] = request.url
+    session[:return_to_after_authenticating] = request.url if request.get? || request.head?
     redirect_to unauthenticated_redirect_path
   end
 
