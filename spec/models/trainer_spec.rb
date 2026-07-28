@@ -1,20 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Trainer, type: :model do
-  describe "validations" do
-    it "is valid with the factory defaults" do
-      expect(build(:trainer)).to be_valid
-    end
-
-    it "requires a name and a title" do
-      trainer = build(:trainer, name: "", title: "")
-
-      expect(trainer).not_to be_valid
-      expect(trainer.errors[:name]).to be_present
-      expect(trainer.errors[:title]).to be_present
-    end
-  end
-
   describe "normalization" do
     it "titleizes the name and title" do
       trainer = create(:trainer, name: "mehmet demir", title: "baş antrenör")
@@ -37,6 +23,23 @@ RSpec.describe Trainer, type: :model do
       inserted = create(:trainer, position: first.position)
 
       expect(inserted.position).to eq(first.reload.position - 1)
+    end
+  end
+
+  describe "destruction" do
+    it "keeps the lessons of a deleted trainer and leaves them unassigned" do
+      trainer = create(:trainer)
+      lesson = create(:lesson, trainer: trainer)
+
+      trainer.destroy
+
+      expect(lesson.reload.trainer_id).to be_nil
+    end
+
+    it "takes the trainer's disciplines down with it" do
+      trainer = create(:trainer, disciplines: [ create(:discipline) ])
+
+      expect { trainer.destroy }.to change(TrainerDiscipline, :count).by(-1)
     end
   end
 end

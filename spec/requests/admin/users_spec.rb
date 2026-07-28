@@ -43,6 +43,35 @@ RSpec.describe "Admin Users", type: :request do
       end
     end
 
+    describe "GET /admin/kullanicilar/new" do
+      it "offers only the roles that carry panel access" do
+        get new_admin_user_path
+
+        roles = Nokogiri::HTML(response.body).css("select[name='user[role]'] option").map(&:text)
+        expect(roles).to contain_exactly("Yönetici", "Personel")
+      end
+    end
+
+    describe "POST /admin/kullanicilar with a role the panel does not offer" do
+      it "ignores the submitted role and falls back to the default" do
+        post admin_users_path, params: { user: valid_params.merge(role: "athlete") }
+
+        expect(User.find_by(username: "new_member")).to be_staff
+      end
+    end
+
+    describe "POST /admin/kullanicilar with too short a password" do
+      it "returns 422 and does not create a user" do
+        short = "a" * (User::MINIMUM_PASSWORD_LENGTH - 1)
+
+        expect {
+          post admin_users_path, params: { user: valid_params.merge(password: short, password_confirmation: short) }
+        }.not_to change(User, :count)
+
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+    end
+
     describe "POST /admin/kullanicilar with mismatched passwords" do
       it "returns 422 and does not create a user" do
         expect {
@@ -64,6 +93,22 @@ RSpec.describe "Admin Users", type: :request do
         expect(response).to redirect_to(admin_users_path)
       end
 
+      it "refuses to demote a user into a role without panel access" do
+        user = create(:user, :admin)
+
+        patch admin_user_path(user), params: { user: { role: "athlete" } }
+
+        expect(user.reload).to be_admin
+      end
+
+      it "refuses to promote an account that has no panel access to begin with" do
+        athlete = create(:user, :athlete)
+
+        patch admin_user_path(athlete), params: { user: { role: "admin" } }
+
+        expect(athlete.reload).to be_athlete
+      end
+
       it "keeps the current password when the password fields are left blank" do
         user = create(:user, :staff)
 
@@ -72,7 +117,7 @@ RSpec.describe "Admin Users", type: :request do
         }
 
         expect(user.reload.username).to eq("renamed_user")
-        expect(user.authenticate("secret123")).to be_truthy
+        expect(user.authenticate(AdminAuth::PASSWORD)).to be_truthy
       end
     end
 

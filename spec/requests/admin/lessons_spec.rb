@@ -27,13 +27,32 @@ RSpec.describe "Admin Lessons", type: :request do
     before { sign_in(admin) }
 
     describe "GET /admin/dersler" do
-      it "returns 200 and wires the + Yeni link to the modal frame" do
+      it "opens the new-lesson form in the modal frame rather than a page of its own" do
         get admin_lessons_path
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('id="admin-modal"')
-        expect(response.body).to include('id="admin_modal_frame"')
-        expect(response.body).to include('data-turbo-frame="admin_modal_frame"')
+        trigger = Nokogiri::HTML(response.body).at_css("a[href='#{new_admin_lesson_path}']")
+        expect(trigger[:"data-turbo-frame"]).to eq("admin_modal_frame")
+      end
+
+      it "shows each lesson with its trainer in the weekly calendar" do
+        create(:lesson, name: "Muay Thai", day_of_week: :monday, start_time: "19:15", end_time: "20:15",
+                        trainer: create(:trainer, name: "Mehmet Demir"))
+
+        get admin_lessons_path
+
+        expect(response.body).to include("Muay Thai", "Mehmet Demir")
+      end
+
+      it "points every empty slot at the new-lesson form for that slot" do
+        create(:lesson, day_of_week: :monday, start_time: "19:15", end_time: "20:15")
+
+        get admin_lessons_path
+
+        links = Nokogiri::HTML(response.body).css("a[href*='/admin/dersler/new']").map { |link| link[:href] }
+        expect(links).to include(
+          new_admin_lesson_path(day_of_week: "tuesday", start_time: "19:15", end_time: "20:15")
+        )
       end
     end
 
@@ -42,8 +61,17 @@ RSpec.describe "Admin Lessons", type: :request do
         get new_admin_lesson_path
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('id="admin_modal_frame"')
         expect(response.body).to include("Yeni Ders")
+        expect(Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame form")).to be_present
+      end
+
+      it "prefills the slot the admin clicked in the calendar" do
+        get new_admin_lesson_path(day_of_week: "wednesday", start_time: "18:00", end_time: "19:00")
+
+        form = Nokogiri::HTML(response.body)
+        expect(form.at_css("select[name='lesson[day_of_week]'] option[selected]")[:value]).to eq("wednesday")
+        expect(form.at_css("input[name='lesson[start_time]']")[:value]).to start_with("18:00")
+        expect(form.at_css("input[name='lesson[end_time]']")[:value]).to start_with("19:00")
       end
     end
 

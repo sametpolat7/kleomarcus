@@ -14,7 +14,7 @@ RSpec.describe "Public Enrollments", type: :request do
   end
 
   describe "GET /basvuru" do
-    it "renders a discipline-free application form posting back to /basvuru" do
+    it "renders the application form, posting back to /basvuru" do
       get new_enrollment_path
 
       expect(response).to have_http_status(:ok)
@@ -53,6 +53,14 @@ RSpec.describe "Public Enrollments", type: :request do
 
       expect(response).to have_http_status(:unprocessable_content)
     end
+
+    it "refuses a hand-crafted request that leaves the consent parameters out" do
+      expect {
+        post enrollment_path, params: { enrollment: valid_params.except(:info_consent, :kvkk_consent) }
+      }.not_to change(Enrollment, :count)
+
+      expect(response).to have_http_status(:unprocessable_content)
+    end
   end
 
   describe "GET /basvuru/tesekkurler" do
@@ -70,6 +78,19 @@ RSpec.describe "Public Enrollments", type: :request do
 
       get thanks_enrollment_path
       expect(response).to redirect_to(new_enrollment_path)
+    end
+  end
+
+  describe "POST /basvuru over and over" do
+    it "turns the sixth application from the same visitor away" do
+      5.times { post enrollment_path, params: { enrollment: valid_params } }
+
+      expect {
+        post enrollment_path, params: { enrollment: valid_params }
+      }.not_to change(Enrollment, :count)
+
+      expect(response).to redirect_to(new_enrollment_path)
+      expect(flash[:alert]).to include("Çok fazla başvuru")
     end
   end
 end

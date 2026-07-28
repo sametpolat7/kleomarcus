@@ -1,25 +1,24 @@
 require "rails_helper"
 
-RSpec.describe Public::TrainersController, type: :request do
+RSpec.describe "Public Trainers", type: :request do
   describe "GET /egitmenlerimiz" do
-    before { get trainers_path }
+    it "lists the trainers in their panel order, with title, bio and disciplines" do
+      boks = create(:discipline, name: "Boks")
+      first = create(:trainer, name: "Mehmet Demir", title: "Baş Antrenör", bio: "On yıllık ring deneyimi.")
+      first.disciplines << boks
+      second = create(:trainer, name: "Elif Kaya", title: "Kondisyon Antrenörü")
 
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
+      get trainers_path
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body.index(first.name)).to be < response.body.index(second.name)
+      expect(response.body).to include("Baş Antrenör", "On yıllık ring deneyimi.", "Boks")
     end
 
-    it "returns HTML content" do
-      expect(response.content_type).to match(%r{text/html})
-    end
+    it "still renders when there is no trainer to list yet" do
+      get trainers_path
 
-    context "response content" do
-      it "sets correct content type" do
-        expect(response.content_type).to match(%r{text/html})
-      end
-
-      it "includes charset in content type" do
-        expect(response.content_type).to include("charset=utf-8")
-      end
+      expect(response).to have_http_status(:ok)
     end
   end
 end

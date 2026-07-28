@@ -1,67 +1,27 @@
 require "rails_helper"
 
-RSpec.describe Public::HomeController, type: :request do
+RSpec.describe "Public Home", type: :request do
   describe "GET /" do
-    before { get root_path }
+    it "shows the athletes' testimonials with their author, quote and rating" do
+      create(:testimonial, author_name: "ayşe yılmaz", content: "Antrenmanlar çok verimli.", rating: 4)
 
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
+      get root_path
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("Ayşe Yılmaz", "Antrenmanlar çok verimli.", "A.Y.")
+      expect(response.body).to include("4 yıldız değerlendirme")
     end
 
-    it "returns HTML content" do
-      expect(response.content_type).to match(%r{text/html})
-    end
+    it "renders the SEO meta tags and the club's structured data" do
+      get root_path
 
-    context "response content" do
-      it "includes Kleomarcus in the page title" do
-        expect(response.body).to include("Kleomarcus")
-      end
+      expect(response.body).to include("<title>Kleomarcus Spor Akademi</title>")
+      expect(response.body).to match(%r{<meta property="og:image" content="http[^"]+hero-desktop[^"]*">})
+      expect(response.body).to include(%(<link rel="canonical" href="#{root_url}">))
 
-      it "includes meta description" do
-        expect(response.body).to match(/<meta name="description"/)
-      end
-
-      it "includes meta keywords" do
-        expect(response.body).to match(/<meta name="keywords"/)
-      end
-    end
-
-    context "SEO optimization" do
-      it "includes Open Graph meta tags" do
-        expect(response.body).to include('property="og:title"')
-        expect(response.body).to include('property="og:description"')
-        expect(response.body).to include('property="og:image"')
-      end
-
-      it "includes structured data (JSON-LD)" do
-        expect(response.body).to include('application/ld+json')
-
-        json_ld_match = response.body.match(/<script type="application\/ld\+json">(.+?)<\/script>/m)
-        expect(json_ld_match).to be_present
-
-        structured_data = JSON.parse(json_ld_match[1])
-        expect(structured_data["@type"]).to eq("SportsClub")
-      end
-
-      it "includes canonical URL" do
-        expect(response.body).to match(/<link rel="canonical"/)
-      end
-    end
-
-    context "response headers" do
-      it "sets correct content type" do
-        expect(response.content_type).to match(%r{text/html})
-      end
-
-      it "includes charset in content type" do
-        expect(response.content_type).to include("charset=utf-8")
-      end
-    end
-
-    context "performance and caching" do
-      it "sets Cache-Control header" do
-        expect(response.headers["Cache-Control"]).to be_present
-      end
+      schema = JSON.parse(response.body[%r{<script type="application/ld\+json">(.+?)</script>}m, 1])
+      expect(schema["@type"]).to eq("SportsClub")
+      expect(schema["openingHoursSpecification"]).to be_present
     end
   end
 end

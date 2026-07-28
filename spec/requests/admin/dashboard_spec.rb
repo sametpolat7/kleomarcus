@@ -11,16 +11,48 @@ RSpec.describe "Admin Dashboard", type: :request do
     end
   end
 
+  describe "panel access" do
+    it "lets a staff member in" do
+      sign_in(create(:user, :staff))
+
+      get admin_root_path
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "turns away and signs out a user whose role no longer carries panel access" do
+      staff = create(:user, :staff)
+      sign_in(staff)
+      staff.update_column(:role, User.roles[:athlete])
+
+      get admin_root_path
+
+      expect(response).to redirect_to(new_admin_session_path)
+      expect(flash[:alert]).to include("yetkiniz yok")
+      expect(staff.sessions.reload).to be_empty
+    end
+  end
+
   context "authenticated as admin" do
     before { sign_in(admin) }
 
     describe "GET /admin" do
-      it "returns 200 with the resource stat cards" do
+      it "counts every resource on its own stat card" do
+        create(:trainer)
+        create_list(:lesson, 2)
+        create(:enrollment)
+
         get admin_root_path
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include("Antrenörler")
-        expect(response.body).to include("Dersler")
+        cards = Nokogiri::HTML(response.body).css("a.admin-card").map { |card| card.text.squish }
+        expect(cards).to include(
+          a_string_starting_with("Antrenörler 1"),
+          a_string_starting_with("Dersler 2"),
+          a_string_starting_with("Yorumlar 0"),
+          a_string_starting_with("Kullanıcılar 1"),
+          a_string_starting_with("Başvurular 1")
+        )
       end
 
       it "lists recent lessons and testimonials by name" do

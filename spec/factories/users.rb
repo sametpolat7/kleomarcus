@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :user do
-    username { Faker::Internet.username(specifier: 5..12, separators: %w[_]).downcase.gsub(/[^a-z0-9_]/, "_") }
+    sequence(:username) do |n|
+      "#{Faker::Internet.username(specifier: 4..8, separators: %w[_]).downcase.gsub(/[^a-z0-9_]/, "_")}_#{n}"
+    end
     email_address { Faker::Internet.unique.email }
-    password { "secret123" }
-    password_confirmation { "secret123" }
-    role { :staff }
+    password { AdminAuth::PASSWORD }
 
     trait :admin do
       role { :admin }
@@ -12,6 +12,10 @@ FactoryBot.define do
 
     trait :staff do
       role { :staff }
+    end
+
+    trait :athlete do
+      role { :athlete }
     end
   end
 end

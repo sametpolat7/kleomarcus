@@ -1,34 +1,51 @@
 require "rails_helper"
 
-RSpec.describe "Gallery Page", type: :system do
-  it "loads successfully" do
+RSpec.describe "Visitor browses the gallery", :js, type: :system do
+  include Public::GalleriesHelper
+
+  before do
     visit gallery_path
-    expect(page).to have_http_status(:success)
+    wait_for_stimulus("gallery")
   end
 
-  describe "gallery lightbox", :js do
-    it "opens lightbox when gallery item is clicked" do
-      visit gallery_path
-      first("[data-gallery-target='item']").click
-      expect(page).to have_selector("dialog.modal[open]", visible: true)
-    end
+  def photo_sources
+    all("[data-gallery-target='item'] img", visible: :all).map { |img| img[:src] }
+  end
 
-    it "navigates to next image when next button is clicked" do
-      visit gallery_path
-      first("[data-gallery-target='item']").click
-      within("dialog.modal[open]") do
-        find("button[aria-label='Sonraki']").click
-      end
-      expect(page).to have_selector("dialog.modal[open]", visible: true)
-    end
+  it "opens the clicked photo in the lightbox" do
+    first_photo = photo_sources.first
 
-    it "closes lightbox when close button is clicked" do
-      visit gallery_path
-      first("[data-gallery-target='item']").click
-      within("dialog.modal[open]") do
-        find("button[aria-label='Kapat']").click
-      end
-      expect(page).not_to have_selector("dialog.modal[open]", visible: true)
+    first("[data-gallery-target='item']").click
+
+    within("dialog.modal[open]") do
+      expect(find("img")[:src]).to eq(first_photo)
+      expect(find("span")).to have_text("1 / #{gallery_images.size}")
     end
+  end
+
+  it "moves on to the next photo" do
+    second_photo = photo_sources.second
+
+    first("[data-gallery-target='item']").click
+    within("dialog.modal[open]") { find("button[aria-label='Sonraki']").click }
+
+    within("dialog.modal[open]") do
+      expect(find("img")[:src]).to eq(second_photo)
+      expect(find("span")).to have_text("2 / #{gallery_images.size}")
+    end
+  end
+
+  it "closes the lightbox from the close button" do
+    first("[data-gallery-target='item']").click
+    within("dialog.modal[open]") { find("button[aria-label='Kapat']").click }
+
+    expect(page).not_to have_selector("dialog.modal[open]")
+  end
+
+  it "closes the lightbox when the backdrop is clicked" do
+    first("[data-gallery-target='item']").click
+    find("dialog.modal[open] .modal-backdrop").click(x: 5, y: 5, offset: :position)
+
+    expect(page).not_to have_selector("dialog.modal[open]")
   end
 end

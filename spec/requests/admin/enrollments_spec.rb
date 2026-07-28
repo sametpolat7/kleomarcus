@@ -38,7 +38,7 @@ RSpec.describe "Admin Enrollments", type: :request do
       it "ignores a status that is not a known enrollment status" do
         create(:enrollment, full_name: "Zeynep Aydın", status: :called)
 
-        get admin_enrollments_path(status: "silinmis")
+        get admin_enrollments_path(status: "invalid_status")
 
         expect(response.body).to include("Zeynep Aydın")
       end
@@ -51,7 +51,7 @@ RSpec.describe "Admin Enrollments", type: :request do
         get edit_admin_enrollment_path(enrollment)
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('id="admin_modal_frame"')
+        expect(Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame form")).to be_present
         expect(response.body).to include("Zeynep Aydın")
         expect(response.body).to include("0532 123 45 67")
       end
@@ -65,6 +65,26 @@ RSpec.describe "Admin Enrollments", type: :request do
 
         expect(enrollment.reload.status).to eq("positive")
         expect(response).to redirect_to(admin_enrollments_path)
+      end
+
+      it "re-renders the form with an error when the status is not one the panel offers" do
+        enrollment = create(:enrollment, status: :received)
+
+        patch admin_enrollment_path(enrollment), params: { enrollment: { status: "invalid_status" } }
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.body).to include("hata oluştu")
+        expect(enrollment.reload.status).to eq("received")
+      end
+
+      it "leaves the applicant's own answers untouched" do
+        enrollment = create(:enrollment, full_name: "Zeynep Aydın")
+
+        patch admin_enrollment_path(enrollment), params: {
+          enrollment: { status: "called", full_name: "Başkası", phone: "05000000000" }
+        }
+
+        expect(enrollment.reload).to have_attributes(status: "called", full_name: "Zeynep Aydın")
       end
     end
 
