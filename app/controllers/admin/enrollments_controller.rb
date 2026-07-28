@@ -15,7 +15,7 @@ class Admin::EnrollmentsController < Admin::BaseController
     if @enrollment.update(enrollment_params)
       redirect_to admin_enrollments_path, notice: "Başvuru güncellendi."
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

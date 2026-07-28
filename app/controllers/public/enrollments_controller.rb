@@ -15,7 +15,7 @@ class Public::EnrollmentsController < Public::BaseController
       session[:enrollment_completed] = true
       redirect_to thanks_enrollment_path
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

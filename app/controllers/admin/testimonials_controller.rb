@@ -15,7 +15,7 @@ class Admin::TestimonialsController < Admin::BaseController
     if @testimonial.save
       redirect_to admin_testimonials_path, notice: "Yorum oluşturuldu."
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -25,7 +25,7 @@ class Admin::TestimonialsController < Admin::BaseController
     if @testimonial.update(testimonial_params)
       redirect_to admin_testimonials_path, notice: "Yorum güncellendi."
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
