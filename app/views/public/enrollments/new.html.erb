@@ -120,7 +120,7 @@
               <%# Consents %>
               <div class="sm:col-span-2 space-y-3 border-t border-base-300 pt-5">
                 <label class="flex items-start gap-3 cursor-pointer">
-                  <%= f.check_box :info_consent,
+                  <%= f.check_box :info_consent, required: true,
                         class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @enrollment.errors[:info_consent].any?}" %>
                   <span class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
                     Verdiğim bilgilerin doğru olduğunu onaylıyor, benimle iletişime geçilmesini kabul ediyorum.
@@ -128,7 +128,7 @@
                 </label>
 
                 <label class="flex items-start gap-3 cursor-pointer">
-                  <%= f.check_box :kvkk_consent,
+                  <%= f.check_box :kvkk_consent, required: true,
                         class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @enrollment.errors[:kvkk_consent].any?}" %>
                   <span class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
                     <button type="button" class="link link-primary font-medium" data-action="click->modal#open">KVKK Aydınlatma Metni</button>'ni okudum ve kabul ediyorum.
