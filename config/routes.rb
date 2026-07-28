@@ -31,8 +31,4 @@ Rails.application.routes.draw do
   if Rails.env.local?
     get "hatalar/:code", to: "errors#show", as: :error_preview, constraints: { code: /[45]\d\d/ }
   end
-
-  # PWA routes (uncomment when PWA is enabled)
-  # get "manifest", to: "pwa#manifest", as: :pwa_manifest
-  # get "service-worker", to: "pwa#service_worker", as: :pwa_service_worker
 end
