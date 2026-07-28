@@ -10,20 +10,12 @@ tr:
         info_consent: Bilgi doğruluğu ve iletişim onayı
         kvkk_consent: KVKK aydınlatma metni onayı
         status: Durum
-        statuses:
-          received: Yeni
-          called: Arandı
-          positive: Olumlu
-          negative: Olumsuz
-          undecided: Kararsız
       lesson:
         name: Ders Adı
         day_of_week: Gün
         start_time: Başlangıç
         end_time: Bitiş
-        kind:
-          solo: Özel Ders
-          team: Grup Dersi
+        kind: Tür
       testimonial:
         author_name: Yazar
         content: İçerik
@@ -31,11 +23,27 @@ tr:
       trainer:
         name: İsim
         title: Ünvan
+        position: Sıra
+        photo: Fotoğraf
       user:
         username: Kullanıcı Adı
         email_address: E-posta
         password: Şifre
         password_confirmation: Şifre Tekrarı
+        role: Rol
+    enums:
+      enrollment:
+        status:
+          received: Yeni
+          called: Arandı
+          positive: Olumlu
+          negative: Olumsuz
+          undecided: Kararsız
+      lesson:
+        kind:
+          solo: Özel Ders
+          team: Grup Dersi
+      user:
         role:
           admin: Yönetici
           staff: Personel

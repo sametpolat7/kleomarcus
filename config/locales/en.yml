@@ -9,20 +9,13 @@ en:
         message: Message
         info_consent: Information accuracy and contact consent
         kvkk_consent: KVKK privacy notice consent
-        statuses:
-          received: New
-          called: Called
-          positive: Positive
-          negative: Negative
-          undecided: Undecided
+        status: Status
       lesson:
         name: Name
         day_of_week: Day
         start_time: Start Time
         end_time: End Time
-        kind:
-          solo: Private Lesson
-          team: Group Lesson
+        kind: Type
       testimonial:
         author_name: Author
         content: Content
@@ -30,11 +23,28 @@ en:
       trainer:
         name: Name
         title: Title
+        position: Position
+        photo: Photo
       user:
         username: Username
         email_address: Email
         password: Password
         password_confirmation: Password Confirmation
+        role: Role
+    enums:
+      enrollment:
+        status:
+          received: New
+          called: Called
+          positive: Positive
+          negative: Negative
+          undecided: Undecided
+      lesson:
+        kind:
+          solo: Private Lesson
+          team: Group Lesson
+      user:
         role:
           admin: Administrator
           staff: Staff
+          athlete: Athlete
