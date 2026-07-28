@@ -1,3 +1,4 @@
+<%# locals: (enrollment:) %>
 <%= render "shared/admin/form_errors", resource: enrollment %>
 
 <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mb-6">
@@ -49,7 +50,7 @@
   <div>
     <label class="admin-form-label" for="enrollment_status">Durum</label>
     <%= f.select :status,
-          Enrollment.statuses.keys.map { |k| [ Enrollment.enum_label(:statuses, k), k ] },
+          Enrollment.statuses.keys.map { |k| [ Enrollment.enum_label(:status, k), k ] },
           {},
           { id: "enrollment_status", class: "select select-bordered w-full" } %>
   </div>

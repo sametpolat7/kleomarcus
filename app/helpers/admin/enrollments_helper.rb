@@ -8,7 +8,7 @@ module Admin::EnrollmentsHelper
   }.freeze
 
   def enrollment_status_label(enrollment)
-    badge(Enrollment.enum_label(:statuses, enrollment.status), variant: ENROLLMENT_STATUS_VARIANTS[enrollment.status])
+    badge(Enrollment.enum_label(:status, enrollment.status), variant: ENROLLMENT_STATUS_VARIANTS[enrollment.status])
   end
 
   def format_phone(value)

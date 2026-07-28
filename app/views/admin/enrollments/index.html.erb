@@ -6,7 +6,7 @@
   <%= link_to "Tümü", admin_enrollments_path, class: "btn btn-sm #{@status.nil? ? "btn-primary" : "btn-ghost"}" %>
 
   <% Enrollment.statuses.keys.each do |status| %>
-    <%= link_to Enrollment.enum_label(:statuses, status),
+    <%= link_to Enrollment.enum_label(:status, status),
           admin_enrollments_path(status: status), class: "btn btn-sm #{@status == status ? "btn-primary" : "btn-ghost"}" %>
   <% end %>
 </div>
