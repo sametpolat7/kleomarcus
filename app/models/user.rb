@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_secure_password
 
   # Enums
-  enum :role, { admin: 0, staff: 1, athlete: 2 }
+  enum :role, { admin: 0, staff: 1, athlete: 2 }, validate: true
 
   # Associations
   has_many :sessions, dependent: :destroy

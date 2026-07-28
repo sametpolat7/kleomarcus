@@ -10,8 +10,8 @@ class Lesson < ApplicationRecord
     thursday: 4,
     friday: 5,
     saturday: 6
-  }
-  enum :kind, { solo: 0, team: 1 }
+  }, validate: { allow_nil: true }
+  enum :kind, { solo: 0, team: 1 }, validate: { allow_nil: true }
 
   # Associations
   belongs_to :trainer, optional: true
