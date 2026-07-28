@@ -9,7 +9,7 @@ class Enrollment < ApplicationRecord
   attribute :kvkk_consent, :boolean
 
   # Enums
-  enum :status, { received: 0, called: 1, positive: 2, negative: 3, undecided: 4 }
+  enum :status, { received: 0, called: 1, positive: 2, negative: 3, undecided: 4 }, validate: true
 
   # Validations
   validates :full_name, presence: true, length: { maximum: 100 }
@@ -19,8 +19,8 @@ class Enrollment < ApplicationRecord
     only_integer: true, greater_than_or_equal_to: 3, less_than_or_equal_to: 75, allow_nil: true
   }
   validates :message, length: { maximum: 1000 }
-  validates :info_consent, acceptance: true
-  validates :kvkk_consent, acceptance: true
+  validates :info_consent, acceptance: { allow_nil: false }, on: :create
+  validates :kvkk_consent, acceptance: { allow_nil: false }, on: :create
 
   # Normalizations
   normalizes_titlecase :full_name
