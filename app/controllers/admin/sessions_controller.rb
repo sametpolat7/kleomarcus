@@ -1,6 +1,7 @@
 class Admin::SessionsController < Admin::BaseController
   allow_unauthenticated_access only: %i[new create]
   skip_before_action :require_panel_access, only: %i[new create]
+  before_action :redirect_signed_in_users, only: %i[new create]
   rate_limit to: 10,
              within: 3.minutes,
              only: :create,
@@ -9,7 +10,7 @@ class Admin::SessionsController < Admin::BaseController
   def new; end
 
   def create
-    user = User.authenticate_by(params.permit(:username, :password))
+    user = User.authenticate_by(credentials)
 
     if user&.panel_access?
       start_new_session_for user
@@ -25,6 +26,17 @@ class Admin::SessionsController < Admin::BaseController
   end
 
   private
+
+  def redirect_signed_in_users
+    redirect_to admin_root_path if authenticated? && Current.user.panel_access?
+  end
+
+  def credentials
+    params.permit(:username, :password)
+          .to_h
+          .transform_values { |value| value.is_a?(String) ? value : "" }
+          .reverse_merge("username" => "", "password" => "")
+  end
 
   def after_authentication_url
     session.delete(:return_to_after_authenticating) || admin_root_url
