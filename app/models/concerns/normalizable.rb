@@ -9,13 +9,8 @@
 module Normalizable
   extend ActiveSupport::Concern
 
-  # Unicode-safe title casing. Unlike String#titleize, this preserves non-ASCII uppercase letters (e.g. Turkish Ç, Ö, Ü, Ş, Ğ, İ) at word starts instead of dropping them to lowercase.
-  TITLECASE = ->(value) { value.to_s.split.map(&:capitalize).join(" ") }
-
-  # Trims surrounding whitespace.
+  TITLECASE = ->(value) { value.to_s.split.map { |word| word.capitalize(:turkic) }.join(" ") }
   STRIP = ->(value) { value.to_s.strip }
-
-  # Trims surrounding whitespace and lowercases.
   DOWNCASE = ->(value) { value.to_s.strip.downcase }
 
   class_methods do
