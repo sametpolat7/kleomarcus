@@ -1,5 +1,5 @@
 module AdminAuth
-  PASSWORD = "secret123"
+  PASSWORD = SecureRandom.alphanumeric(16)
 
   def sign_in(user, password: PASSWORD)
     post admin_session_path, params: { username: user.username, password: password }

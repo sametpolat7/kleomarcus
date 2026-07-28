@@ -8,8 +8,8 @@ RSpec.describe "Admin Users", type: :request do
       username: "new_member",
       email_address: "new_member@test.local",
       role: "staff",
-      password: "secret123",
-      password_confirmation: "secret123"
+      password: AdminAuth::PASSWORD,
+      password_confirmation: AdminAuth::PASSWORD
     }
   end
 
