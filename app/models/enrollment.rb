@@ -14,7 +14,7 @@ class Enrollment < ApplicationRecord
   # Validations
   validates :full_name, presence: true, length: { maximum: 100 }
   validates :phone, presence: true, format: { with: PHONE_REGEXP, allow_blank: true }
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
+  validates :email, length: { maximum: 255 }, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
   validates :age, presence: true, numericality: {
     only_integer: true, greater_than_or_equal_to: 3, less_than_or_equal_to: 75, allow_nil: true
   }
@@ -25,7 +25,12 @@ class Enrollment < ApplicationRecord
   # Normalizations
   normalizes_titlecase :full_name
   normalizes_downcased :email
-  normalizes :phone, with: ->(value) { value.to_s.gsub(/[\s\-().]/, "") }
+  normalizes :phone, with: ->(value) {
+    digits = value.to_s.gsub(/[\s\-().+]/, "")
+    digits = digits.delete_prefix("90") if digits.length == 12 && digits.start_with?("90")
+
+    digits.length == 10 && digits.start_with?("5") ? "0#{digits}" : digits
+  }
 
   # Callbacks
   before_save :stamp_kvkk_acceptance
