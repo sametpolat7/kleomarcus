@@ -3,6 +3,8 @@ class Admin::LessonsController < Admin::BaseController
 
   def index
     @schedule = Lesson.schedule
+    @schedule_days = Lesson.schedule_days
+    @schedule_hours = Lesson.schedule_hours
   end
 
   def new
@@ -15,7 +17,7 @@ class Admin::LessonsController < Admin::BaseController
     if @lesson.save
       redirect_to admin_lessons_path, notice: "Ders oluşturuldu."
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -25,7 +27,7 @@ class Admin::LessonsController < Admin::BaseController
     if @lesson.update(lesson_params)
       redirect_to admin_lessons_path, notice: "Ders güncellendi."
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
