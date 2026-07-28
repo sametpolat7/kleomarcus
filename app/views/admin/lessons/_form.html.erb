@@ -1,4 +1,4 @@
-<%# locals: lesson: %>
+<%# locals: (lesson:) %>
 <% day_options = Lesson.day_of_weeks.keys.map { |k| [Lesson.day_name(k), k] } %>
 <% kind_options = Lesson.kinds.keys.map { |k| [Lesson.enum_label(:kind, k), k] } %>
 
