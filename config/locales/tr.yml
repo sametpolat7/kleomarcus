@@ -1,0 +1,55 @@
+tr:
+  activerecord:
+    attributes:
+      enrollment:
+        full_name: Ad Soyad
+        phone: Telefon
+        email: E-posta
+        age: Yaş
+        message: Mesaj
+        info_consent: Bilgi doğruluğu ve iletişim onayı
+        kvkk_consent: KVKK aydınlatma metni onayı
+        status: Durum
+      lesson:
+        name: Ders Adı
+        day_of_week: Gün
+        start_time: Başlangıç
+        end_time: Bitiş
+        kind: Tür
+      testimonial:
+        author_name: Yazar
+        content: İçerik
+        rating: Puan
+      trainer:
+        name: İsim
+        title: Ünvan
+        position: Sıra
+        photo: Fotoğraf
+      user:
+        username: Kullanıcı Adı
+        email_address: E-posta
+        password: Şifre
+        password_confirmation: Şifre Tekrarı
+        role: Rol
+    enums:
+      enrollment:
+        status:
+          received: Yeni
+          called: Arandı
+          positive: Olumlu
+          negative: Olumsuz
+          undecided: Kararsız
+      lesson:
+        kind:
+          solo: Özel Ders
+          team: Grup Dersi
+      user:
+        role:
+          admin: Yönetici
+          staff: Personel
+          athlete: Sporcu
+  # rails-i18n ships no Turkish for has_secure_password's :password_too_long
+  # message (bcrypt's 72-byte limit); fill that single framework gap here.
+  errors:
+    messages:
+      password_too_long: çok uzun (en fazla 72 karakter)

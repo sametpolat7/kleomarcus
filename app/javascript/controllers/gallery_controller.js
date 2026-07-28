@@ -1,15 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
 
-/**
- * Gallery Controller - Reusable lightbox for image galleries
- *
- * Usage:
- *   <div data-controller="gallery">
- *     <figure data-gallery-target="item" data-action="click->gallery#open">
- *       <img src="..." alt="...">
- *     </figure>
- *   </div>
- */
 export default class extends Controller {
   static targets = ["item"];
   static values = { index: { type: Number, default: 0 } };
@@ -17,11 +7,14 @@ export default class extends Controller {
   connect() {
     this.createLightbox();
     this.bindKeyboard();
+    this.boundBeforeCache = () => this.lightbox?.remove();
+    document.addEventListener("turbo:before-cache", this.boundBeforeCache);
   }
 
   disconnect() {
     this.lightbox?.remove();
     document.removeEventListener("keydown", this.handleKeydown);
+    document.removeEventListener("turbo:before-cache", this.boundBeforeCache);
   }
 
   open(event) {
@@ -46,8 +39,6 @@ export default class extends Controller {
     this.lightbox.close();
   }
 
-  // Private
-
   render() {
     const item = this.itemTargets[this.indexValue];
     if (!item) return;
@@ -66,7 +57,7 @@ export default class extends Controller {
     this.lightbox = document.createElement("dialog");
     this.lightbox.className = "modal";
     this.lightbox.innerHTML = `
-      <div class="modal-backdrop bg-black/95" data-action="click->gallery#close"></div>
+      <div class="modal-backdrop bg-black/95"></div>
       <div class="fixed inset-0 flex items-center justify-center pointer-events-none p-4 sm:p-8">
         <img class="max-w-full max-h-full object-contain pointer-events-auto" src="" alt="">
       </div>
@@ -78,6 +69,9 @@ export default class extends Controller {
 
     this.image = this.lightbox.querySelector("img");
     this.counter = this.lightbox.querySelector("span");
+    this.lightbox
+      .querySelector(".modal-backdrop")
+      .addEventListener("click", () => this.close());
 
     const buttons = this.lightbox.querySelectorAll("button");
     buttons[0].addEventListener("click", () => this.close());

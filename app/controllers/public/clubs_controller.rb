@@ -1,13 +1,3 @@
-class Public::ClubsController < ApplicationController
-  def show
-  end
-
-  def trainers
-  end
-
-  def schedules
-  end
-
-  def gallery
-  end
+class Public::ClubsController < Public::BaseController
+  def show; end
 end

@@ -1,0 +1,100 @@
+<% content_for :title, "Pano · Kleomarcus Admin" %>
+
+<%= admin_page_header "Pano", subtitle: "Genel bakış ve son etkinlikler." %>
+
+<% cards = [
+     { label: "Antrenörler", count: @stats[:trainers],     path: admin_trainers_path,     accent: "bg-primary" },
+     { label: "Dersler",     count: @stats[:lessons],      path: admin_lessons_path,      accent: "bg-secondary" },
+     { label: "Yorumlar",    count: @stats[:testimonials], path: admin_testimonials_path, accent: "bg-accent" },
+     { label: "Başvurular",  count: @stats[:enrollments],  path: admin_enrollments_path,  accent: "bg-success" }
+   ] 
+%>
+
+<% cards << { label: "Kullanıcılar", count: @stats[:users], path: admin_users_path, accent: "bg-info" } if Current.user.admin? %>
+
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
+  <% cards.each do |c| %>
+    <%= link_to c[:path],
+          class: "group admin-card relative overflow-hidden p-5 hover:shadow-md hover:border-base-content/20 transition" do %>
+      <span class="absolute top-0 left-0 h-1 w-full <%= c[:accent] %>"></span>
+      <p class="text-xs font-semibold tracking-widest uppercase text-base-content/50"><%= c[:label] %></p>
+      <p class="mt-2 text-3xl font-display font-bold text-base-content"><%= c[:count] %></p>
+      <p class="mt-3 text-xs text-base-content/60 group-hover:text-base-content/80">
+        Listeyi görüntüle →
+      </p>
+    <% end %>
+  <% end %>
+</section>
+
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <div class="admin-card overflow-hidden">
+    <div class="px-5 py-4 border-b border-base-300 flex items-center justify-between">
+      <h2 class="text-sm font-semibold tracking-wide text-base-content">Son Dersler</h2>
+      <%= link_to "Tümü", admin_lessons_path, class: "text-xs text-base-content/60 hover:text-base-content" %>
+    </div>
+    <% if @recent_lessons.any? %>
+      <ul class="divide-y divide-base-300">
+        <% @recent_lessons.each do |lesson| %>
+          <li class="px-5 py-3 flex items-center justify-between gap-3">
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-base-content truncate"><%= lesson.name %></p>
+              <p class="text-xs text-base-content/60">
+                <%= Lesson.day_name(lesson.day_of_week) %> · <%= lesson.time_range %>
+                <% if lesson.trainer %> · <%= lesson.trainer.name %><% end %>
+              </p>
+            </div>
+            <%= lesson_kind_label(lesson) %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="px-5 py-8 text-center text-sm text-base-content/60">Henüz ders yok.</div>
+    <% end %>
+  </div>
+
+  <div class="admin-card overflow-hidden">
+    <div class="px-5 py-4 border-b border-base-300 flex items-center justify-between">
+      <h2 class="text-sm font-semibold tracking-wide text-base-content">Son Yorumlar</h2>
+      <%= link_to "Tümü", admin_testimonials_path, class: "text-xs text-base-content/60 hover:text-base-content" %>
+    </div>
+    <% if @recent_testimonials.any? %>
+      <ul class="divide-y divide-base-300">
+        <% @recent_testimonials.each do |t| %>
+          <li class="px-5 py-3">
+            <div class="flex items-center justify-between gap-3 mb-1">
+              <p class="text-sm font-medium text-base-content"><%= t.author_name %></p>
+              <span class="text-xs text-warning">
+                <%= "★" * t.rating %><span class="text-base-content/30"><%= "★" * (5 - t.rating) %></span>
+              </span>
+            </div>
+            <p class="text-xs text-base-content/60 line-clamp-2"><%= t.content %></p>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="px-5 py-8 text-center text-sm text-base-content/60">Henüz yorum yok.</div>
+    <% end %>
+  </div>
+
+  <div class="admin-card overflow-hidden">
+    <div class="px-5 py-4 border-b border-base-300 flex items-center justify-between">
+      <h2 class="text-sm font-semibold tracking-wide text-base-content">Yeni Başvurular</h2>
+      <%= link_to "Tümü", admin_enrollments_path(status: :received), class: "text-xs text-base-content/60 hover:text-base-content" %>
+    </div>
+    <% if @recent_enrollments.any? %>
+      <ul class="divide-y divide-base-300">
+        <% @recent_enrollments.each do |enrollment| %>
+          <li class="px-5 py-3 flex items-center justify-between gap-3">
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-base-content truncate"><%= enrollment.full_name %></p>
+              <p class="text-xs text-base-content/60"><%= format_phone(enrollment.phone) %> · <%= format_date(enrollment.created_at) %></p>
+            </div>
+            <%= enrollment_status_label(enrollment) %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="px-5 py-8 text-center text-sm text-base-content/60">Henüz başvuru yok.</div>
+    <% end %>
+  </div>
+</section>

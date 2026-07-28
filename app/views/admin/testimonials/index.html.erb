@@ -1,0 +1,11 @@
+<% content_for :title, "Yorumlar · Kleomarcus Admin" %>
+
+<%= admin_page_header "Yorumlar", subtitle: "Müşteri yorumları ve puanları." do %>
+  <%= modal_trigger "+ Yeni Yorum", new_admin_testimonial_path %>
+<% end %>
+
+<%= render "shared/admin/table",
+      columns: ["Yazar", "Başlık", "Puan", "İçerik"],
+      rows: @testimonials,
+      row_partial: "admin/testimonials/row",
+      pagy: @pagy %>

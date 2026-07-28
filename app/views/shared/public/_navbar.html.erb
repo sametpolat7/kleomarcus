@@ -1,0 +1,154 @@
+<header class="fixed top-0 left-0 right-0 z-50 bg-base-100/95 backdrop-blur-sm shadow-sm font-display">
+
+  <nav class="flex items-center justify-between mx-auto py-2 sm:py-3 px-4 sm:px-8 lg:px-16" aria-label="Ana Navigasyon">
+
+    <%# Logo - Left Side %>
+    <div class="flex-shrink-0">
+      <%= link_to root_path, class: "text-xl sm:text-2xl lg:text-3xl font-bold text-primary hover:text-secondary transition-colors", "aria-label": "Kleomarcus Ana Sayfa" do %>
+        KLEOMARCUS
+      <% end %>
+    </div>
+
+    <%# Right Side %>
+    <div class="flex items-center gap-2 lg:gap-4">
+      <%# Desktop Navigation Links %>
+      <ul class="hidden lg:flex items-center text-sm text-base-content">
+        <li>
+          <%= link_to "Ana Sayfa", root_path, class: "relative px-3 py-2 transition-colors hover:text-primary after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4" %>
+        </li>
+        <li>
+          <%= link_to "Kulübümüz", club_path, class: "relative px-3 py-2 transition-colors hover:text-primary after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4" %>
+        </li>
+        <li>
+          <%= link_to "Antrenörlerimiz", trainers_path, class: "relative px-3 py-2 transition-colors hover:text-primary after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4" %>
+        </li>
+        <li>
+          <%= link_to "Ders Programı", lessons_path, class: "relative px-3 py-2 transition-colors hover:text-primary after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4" %>
+        </li>
+        <li>
+          <%= link_to "Galeri", gallery_path, class: "relative px-3 py-2 transition-colors hover:text-primary after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4" %>
+        </li>
+        <li class="ml-2">
+          <%= link_to new_enrollment_path, class: "btn btn-secondary btn-sm px-5 text-secondary-content shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7l-2 2-1-1" />
+            </svg>
+            Başvuru
+          <% end %>
+        </li>
+        <li class="ml-2">
+          <%= link_to root_path(anchor: "contact"), class: "btn btn-primary btn-sm px-5 text-primary-content shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            İletişim
+          <% end %>
+        </li>
+      </ul>
+
+      <%# Theme Toggle %>
+      <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm sm:btn-md" data-controller="theme" aria-label="Tema Değiştir">
+        <input type="checkbox" data-action="change->theme#toggleTheme" class="theme-controller">
+        <svg class="swap-off w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="4" stroke-width="2"/>
+          <path stroke-width="2" d="M12 2v2m0 16v2m-8-10H2m20 0h-2M5.64 5.64l1.41 1.41m9.9 9.9l1.41 1.41m-12.72 0l1.41-1.41m9.9-9.9l1.41-1.41"/>
+        </svg>
+        <svg class="swap-on w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-width="2" d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+        </svg>
+      </label>
+
+      <%# Mobile Menu Button - Visible only on mobile/tablet %>
+      <div class="dropdown dropdown-end lg:hidden">
+        <button tabindex="0" class="btn btn-ghost btn-circle btn-sm sm:btn-md" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div id="mobile-menu" tabindex="0" class="dropdown-content bg-base-100 rounded-xl shadow-2xl mt-3 w-56 z-50 border border-base-200 overflow-hidden">
+          <%# Mobile Menu Header %>
+          <div class="px-3 py-3 bg-base-200/50 border-b border-base-200">
+            <span class="text-xs tracking-widest text-base-content/50">
+              Menü
+            </span>
+          </div>
+
+          <%# Mobile Menu Items %>
+          <ul class="menu menu-sm p-2">
+            <li>
+              <%= link_to root_path, class: "py-3 rounded-lg transition-colors hover:bg-base-200 hover:text-primary" do %>
+                <span class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                  Ana Sayfa
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to club_path, class: "py-3 rounded-lg transition-colors hover:bg-base-200 hover:text-primary" do %>
+                <span class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  Kulübümüz
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to trainers_path, class: "py-3 rounded-lg transition-colors hover:bg-base-200 hover:text-primary" do %>
+                <span class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  Antrenörlerimiz
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to lessons_path, class: "py-3 rounded-lg transition-colors hover:bg-base-200 hover:text-primary" do %>
+                <span class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Ders Programı
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to gallery_path, class: "py-3 rounded-lg transition-colors hover:bg-base-200 hover:text-primary" do %>
+                <span class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Galeri
+                </span>
+              <% end %>
+            </li>
+          </ul>
+
+          <%# Enrollment + Contact %>
+          <div class="p-3 bg-base-200/30 border-t border-base-200 space-y-2">
+            <%= link_to new_enrollment_path, class: "btn btn-secondary btn-sm w-full gap-2 shadow-md" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7l-2 2-1-1" />
+              </svg>
+              Başvuru
+            <% end %>
+            <%= link_to root_path(anchor: "contact"), class: "btn btn-primary btn-sm w-full gap-2 shadow-md" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              İletişim
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+
+</header>
+
+<%# Spacer for fixed navbar %>
+<div class="h-12 sm:h-14 lg:h-16"></div>

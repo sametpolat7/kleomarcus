@@ -1,0 +1,55 @@
+<%# locals: (trainer:, disciplines:) %>
+<%= render "shared/admin/form_errors", resource: trainer %>
+
+<%= form_with model: [:admin, trainer], multipart: true, class: "grid grid-cols-1 sm:grid-cols-2 gap-5" do |f| %>
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="trainer_name">İsim</label>
+    <%= f.text_field :name, id: "trainer_name", class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="trainer_title">Ünvan</label>
+    <%= f.text_field :title, id: "trainer_title", class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="trainer_bio">Biyografi</label>
+    <%= f.text_area :bio, id: "trainer_bio", rows: 5, class: "textarea textarea-bordered w-full" %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="trainer_position">Sıra</label>
+    <%= f.number_field :position, id: "trainer_position", class: "input input-bordered w-full", min: 1 %>
+    <p class="mt-1 text-xs text-base-content/50">Listede görüneceği sıra (1 = en üst).</p>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="trainer_photo">Fotoğraf</label>
+    <%= f.file_field :photo, id: "trainer_photo", accept: "image/*", class: "file-input file-input-bordered w-full" %>
+    <% if trainer.photo.attached? %>
+      <p class="mt-1 text-xs text-base-content/50">Mevcut fotoğraf yüklendi. Değiştirmek için yeni bir dosya seçin.</p>
+    <% end %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <span class="admin-form-label">Branşlar</span>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-1">
+      <% disciplines.each do |discipline| %>
+        <label class="flex items-center gap-2 px-3 py-2 border border-base-300 rounded-lg cursor-pointer hover:bg-base-200 transition-colors">
+          <%= check_box_tag "trainer[discipline_ids][]", discipline.id,
+                trainer.discipline_ids.include?(discipline.id),
+                class: "checkbox checkbox-sm checkbox-primary" %>
+          <span class="text-sm"><%= discipline.name %></span>
+        </label>
+      <% end %>
+    </div>
+    <%= hidden_field_tag "trainer[discipline_ids][]", "" %>
+  </div>
+
+  <div class="sm:col-span-2 flex items-center justify-end gap-2 pt-3 border-t border-base-300">
+    <%= link_to "İptal", admin_trainers_path,
+          class: "btn btn-ghost",
+          data: { action: "click->modal#close" } %>
+    <%= f.submit (trainer.persisted? ? "Güncelle" : "Oluştur"), class: "btn btn-primary" %>
+  </div>
+<% end %>

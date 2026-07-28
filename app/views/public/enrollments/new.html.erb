@@ -1,0 +1,245 @@
+<%# SEO Meta Tags for the enrollment application page %>
+<%= set_seo_meta(
+  title: "Başvuru",
+  description: "Kleomarcus Spor Akademi başvuru formu. Çanakkale'de Boks, Kick Boks, Muay Thai, Wushu, MMA, CrossFit ve Yüzme branşlarında her yaşa uygun eğitim için başvurunuzu bırakın, ekibimiz sizi arayarak bilgilendirsin.",
+  keywords: "kleomarcus başvuru, çanakkale spor akademi başvuru, boks kursu çanakkale, kick boks çanakkale, muay thai çanakkale, mma çanakkale, crossfit çanakkale, yüzme kursu çanakkale, spor kursu başvuru",
+  og_description: "Kleomarcus Spor Akademi — Çanakkale'de her yaşa uygun spor eğitimi. Başvurunuzu bırakın, sizi arayalım."
+) %>
+
+<%# Structured Data for SEO %>
+<% content_for :structured_data do %>
+  <%= structured_data_tag({
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Başvuru - Kleomarcus Spor Akademi",
+    "description": "Kleomarcus Spor Akademi başvuru formu. Başvurunuzu bırakın, ekibimiz sizi arayarak bilgilendirsin.",
+    "url": request.original_url,
+    "mainEntity": organization_schema
+  }) %>
+<% end %>
+
+<div data-controller="modal">
+
+  <%# Page Header — image-free typographic band %>
+  <section class="bg-neutral-950" aria-labelledby="enrollment-title">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <h1 id="enrollment-title" class="font-display text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.05] mb-4 sm:mb-5">
+        Başvuru Formu
+      </h1>
+
+      <div class="relative w-full max-w-xs sm:max-w-sm mb-5 sm:mb-6">
+        <div class="h-[2px] w-full bg-gradient-to-r from-primary via-primary/60 to-transparent"></div>
+        <div class="absolute -left-1 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-primary rotate-45"></div>
+      </div>
+
+      <p class="max-w-2xl text-sm sm:text-base text-white/70 leading-relaxed">
+        Formu doldurmanız yeterli; ekibimiz sizi 1-3 iş günü içinde arayarak bilgilendirir ve kaydınızı oluşturur.
+      </p>
+    </div>
+  </section>
+
+  <%# Application Form + Aside %>
+  <section class="py-10 sm:py-14 lg:py-16 bg-base-100" aria-labelledby="form-title">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14">
+
+        <%# Form %>
+        <div class="lg:col-span-7 xl:col-span-8">
+          <div class="border border-base-300 bg-base-100 p-5 sm:p-7">
+
+            <header class="mb-6">
+              <h2 id="form-title" class="font-display text-base sm:text-lg font-bold text-base-content">
+                Kayıt Başvurusu
+              </h2>
+              <p class="mt-1 text-xs sm:text-sm text-base-content/60">
+                Zorunlu alanlar <span class="text-primary font-semibold">*</span> ile işaretlenmiştir.
+              </p>
+            </header>
+
+            <%= render "shared/public/form_errors", resource: @enrollment %>
+
+            <%= form_with model: @enrollment, url: enrollment_path, class: "grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5" do |f| %>
+              <div class="sm:col-span-2">
+                <label class="label text-sm font-medium" for="enrollment_full_name">
+                  Ad Soyad <span class="text-primary" aria-hidden="true">*</span>
+                </label>
+                <%= f.text_field :full_name, id: "enrollment_full_name", required: true, autocomplete: "name",
+                      placeholder: "Örn. Ahmet Yılmaz",
+                      class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:full_name].any?}" %>
+              </div>
+
+              <div>
+                <label class="label text-sm font-medium" for="enrollment_phone">
+                  Telefon <span class="text-primary" aria-hidden="true">*</span>
+                </label>
+                <%= f.telephone_field :phone, id: "enrollment_phone", required: true, autocomplete: "tel", placeholder: "05XX XXX XX XX",
+                      inputmode: "tel",
+                      data: {
+                        controller: "numeric-input",
+                        numeric_input_max_length_value: 11,
+                        numeric_input_country_code_value: "90",
+                        action: "input->numeric-input#format"
+                      },
+                      class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:phone].any?}" %>
+              </div>
+
+              <div>
+                <label class="label text-sm font-medium" for="enrollment_age">
+                  Yaş <span class="text-primary" aria-hidden="true">*</span>
+                </label>
+                <%= f.text_field :age, id: "enrollment_age", required: true, inputmode: "numeric", autocomplete: "off",
+                      placeholder: "Örn. 24",
+                      data: {
+                        controller: "numeric-input",
+                        numeric_input_max_length_value: 2,
+                        action: "input->numeric-input#format"
+                      },
+                      class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:age].any?}" %>
+                <p class="mt-1.5 text-xs text-base-content/50">Kursa katılacak kişinin yaşı.</p>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="label text-sm font-medium" for="enrollment_email">
+                  E-posta
+                  <span class="ml-1 text-xs font-normal text-base-content/40">(İsteğe bağlı)</span>
+                </label>
+                <%= f.email_field :email, id: "enrollment_email", autocomplete: "email",
+                      placeholder: "ornek@mail.com",
+                      class: "input input-bordered w-full #{"input-error" if @enrollment.errors[:email].any?}" %>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="label text-sm font-medium" for="enrollment_message">
+                  Mesajınız
+                  <span class="ml-1 text-xs font-normal text-base-content/40">(İsteğe bağlı)</span>
+                </label>
+                <%= f.text_area :message, id: "enrollment_message", rows: 4, maxlength: 1000,
+                      placeholder: "İlgilendiğiniz branş veya tercih ettiğiniz günleri buraya yazabilirsiniz.",
+                      class: "textarea textarea-bordered w-full #{"textarea-error" if @enrollment.errors[:message].any?}" %>
+              </div>
+
+              <%# Consents %>
+              <div class="sm:col-span-2 space-y-3 border-t border-base-300 pt-5">
+                <label class="flex items-start gap-3 cursor-pointer">
+                  <%= f.check_box :info_consent, required: true,
+                        class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @enrollment.errors[:info_consent].any?}" %>
+                  <span class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                    Verdiğim bilgilerin doğru olduğunu onaylıyor, benimle iletişime geçilmesini kabul ediyorum.
+                  </span>
+                </label>
+
+                <label class="flex items-start gap-3 cursor-pointer">
+                  <%= f.check_box :kvkk_consent, required: true,
+                        class: "checkbox checkbox-sm checkbox-primary mt-0.5 #{"checkbox-error" if @enrollment.errors[:kvkk_consent].any?}" %>
+                  <span class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                    <button type="button" class="link link-primary font-medium" data-action="click->modal#open">KVKK Aydınlatma Metni</button>'ni okudum ve kabul ediyorum.
+                  </span>
+                </label>
+              </div>
+
+              <%# Submit %>
+              <div class="sm:col-span-2 pt-1">
+                <%= f.submit "Başvuruyu Gönder",
+                      class: "btn btn-primary w-full sm:w-auto px-8 shadow-md hover:shadow-lg transition-all duration-200" %>
+                <p class="mt-3 text-xs text-base-content/50 leading-relaxed">
+                  Herhangi bir ödeme veya ön kayıt ücreti alınmaz.
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <%# Aside %>
+        <aside class="lg:col-span-5 xl:col-span-4">
+          <div class="lg:sticky lg:top-24 space-y-5 sm:space-y-6">
+
+            <%# Process %>
+            <div class="border border-base-300 bg-base-200 p-5 sm:p-6">
+              <h2 class="font-display text-sm sm:text-base font-bold text-base-content mb-5">Süreç Nasıl İşliyor?</h2>
+
+              <ol class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <span class="font-display text-sm font-bold text-primary leading-6">01</span>
+                  <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                    <span class="font-semibold text-base-content">Başvurunuz iletilir.</span>
+                    Formunuz anında ekibimize ulaşır.
+                  </p>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="font-display text-sm font-bold text-primary leading-6">02</span>
+                  <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                    <span class="font-semibold text-base-content">Sizi ararız.</span>
+                    Branşlar, uygun saatler ve ücretler hakkında bilgi veririz.
+                  </p>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="font-display text-sm font-bold text-primary leading-6">03</span>
+                  <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                    <span class="font-semibold text-base-content">Kaydınız oluşturulur.</span>
+                    Size uygun programı birlikte belirleriz.
+                  </p>
+                </li>
+              </ol>
+            </div>
+
+            <%# Contact %>
+            <div class="border border-base-300 bg-base-100 p-5 sm:p-6">
+              <h2 class="font-display text-sm sm:text-base font-bold text-base-content mb-4">Bize Ulaşın</h2>
+
+              <ul class="space-y-3 text-sm">
+                <li>
+                  <span class="block text-xs text-base-content/50 mb-0.5">Telefon</span>
+                  <a href="tel:+905470230899" class="font-medium text-base-content hover:text-primary transition-colors">+90 547 023 08 99</a>
+                </li>
+                <li>
+                  <span class="block text-xs text-base-content/50 mb-0.5">Adres</span>
+                  <a href="https://maps.app.goo.gl/FoZwYCtdZQpWdino9" target="_blank" rel="noopener noreferrer" class="font-medium text-base-content hover:text-primary transition-colors leading-relaxed">
+                    Esenler, Barış Cd. 1/A, 17010 Merkez/Çanakkale
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <%# Data protection note %>
+            <p class="border-l-2 border-primary bg-base-200 p-4 text-xs sm:text-sm text-base-content/70 leading-relaxed">
+              Paylaştığınız bilgiler yalnızca sizinle iletişim kurmak amacıyla kullanılır, üçüncü kişilerle paylaşılmaz.
+            </p>
+
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <%# KVKK Modal — static content, no turbo frame %>
+  <dialog data-modal-target="dialog" class="modal">
+    <div class="modal-box w-full max-w-2xl">
+      <h3 class="font-display text-lg font-bold text-base-content mb-3">KVKK Aydınlatma Metni</h3>
+      <div class="max-h-[60vh] overflow-y-auto space-y-3 text-sm text-base-content/70 leading-relaxed">
+        <p>
+          <strong>Veri Sorumlusu:</strong> Kleomarcus Spor Akademi.
+        </p>
+        <p>
+          Bu form aracılığıyla paylaştığınız ad soyad, telefon numarası, e-posta adresi (isteğe bağlı), yaş
+          ve mesaj bilgileriniz; 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK)
+          kapsamında, yalnızca kurs başvurunuzun değerlendirilmesi, sizinle iletişime geçilmesi ve
+          kurs kaydınızın planlanması amacıyla, açık rızanıza dayanarak işlenir.
+        </p>
+        <p>
+          Bilgileriniz reklam veya pazarlama amacıyla kullanılmaz; üçüncü kişilerle paylaşılmaz ve yurt dışına
+          aktarılmaz. Yalnızca yasal bir yükümlülük doğması halinde yetkili kurum ve kuruluşlarla paylaşılabilir.
+        </p>
+        <p>
+          KVKK'nın 11. maddesi kapsamında; verilerinize erişme, düzeltilmesini veya silinmesini talep etme
+          haklarına sahipsiniz. Taleplerinizi
+          <a href="mailto:info@kleomarcus.com" class="link link-primary">info@kleomarcus.com</a>
+          adresine iletebilirsiniz.
+        </p>
+      </div>
+      <div class="modal-action">
+        <button type="button" class="btn btn-ghost" data-action="click->modal#close">Kapat</button>
+      </div>
+    </div>
+  </dialog>
+</div>

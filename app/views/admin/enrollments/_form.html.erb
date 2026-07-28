@@ -1,0 +1,64 @@
+<%# locals: (enrollment:) %>
+<%= render "shared/admin/form_errors", resource: enrollment %>
+
+<dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mb-6">
+  <div>
+    <dt class="text-xs font-semibold uppercase tracking-wide text-base-content/50">Ad Soyad</dt>
+    <dd class="mt-1 text-sm text-base-content"><%= enrollment.full_name %></dd>
+  </div>
+
+  <div>
+    <dt class="text-xs font-semibold uppercase tracking-wide text-base-content/50">Yaş</dt>
+    <dd class="mt-1 text-sm text-base-content"><%= enrollment.age %></dd>
+  </div>
+
+  <div>
+    <dt class="text-xs font-semibold uppercase tracking-wide text-base-content/50">Telefon</dt>
+    <dd class="mt-1 text-sm"><a href="tel:<%= enrollment.phone %>" class="link link-hover text-primary"><%= format_phone(enrollment.phone) %></a></dd>
+  </div>
+
+  <div>
+    <dt class="text-xs font-semibold uppercase tracking-wide text-base-content/50">E-posta</dt>
+    <dd class="mt-1 text-sm">
+      <% if enrollment.email.present? %>
+        <a href="mailto:<%= enrollment.email %>" class="link link-hover text-primary"><%= enrollment.email %></a>
+      <% else %>
+        <span class="text-base-content/40">—</span>
+      <% end %>
+    </dd>
+  </div>
+
+  <div>
+    <dt class="text-xs font-semibold uppercase tracking-wide text-base-content/50">Başvuru Tarihi</dt>
+    <dd class="mt-1 text-sm text-base-content"><%= format_date(enrollment.created_at) %></dd>
+  </div>
+
+  <div>
+    <dt class="text-xs font-semibold uppercase tracking-wide text-base-content/50">KVKK Onayı</dt>
+    <dd class="mt-1 text-sm text-base-content"><%= format_date(enrollment.kvkk_accepted_at) %></dd>
+  </div>
+
+  <% if enrollment.message.present? %>
+    <div class="sm:col-span-2">
+      <dt class="text-xs font-semibold uppercase tracking-wide text-base-content/50">Mesaj</dt>
+      <dd class="mt-1 text-sm text-base-content/80 leading-relaxed whitespace-pre-line"><%= enrollment.message %></dd>
+    </div>
+  <% end %>
+</dl>
+
+<%= form_with model: [:admin, enrollment] do |f| %>
+  <div>
+    <label class="admin-form-label" for="enrollment_status">Durum</label>
+    <%= f.select :status,
+          Enrollment.statuses.keys.map { |k| [ Enrollment.enum_label(:status, k), k ] },
+          {},
+          { id: "enrollment_status", class: "select select-bordered w-full" } %>
+  </div>
+
+  <div class="flex items-center justify-end gap-2 pt-3 mt-6 border-t border-base-300">
+    <%= link_to "İptal", admin_enrollments_path,
+          class: "btn btn-ghost",
+          data: { action: "click->modal#close" } %>
+    <%= f.submit "Güncelle", class: "btn btn-primary" %>
+  </div>
+<% end %>

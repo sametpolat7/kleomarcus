@@ -35,7 +35,7 @@
 <%= render "public/home/sections/gallery_break_one" %>
 <%= render "public/home/sections/programs" %>
 <%= render "public/home/sections/gallery_break_two" %>
-<%= render "public/home/sections/testimonials" %>
+<%= render "public/home/sections/testimonials" if @testimonials.any? %>
 <%= render "public/home/sections/faq" %>
 <%= render "public/home/sections/membership" %>
 <%= render "public/home/sections/cta" %>

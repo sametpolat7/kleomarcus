@@ -11,8 +11,12 @@ export default class ThemeController extends Controller {
   }
 
   applyInitialTheme() {
-    const storedTheme = localStorage.getItem("theme") || this.lightThemeValue;
-    this.setTheme(storedTheme);
+    const theme =
+      localStorage.getItem("theme") ||
+      document.documentElement.dataset.theme ||
+      this.lightThemeValue;
+
+    this.setTheme(theme);
   }
 
   toggleTheme(event) {

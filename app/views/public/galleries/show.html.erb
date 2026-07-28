@@ -1,0 +1,81 @@
+<%# SEO Meta Tags %>
+<%= set_seo_meta(
+  title: "Galeri",
+  description: "Kleomarcus Spor Akademi fotoğraf galerisi. Antrenmanlar, müsabakalar, kulüp etkinlikleri ve sporcularımızdan kareler. Boks, Kick Boks, Muay Thai, MMA ve CrossFit alanlarından görseller.",
+  keywords: "kleomarcus galeri, kleomarcus fotoğrafları, çanakkale dövüş kulübü görselleri, boks antrenman fotoğrafları, kick boks müsabaka, muay thai görselleri, mma antrenman, crossfit çanakkale, dövüş sporları galerisi",
+  og_description: "Kleomarcus Spor Akademi fotoğraf galerisi — antrenmanlar, müsabakalar ve kulüp etkinliklerinden kareler.",
+  og_image: "public/gallery-break-two.jpeg"
+) %>
+
+<%# Structured Data %>
+<% content_for :structured_data do %>
+  <%= structured_data_tag({
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "Kleomarcus Spor Akademi Fotoğraf Galerisi",
+    "description": "Kleomarcus Spor Akademi fotoğraf galerisi — antrenmanlar, müsabakalar ve kulüp etkinliklerinden kareler.",
+    "url": request.original_url,
+    "provider": organization_schema
+  }) %>
+<% end %>
+
+<%# Hero Section %>
+<%= render "shared/public/page_hero", title: "Galeri", image: "public/gallery-break-two.jpeg", alt_text: "Kleomarcus Spor Akademi Galeri" %>
+
+<%# Gallery Section %>
+<section id="gallery" class="py-8 sm:py-12 md:py-16 lg:py-20 bg-base-100" data-controller="gallery" aria-labelledby="gallery-title">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+    <%# Header %>
+    <header class="mb-6 sm:mb-8 md:mb-12">
+      <h2 id="gallery-title" class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-base-content mb-3 sm:mb-4">
+        Fotoğraf Galerisi
+      </h2>
+      <p class="text-sm sm:text-base text-base-content/70 max-w-xl">
+        Kulübümüzden ve antrenmanlardan kareler.
+      </p>
+    </header>
+
+    <%# Grid %>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+      <% gallery_images.each do |image| %>
+        <figure
+          class="aspect-square cursor-pointer overflow-hidden bg-base-200"
+          data-gallery-target="item"
+          data-action="click->gallery#open"
+        >
+          <%= image_tag image[:src],
+              alt: image[:alt],
+              class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-150',
+              loading: 'lazy' %>
+        </figure>
+      <% end %>
+    </div>
+
+  </div>
+</section>
+
+<%# Call to Action Section %>
+<section id="gallery-cta" class="py-12 sm:py-16 md:py-20 bg-base-200" aria-labelledby="gallery-cta-title">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 id="gallery-cta-title" class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-base-content mb-4 sm:mb-6">
+        Siz de Ailemizin Bir Parçası Olun
+      </h2>
+      <div class="flex items-center justify-center gap-2 sm:gap-3 mb-6">
+        <div class="h-px w-8 sm:w-12 bg-primary"></div>
+        <div class="w-1.5 h-1.5 bg-primary rotate-45"></div>
+        <div class="h-px w-8 sm:w-12 bg-primary"></div>
+      </div>
+      <p class="text-sm sm:text-base md:text-lg text-base-content/70 mb-6 sm:mb-8">
+        Galerimizde gördüğünüz bu enerjinin bir parçası olmak ister misiniz? İlk adımınızı bugün atın ve Kleomarcus ailesine katılın.
+      </p>
+      <%= link_to root_path(anchor: "contact"), class: "btn btn-primary btn-lg gap-2 sm:gap-3 shadow-md hover:shadow-lg" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        İletişime Geçin
+      <% end %>
+    </div>
+  </div>
+</section>

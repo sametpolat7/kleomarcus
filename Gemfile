@@ -5,8 +5,8 @@ gem "rails", "~> 8.1.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 
-# Use SQLite as the database for development, test, and production
-gem "sqlite3", ">= 2.1"
+# Use PostgreSQL as the database for development, test, and production
+gem "pg", "~> 1.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -22,6 +22,12 @@ gem "stimulus-rails"
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
+
+# Pagination [https://github.com/ddnexus/pagy]
+gem "pagy", "~> 9.0"
+
+# Locale data for Rails defaults (validation messages, dates, numbers) [https://github.com/svenfuchs/rails-i18n]
+gem "rails-i18n", "~> 8.0"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -39,6 +45,9 @@ gem "kamal", require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
+
+# Use bcrypt for secure password hashing
+gem "bcrypt", "~> 3.1"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

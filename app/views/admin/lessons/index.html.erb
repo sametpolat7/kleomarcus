@@ -1,0 +1,7 @@
+<% content_for :title, "Dersler · Kleomarcus Admin" %>
+
+<%= admin_page_header "Dersler", subtitle: "Haftalık ders programını yönetin." do %>
+  <%= modal_trigger "+ Yeni Ders", new_admin_lesson_path %>
+<% end %>
+
+<%= render "admin/lessons/calendar", schedule: @schedule, days: @schedule_days, hours: @schedule_hours %>

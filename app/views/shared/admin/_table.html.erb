@@ -1,0 +1,28 @@
+<%# locals: (columns:, rows:, row_partial:, pagy: nil, empty_text: "Kayıt bulunamadı.") %>
+<% if rows.any? %>
+  <div class="admin-card overflow-x-auto">
+    <table class="table">
+      <thead>
+        <tr>
+          <% columns.each do |col| %>
+            <th><%= col %></th>
+          <% end %>
+          <th class="text-right">İşlemler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: row_partial, collection: rows, as: :row %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if pagy.present? && pagy.pages > 1 %>
+    <div class="mt-4 flex justify-center">
+      <%== pagy_nav(pagy) %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="admin-card px-6 py-12 text-center">
+    <p class="text-sm text-base-content/60"><%= empty_text %></p>
+  </div>
+<% end %>

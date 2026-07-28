@@ -1,0 +1,11 @@
+<% content_for :title, "Antrenörler · Kleomarcus Admin" %>
+
+<%= admin_page_header "Antrenörler", subtitle: "Antrenör listesi ve sıralaması." do %>
+  <%= modal_trigger "+ Yeni Antrenör", new_admin_trainer_path %>
+<% end %>
+
+<%= render "shared/admin/table",
+      columns: ["#", "Antrenör", "Ünvan", "Branşlar"],
+      rows: @trainers,
+      row_partial: "admin/trainers/row",
+      pagy: @pagy %>

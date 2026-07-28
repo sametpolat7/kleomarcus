@@ -1,0 +1,62 @@
+<%# locals: (schedule:, days:, hours:) %>
+
+<% if hours.empty? %>
+  <div class="admin-card px-6 py-12 text-center">
+    <p class="text-sm text-base-content/60">Henüz ders eklenmemiş. Yukarıdaki “Yeni Ders” düğmesiyle başlayın.</p>
+  </div>
+<% else %>
+  <%# Desktop: weekly grid (days as columns, time slots as rows) %>
+  <div class="admin-card overflow-x-auto hidden lg:block">
+    <div class="grid" style="grid-template-columns: 5rem repeat(<%= days.size %>, minmax(0, 1fr));">
+      <%# Header row: empty corner + day names %>
+      <div class="sticky left-0 z-10 bg-base-100 border-b border-base-300"></div>
+      <% days.each do |day| %>
+        <div class="border-b border-l border-base-300 px-2 py-3 text-center">
+          <span class="text-sm font-semibold text-base-content"><%= Lesson.day_name(day) %></span>
+        </div>
+      <% end %>
+
+      <%# One row per time slot %>
+      <% hours.each do |start_label, end_label| %>
+        <div class="sticky left-0 z-10 bg-base-100 border-b border-base-300 px-2 py-3 text-right">
+          <span class="block text-xs font-medium text-base-content/80 whitespace-nowrap"><%= start_label %></span>
+          <span class="block text-[0.65rem] text-base-content/40 whitespace-nowrap"><%= end_label %></span>
+        </div>
+
+        <% days.each do |day| %>
+          <%= render "admin/lessons/slot",
+                lessons: schedule.dig(day, start_label),
+                day: day, start_label: start_label, end_label: end_label %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Mobile: vertical flow grouped by day %>
+  <div class="space-y-4 lg:hidden">
+    <% days.each do |day| %>
+      <div class="admin-card overflow-hidden">
+        <div class="bg-base-200/60 px-4 py-2.5 border-b border-base-300">
+          <h2 class="text-sm font-semibold text-base-content"><%= Lesson.day_name(day) %></h2>
+        </div>
+        <div class="divide-y divide-base-200">
+          <% hours.each do |start_label, end_label| %>
+            <div class="flex items-stretch gap-3 px-3 py-2">
+              <div class="w-16 shrink-0 self-center text-right">
+                <span class="block text-xs font-medium text-base-content/80 whitespace-nowrap"><%= start_label %></span>
+                <span class="block text-[0.65rem] text-base-content/40 whitespace-nowrap"><%= end_label %></span>
+              </div>
+              <%= render "admin/lessons/slot",
+                    lessons: schedule.dig(day, start_label),
+                    day: day, start_label: start_label, end_label: end_label %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <p class="mt-3 text-xs text-base-content/50">
+    Bir derse tıklayarak düzenleyin, boş bir hücreye tıklayarak yeni ders ekleyin.
+  </p>
+<% end %>

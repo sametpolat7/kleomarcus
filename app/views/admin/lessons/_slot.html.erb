@@ -1,0 +1,15 @@
+<%# locals: (lessons:, day:, start_label:, end_label:) %>
+<div class="flex flex-1 flex-col gap-1.5 lg:border-b lg:border-l lg:border-base-300 lg:p-1.5 lg:min-h-16 lg:bg-base-200/20">
+  <% if lessons.present? %>
+    <% lessons.each do |lesson| %>
+      <%= render "admin/lessons/cell", lesson: lesson %>
+    <% end %>
+  <% else %>
+    <%= link_to new_admin_lesson_path(day_of_week: day, start_time: start_label, end_time: end_label),
+          class: "group flex flex-1 items-center justify-center rounded-lg border border-dashed border-base-300 text-base-content/30 hover:border-primary hover:text-primary transition-colors min-h-9 lg:min-h-12",
+          data: { turbo_frame: Admin::BaseHelper::MODAL_FRAME },
+          aria: { label: "#{Lesson.day_name(day)} #{start_label} için ders ekle" } do %>
+      <span class="text-lg leading-none opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">+</span>
+    <% end %>
+  <% end %>
+</div>

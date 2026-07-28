@@ -6,9 +6,7 @@ export default class extends Controller {
   static EASING = "cubic-bezier(0.4, 0, 0.2, 1)";
 
   connect() {
-    this.isTransitioning = false; // Prevents double-click navigation
-
-    // Recalculate positions on window resize
+    this.isTransitioning = false;
     this.resizeObserver = new ResizeObserver(() => this.resetPosition());
     this.resizeObserver.observe(this.element);
   }
@@ -18,25 +16,25 @@ export default class extends Controller {
   }
 
   next() {
-    if (this.isTransitioning) return;
+    if (this.isTransitioning || this.slideTargets.length < 2) return;
     this.isTransitioning = true;
 
     const offset = this.getSlideOffset();
-    this.animateTrack(`translateX(-${offset}px)`); // Slide left
+    this.animateTrack(`translateX(-${offset}px)`);
 
     setTimeout(() => {
-      this.trackTarget.appendChild(this.slideTargets[0]); // Move first card to end
-      this.resetPosition(); // Jump back to zero
+      this.trackTarget.appendChild(this.slideTargets[0]);
+      this.resetPosition();
       this.isTransitioning = false;
     }, this.constructor.DURATION);
   }
 
   prev() {
-    if (this.isTransitioning) return;
+    if (this.isTransitioning || this.slideTargets.length < 2) return;
     this.isTransitioning = true;
 
     const lastSlide = this.slideTargets[this.slideTargets.length - 1];
-    this.trackTarget.insertBefore(lastSlide, this.trackTarget.firstChild); // Move last card to beginning
+    this.trackTarget.insertBefore(lastSlide, this.trackTarget.firstChild);
 
     const offset = this.getSlideOffset();
     this.trackTarget.style.transition = "none";
@@ -63,17 +61,15 @@ export default class extends Controller {
   getSlideOffset() {
     const slideWidth = this.slideTargets[0]?.offsetWidth || 0;
     const gap = this.getGapWidth();
-    return slideWidth + gap; // Total distance to slide
+    return slideWidth + gap;
   }
 
   getGapWidth() {
-    // Match Tailwind gap classes: gap-4 (16px), sm:gap-6 (24px), lg:gap-8 (32px)
     if (window.innerWidth >= 1024) return 32;
     if (window.innerWidth >= 640) return 24;
     return 16;
   }
 
-  // Touch/swipe support
   touchStart(event) {
     this.touchStartX = event.touches[0].clientX;
     this.touchStartY = event.touches[0].clientY;

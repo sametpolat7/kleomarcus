@@ -1,0 +1,55 @@
+<% content_for :title, "Yönetim Paneli · Giriş" %>
+
+<div class="min-h-screen flex items-center justify-center px-4 py-10 bg-base-200">
+  <div class="w-full max-w-md">
+
+    <%# Brand %>
+    <div class="text-center mb-8">
+      <span class="font-display text-2xl sm:text-3xl font-bold text-primary tracking-[0.25em]">
+        KLEOMARCUS
+      </span>
+      <p class="mt-2 text-xs text-base-content/50 tracking-widest uppercase">
+        Yönetim Paneli
+      </p>
+    </div>
+
+    <%# Card %>
+    <div class="admin-card">
+      <div class="px-6 py-8 sm:px-10 sm:py-10">
+        <h1 class="text-xs font-semibold text-base-content/60 tracking-widest uppercase mb-8">
+          Hesabınıza Giriş Yapın
+        </h1>
+
+        <%= form_with url: admin_session_path, class: "flex flex-col gap-5" do |form| %>
+          <div class="flex flex-col gap-1.5">
+            <label class="admin-form-label" for="username">Kullanıcı Adı</label>
+            <%= form.text_field :username,
+                  id: "username",
+                  required: true,
+                  autocomplete: "username",
+                  autocapitalize: "off",
+                  spellcheck: "false",
+                  placeholder: "Kullanıcı adınızı girin",
+                  class: "input input-bordered w-full" %>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="admin-form-label" for="password">Şifre</label>
+            <%= form.password_field :password,
+                  id: "password",
+                  required: true,
+                  placeholder: "Lütfen şifrenizi girin",
+                  maxlength: 72,
+                  class: "input input-bordered w-full" %>
+          </div>
+
+          <%= form.submit "Giriş Yap", class: "btn btn-primary w-full mt-3" %>
+        <% end %>
+      </div>
+    </div>
+
+    <p class="mt-6 text-center text-xs text-base-content/50">
+      &copy; <%= Date.current.year %> Kleomarcus Spor Akademi
+    </p>
+  </div>
+</div>

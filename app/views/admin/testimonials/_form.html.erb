@@ -1,0 +1,33 @@
+<%# locals: (testimonial:) %>
+<%= render "shared/admin/form_errors", resource: testimonial %>
+
+<%= form_with model: [:admin, testimonial], class: "grid grid-cols-1 sm:grid-cols-2 gap-5" do |f| %>
+  <div>
+    <label class="admin-form-label" for="testimonial_author_name">Yazar</label>
+    <%= f.text_field :author_name, id: "testimonial_author_name", class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="testimonial_rating">Puan</label>
+    <%= f.select :rating, (1..5).map { |n| ["#{n} yıldız", n] },
+          { include_blank: "Seçin" }, class: "select select-bordered w-full" %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="testimonial_title">Başlık</label>
+    <%= f.text_field :title, id: "testimonial_title", class: "input input-bordered w-full" %>
+    <p class="mt-1 text-xs text-base-content/50">İsteğe bağlı.</p>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="testimonial_content">İçerik</label>
+    <%= f.text_area :content, id: "testimonial_content", rows: 6, class: "textarea textarea-bordered w-full", required: true %>
+  </div>
+
+  <div class="sm:col-span-2 flex items-center justify-end gap-2 pt-3 border-t border-base-300">
+    <%= link_to "İptal", admin_testimonials_path,
+          class: "btn btn-ghost",
+          data: { action: "click->modal#close" } %>
+    <%= f.submit (testimonial.persisted? ? "Güncelle" : "Oluştur"), class: "btn btn-primary" %>
+  </div>
+<% end %>
