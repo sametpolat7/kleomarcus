@@ -4,4 +4,4 @@
   <%= modal_trigger "+ Yeni Ders", new_admin_lesson_path %>
 <% end %>
 
-<%= render "admin/lessons/calendar", schedule: @schedule %>
+<%= render "admin/lessons/calendar", schedule: @schedule, days: @schedule_days, hours: @schedule_hours %>

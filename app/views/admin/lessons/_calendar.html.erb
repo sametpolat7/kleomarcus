@@ -1,6 +1,4 @@
-<%# locals: (schedule:) %>
-<% days  = Lesson.schedule_days %>
-<% hours = Lesson.schedule_hours %>
+<%# locals: (schedule:, days:, hours:) %>
 
 <% if hours.empty? %>
   <div class="admin-card px-6 py-12 text-center">
