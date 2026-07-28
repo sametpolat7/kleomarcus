@@ -93,7 +93,7 @@ jobs:
         image: postgres:16
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
         options: >-
@@ -119,7 +119,6 @@ jobs:
           RAILS_ENV: test
           DATABASE_HOST: localhost
           DATABASE_USERNAME: postgres
-          DATABASE_PASSWORD: postgres
         run: |
           bin/rails db:test:prepare
           bundle exec rspec --exclude-pattern 'spec/system/**/*_spec.rb'
@@ -129,7 +128,6 @@ jobs:
           RAILS_ENV: test
           DATABASE_HOST: localhost
           DATABASE_USERNAME: postgres
-          DATABASE_PASSWORD: postgres
         run: bin/rails db:seed:replant
 
   system-test:
@@ -141,7 +139,7 @@ jobs:
         image: postgres:16
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
         options: >-
@@ -167,7 +165,6 @@ jobs:
           RAILS_ENV: test
           DATABASE_HOST: localhost
           DATABASE_USERNAME: postgres
-          DATABASE_PASSWORD: postgres
         run: |
           bin/rails db:test:prepare
           bin/rails tailwindcss:build
