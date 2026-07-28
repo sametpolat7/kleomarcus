@@ -9,6 +9,7 @@ tr:
         message: Mesaj
         info_consent: Bilgi doğruluğu ve iletişim onayı
         kvkk_consent: KVKK aydınlatma metni onayı
+        status: Durum
         statuses:
           received: Yeni
           called: Arandı
@@ -38,6 +39,7 @@ tr:
         role:
           admin: Yönetici
           staff: Personel
+          athlete: Sporcu
   # rails-i18n ships no Turkish for has_secure_password's :password_too_long
   # message (bcrypt's 72-byte limit); fill that single framework gap here.
   errors:
