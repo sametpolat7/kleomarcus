@@ -3,7 +3,7 @@ class Trainer < ApplicationRecord
 
   # Associations
   has_one_attached :photo
-  has_many :lessons
+  has_many :lessons, dependent: :nullify
   has_many :trainer_disciplines, dependent: :destroy
   has_many :disciplines, through: :trainer_disciplines
 
