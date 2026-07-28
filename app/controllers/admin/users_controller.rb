@@ -1,4 +1,5 @@
 class Admin::UsersController < Admin::BaseController
+  before_action :require_admin
   before_action :set_user, only: %i[edit update destroy]
 
   def index
@@ -15,17 +16,20 @@ class Admin::UsersController < Admin::BaseController
     if @user.save
       redirect_to admin_users_path, notice: "Kullanıcı oluşturuldu."
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
   def edit; end
 
   def update
-    if @user.update(user_params)
+    attributes = user_params
+
+    if @user.update(attributes)
+      revoke_other_sessions_for(@user) if attributes[:password].present?
       redirect_to admin_users_path, notice: "Kullanıcı güncellendi."
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -40,8 +44,18 @@ class Admin::UsersController < Admin::BaseController
 
   private
 
+  def require_admin
+    return if Current.user.admin?
+
+    redirect_to admin_root_path, alert: "Bu bölüme yalnızca yöneticiler erişebilir."
+  end
+
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def revoke_other_sessions_for(user)
+    user.sessions.where.not(id: Current.session.id).destroy_all
   end
 
   def user_params
