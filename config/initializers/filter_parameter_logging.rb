@@ -6,3 +6,8 @@
 Rails.application.config.filter_parameters += [
   :passw, :email, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn, :cvv, :cvc
 ]
+
+# Personal data collected from applicants and visitors.
+Rails.application.config.filter_parameters += [
+  :full_name, :phone, :message, :ip_address, :user_agent, /\Aage\z/
+]
