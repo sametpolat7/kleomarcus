@@ -52,9 +52,9 @@ class ErrorsController < ActionController::Base
     elsif request.format.json?
       render json: { status: status_code, error: status_title }, status: status_code
     elsif turbo_frame_request?
-      render :frame, layout: false, status: status_code
+      render :frame, formats: :html, content_type: "text/html", layout: false, status: status_code
     else
-      render :show, status: status_code
+      render :show, formats: :html, content_type: "text/html", status: status_code
     end
   end
 
