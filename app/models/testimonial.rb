@@ -6,7 +6,7 @@ class Testimonial < ApplicationRecord
   validates :rating, presence: true, inclusion: { in: 1..5 }
 
   # Normalizations
-  normalizes_titlecase :author_name, :title
+  normalizes_stripped :author_name, :title
 
   # Scopes
   scope :ordered, -> { order(created_at: :desc) }

@@ -2,8 +2,8 @@
 #
 # Example:
 #   include Normalizable
-#   normalizes_titlecase :name, :title
-#   normalizes_stripped :slug
+#   normalizes_titlecase :full_name
+#   normalizes_stripped :name, :title
 #   normalizes_downcased :email_address
 
 module Normalizable
