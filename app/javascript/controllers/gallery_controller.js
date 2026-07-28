@@ -7,11 +7,14 @@ export default class extends Controller {
   connect() {
     this.createLightbox();
     this.bindKeyboard();
+    this.boundBeforeCache = () => this.lightbox?.remove();
+    document.addEventListener("turbo:before-cache", this.boundBeforeCache);
   }
 
   disconnect() {
     this.lightbox?.remove();
     document.removeEventListener("keydown", this.handleKeydown);
+    document.removeEventListener("turbo:before-cache", this.boundBeforeCache);
   }
 
   open(event) {
