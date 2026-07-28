@@ -1,4 +1,4 @@
-<%# locals: (trainer:) %>
+<%# locals: (trainer:, disciplines:) %>
 <%= render "shared/admin/form_errors", resource: trainer %>
 
 <%= form_with model: [:admin, trainer], multipart: true, class: "grid grid-cols-1 sm:grid-cols-2 gap-5" do |f| %>
@@ -34,7 +34,7 @@
   <div class="sm:col-span-2">
     <span class="admin-form-label">Branşlar</span>
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-1">
-      <% Discipline.order(:name).each do |discipline| %>
+      <% disciplines.each do |discipline| %>
         <label class="flex items-center gap-2 px-3 py-2 border border-base-300 rounded-lg cursor-pointer hover:bg-base-200 transition-colors">
           <%= check_box_tag "trainer[discipline_ids][]", discipline.id,
                 trainer.discipline_ids.include?(discipline.id),

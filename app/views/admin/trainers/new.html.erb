@@ -6,7 +6,7 @@
           subtitle: "Yeni bir antrenör profili oluşturun.",
           cancel_path: admin_trainers_path %>
     <div class="p-6">
-      <%= render "admin/trainers/form", trainer: @trainer %>
+      <%= render "admin/trainers/form", trainer: @trainer, disciplines: @disciplines %>
     </div>
   <% end %>
 </div>
