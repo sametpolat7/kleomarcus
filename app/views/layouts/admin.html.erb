@@ -61,10 +61,14 @@
           <%= render "shared/admin/sidebar" %>
         </div>
       </div>
-
-      <%= render "shared/admin/modal" %>
     <% else %>
       <%= yield %>
     <% end %>
+
+    <%# Rendered on the login page too. A modal opened with a session that has since
+        expired fetches its frame and lands here; finding the frame — empty — is what
+        lets modal_controller close the dialog and visit the page for real, instead of
+        leaving the operator clicking a button that does nothing. %>
+    <%= render "shared/admin/modal" %>
   </body>
 </html>
