@@ -1,5 +1,6 @@
 class Admin::TrainersController < Admin::BaseController
   before_action :set_trainer, only: %i[edit update destroy]
+  before_action :set_disciplines, only: %i[new create edit update]
 
   def index
     @pagy, @trainers = pagy(Trainer.ordered.with_attached_photo.includes(:disciplines))
@@ -15,7 +16,7 @@ class Admin::TrainersController < Admin::BaseController
     if @trainer.save
       redirect_to admin_trainers_path, notice: "Antrenör oluşturuldu."
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -25,7 +26,7 @@ class Admin::TrainersController < Admin::BaseController
     if @trainer.update(trainer_params)
       redirect_to admin_trainers_path, notice: "Antrenör güncellendi."
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -38,6 +39,10 @@ class Admin::TrainersController < Admin::BaseController
 
   def set_trainer
     @trainer = Trainer.find(params[:id])
+  end
+
+  def set_disciplines
+    @disciplines = Discipline.order(:name)
   end
 
   def trainer_params
