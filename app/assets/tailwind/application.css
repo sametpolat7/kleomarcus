@@ -10,9 +10,7 @@
 @source "../../javascript";
 @source not "./daisyui{,*}.mjs";
 @source inline("bg-{primary,secondary,neutral}");
-/* Badge variants are built as "badge-#{variant}" in Admin::BaseHelper#badge,
-   so the scanner can't see them — force-include every variant the helper uses. */
-@source inline("badge-{neutral,ghost,info,success,warning,error}");
+@source inline("badge-{primary,secondary,neutral,ghost,info,success,warning,error}");
 
 @plugin "./daisyui.mjs" {
   themes: pastel --default, dracula --prefersdark;
