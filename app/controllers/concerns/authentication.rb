@@ -34,7 +34,14 @@ module Authentication
   end
 
   def find_session_by_cookie
-    Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
+    return unless (session_id = cookies.signed[:session_id])
+
+    session = Session.find_by(id: session_id)
+    return session if session && !session.expired?
+
+    session&.destroy
+    cookies.delete(:session_id)
+    nil
   end
 
   def request_authentication
@@ -42,14 +49,17 @@ module Authentication
     redirect_to unauthenticated_redirect_path
   end
 
-  def after_authentication_url
-    session.delete(:return_to_after_authenticating) || root_url
-  end
-
   def start_new_session_for(user)
+    user.sessions.expired.delete_all
+
     user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
       Current.session = session
-      cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
+      cookies.signed[:session_id] = {
+        value: session.id,
+        expires: session.expires_at,
+        httponly: true,
+        same_site: :lax
+      }
     end
   end
 
