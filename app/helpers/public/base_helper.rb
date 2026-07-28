@@ -1,15 +1,4 @@
 module Public::BaseHelper
-  # SEO Meta Tags Helper
-  # Simplifies setting page SEO metadata with sensible defaults
-  #
-  # @example In a view:
-  #   <%= set_seo_meta(
-  #     title: "Antrenörlerimiz",
-  #     description: "Profesyonel antrenör kadromuz...",
-  #     keywords: "antrenörler, boks eğitmeni",
-  #     og_image: "trainers.jpg"
-  #   ) %>
-  #
   def set_seo_meta(title: nil, description: nil, keywords: nil, og_title: nil, og_description: nil, og_image: nil, og_type: "website")
     site_name = "Kleomarcus Spor Akademi"
     default_description = "Çanakkale'nin köklü dövüş sporları akademisi. Boks, Kick Boks, Muay Thai, Wushu, MMA, CrossFit, Hyrox ve Bodybuilding eğitimleri. Deneyimli antrenörler eşliğinde her yaş ve seviyeye uygun bireysel ve grup dersleri."
@@ -63,7 +52,7 @@ module Public::BaseHelper
   end
 
   def structured_data_tag(schema)
-    content_tag :script, type: "application/ld+json" do
+    content_tag :script, type: "application/ld+json", nonce: content_security_policy_nonce do
       json_escape(schema.to_json).html_safe
     end
   end
