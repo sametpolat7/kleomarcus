@@ -1,8 +1,4 @@
 class Admin::UsersController < Admin::BaseController
-  # TODO: Role-based authorization needed here. Admin::BaseController only checks
-  # panel_access? (admin OR staff), so a staff user can currently create, promote,
-  # and delete any user — including admins. Restrict user management to admins once
-  # the panel-wide authorization layer lands.
   before_action :set_user, only: %i[edit update destroy]
 
   def index
@@ -50,5 +46,11 @@ class Admin::UsersController < Admin::BaseController
 
   def user_params
     params.expect(user: [ :username, :email_address, :role, :password, :password_confirmation ])
+          .tap { |attributes| attributes.delete(:role) unless assignable_role_change?(attributes[:role]) }
+  end
+
+  def assignable_role_change?(submitted)
+    User::ASSIGNABLE_ROLES.include?(submitted) &&
+      (@user.nil? || User::ASSIGNABLE_ROLES.include?(@user.role))
   end
 end
