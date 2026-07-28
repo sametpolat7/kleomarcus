@@ -1,5 +1,6 @@
 <%# locals: (user:) %>
 <% role_options = User::ASSIGNABLE_ROLES.map { |k| [User.enum_label(:role, k), k] } %>
+<% role_assignable = user.role.nil? || User::ASSIGNABLE_ROLES.include?(user.role) %>
 
 <%= render "shared/admin/form_errors", resource: user %>
 
@@ -20,8 +21,18 @@
   </div>
 
   <div class="sm:col-span-2">
-    <label class="admin-form-label" for="user_role">Rol</label>
-    <%= f.select :role, role_options, {}, class: "select select-bordered w-full" %>
+    <% if role_assignable %>
+      <label class="admin-form-label" for="user_role">Rol</label>
+      <%= f.select :role, role_options, {}, class: "select select-bordered w-full" %>
+    <% else %>
+      <%# The panel only hands out admin and staff, so a role outside that set is left
+          as it is rather than shown in a select that could not honour it. %>
+      <span class="admin-form-label">Rol</span>
+      <div class="flex items-center gap-2">
+        <%= role_label(user) %>
+        <span class="text-xs text-base-content/50">Bu rol panelden değiştirilemez.</span>
+      </div>
+    <% end %>
   </div>
 
   <div>
