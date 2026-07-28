@@ -5,7 +5,8 @@ module Admin::BaseHelper
 
   ROLE_BADGE_VARIANTS = {
     "admin" => :primary,
-    "staff" => :secondary
+    "staff" => :secondary,
+    "athlete" => :neutral
   }.freeze
 
   MODAL_CLOSE_ICON = <<~SVG.html_safe.freeze

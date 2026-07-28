@@ -1,5 +1,5 @@
-<%# locals: user: %>
-<% role_options = User.roles.keys.map { |k| [User.enum_label(:role, k), k] } %>
+<%# locals: (user:) %>
+<% role_options = User::ASSIGNABLE_ROLES.map { |k| [User.enum_label(:role, k), k] } %>
 
 <%= render "shared/admin/form_errors", resource: user %>
 
@@ -29,10 +29,12 @@
     <%= f.password_field :password, id: "user_password",
           autocomplete: "new-password",
           class: "input input-bordered w-full",
+          minlength: User::MINIMUM_PASSWORD_LENGTH,
+          maxlength: 72,
           required: !user.persisted? %>
-    <% if user.persisted? %>
-      <p class="mt-1 text-xs text-base-content/50">Boş bırakılırsa mevcut şifre korunur.</p>
-    <% end %>
+    <p class="mt-1 text-xs text-base-content/50">
+      En az <%= User::MINIMUM_PASSWORD_LENGTH %> karakter.<%= " Boş bırakılırsa mevcut şifre korunur." if user.persisted? %>
+    </p>
   </div>
 
   <div>
@@ -40,6 +42,8 @@
     <%= f.password_field :password_confirmation, id: "user_password_confirmation",
           autocomplete: "new-password",
           class: "input input-bordered w-full",
+          minlength: User::MINIMUM_PASSWORD_LENGTH,
+          maxlength: 72,
           required: !user.persisted? %>
   </div>
 
