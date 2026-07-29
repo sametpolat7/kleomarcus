@@ -1,5 +1,9 @@
 require "active_support/core_ext/integer/time"
 
+# require_relative rather than a load-path require: environment files are evaluated among the
+# very first initializers, before the one that puts lib on $LOAD_PATH.
+require_relative "../../lib/middleware/cloudflare_remote_ip"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -32,6 +36,13 @@ Rails.application.configure do
 
   # Skip http-to-https redirect for the default health check endpoint.
   config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
+
+  # Cloudflare and then kamal-proxy sit in front of the app, so the address Rack sees belongs to
+  # neither the visitor nor even this machine. Promote Cloudflare's CF-Connecting-IP ahead of
+  # ActionDispatch::RemoteIp so request.remote_ip is the visitor — the value the `rate_limit`
+  # throttles count against and Session#ip_address stores. Production only: Cloudflare fronts
+  # nothing else.
+  config.middleware.insert_before ActionDispatch::RemoteIp, CloudflareRemoteIp
 
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]
