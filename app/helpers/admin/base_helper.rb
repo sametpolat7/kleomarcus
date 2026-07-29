@@ -15,6 +15,9 @@ module Admin::BaseHelper
     </svg>
   SVG
 
+  EMAIL_OFF_OPEN = "<!--email_off-->".html_safe.freeze
+  EMAIL_OFF_CLOSE = "<!--/email_off-->".html_safe.freeze
+
   def badge(text, variant: :neutral)
     tag.span text, class: "badge badge-#{variant}"
   end
@@ -35,6 +38,10 @@ module Admin::BaseHelper
     I18n.l(value.to_date, format: format)
   end
 
+  def email_off(content = nil, &block)
+    safe_join([ EMAIL_OFF_OPEN, block ? capture(&block) : content, EMAIL_OFF_CLOSE ])
+  end
+
   def admin_page_header(title, subtitle: nil, &block)
     actions = capture(&block) if block
 
@@ -51,7 +58,7 @@ module Admin::BaseHelper
     tag.div(class: "flex items-start justify-between gap-4 px-6 py-4 border-b border-base-300") do
       concat(tag.div do
         concat tag.h2(title, class: "text-base font-semibold text-base-content")
-        concat tag.p(subtitle, class: "mt-0.5 text-xs text-base-content/60") if subtitle.present?
+        concat tag.p(email_off(subtitle), class: "mt-0.5 text-xs text-base-content/60") if subtitle.present?
       end)
       concat link_to(MODAL_CLOSE_ICON, cancel_path, class: "btn btn-ghost btn-sm btn-square -mr-2", data: { action: "click->modal#close" }, aria: { label: "Kapat" })
     end

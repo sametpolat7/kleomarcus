@@ -5,7 +5,9 @@
     <div class="flex flex-col">
       <a href="tel:<%= row.phone %>" class="text-sm hover:text-primary transition-colors"><%= format_phone(row.phone) %></a>
       <% if row.email.present? %>
-        <a href="mailto:<%= row.email %>" class="text-xs text-base-content/60 hover:text-primary transition-colors"><%= row.email %></a>
+        <%= email_off do %>
+          <a href="mailto:<%= row.email %>" class="text-xs text-base-content/60 hover:text-primary transition-colors"><%= row.email %></a>
+        <% end %>
       <% end %>
     </div>
   </td>

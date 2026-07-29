@@ -3,6 +3,14 @@ require "rails_helper"
 RSpec.describe "Admin Enrollments", type: :request do
   let(:admin) { create(:user, :admin) }
 
+  def in_modal(selector)
+    Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame #{selector}")
+  end
+
+  def detail(label)
+    in_modal("dl").css("dt").find { |dt| dt.text.strip == label }.next_element
+  end
+
   describe "unauthenticated access" do
     it "redirects to login" do
       get admin_enrollments_path
@@ -54,6 +62,35 @@ RSpec.describe "Admin Enrollments", type: :request do
         expect(Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame form")).to be_present
         expect(response.body).to include("Zeynep Aydın")
         expect(response.body).to include("0532 123 45 67")
+      end
+
+      it "fences the applicant's address off from Cloudflare's obfuscation" do
+        enrollment = create(:enrollment, email: "zeynep@example.com")
+
+        get edit_admin_enrollment_path(enrollment)
+
+        expect(detail("E-posta").inner_html.strip)
+          .to start_with("<!--email_off-->").and end_with("<!--/email_off-->")
+        expect(detail("E-posta").text.strip).to eq("zeynep@example.com")
+      end
+
+      it "fences an address the applicant typed into their message too" do
+        enrollment = create(:enrollment, message: "Bana zeynep@example.com adresinden ulaşın.")
+
+        get edit_admin_enrollment_path(enrollment)
+
+        expect(detail("Mesaj").inner_html)
+          .to eq("<!--email_off-->Bana zeynep@example.com adresinden ulaşın.<!--/email_off-->")
+      end
+
+      it "shows a dash instead of the markers when the applicant gave no address" do
+        enrollment = create(:enrollment, email: nil, message: nil)
+
+        get edit_admin_enrollment_path(enrollment)
+
+        expect(in_modal(%(a[href^="mailto:"]))).to be_nil
+        expect(detail("E-posta").text.strip).to eq("—")
+        expect(detail("E-posta").inner_html).not_to include("email_off")
       end
     end
 
