@@ -1,15 +1,3 @@
-# PostgreSQL is used across all environments.
-#
-# Development/Test: ENV.fetch(..., default) falls back when no env var is set,
-# so no .env file is needed. Defaults (localhost, $USER, no password) match a
-# stock Homebrew PostgreSQL install where the OS user logs in without auth.
-#
-# Production: DATABASE_URL must be set. Kamal injects it into the container
-# from .kamal/secrets at deploy time (declared under env.secret in deploy.yml).
-# Its host must be the accessory's container name, "kleomarcus-postgres", which is
-# what resolves on the shared "kamal" Docker network — Kamal names accessory
-# containers "<service>-<accessory>" and adds no shorter network alias.
-
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -31,4 +19,4 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
+  url: <%= Rails.application.credentials.dig(:postgres, :url) %>

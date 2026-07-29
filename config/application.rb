@@ -14,7 +14,10 @@ module Kleomarcus
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w[assets tasks])
+    # lib/middleware is excluded because middleware has to be a real constant by the time the
+    # stack is built, which happens before Zeitwerk can autoload anything — so those files are
+    # required explicitly instead (see config/environments/production.rb).
+    config.autoload_lib(ignore: %w[assets middleware tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
