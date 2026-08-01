@@ -24,7 +24,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 
 # Pagination [https://github.com/ddnexus/pagy]
-gem "pagy", "~> 9.0"
+gem "pagy", "~> 43.6"
 
 # Locale data for Rails defaults (validation messages, dates, numbers) [https://github.com/svenfuchs/rails-i18n]
 gem "rails-i18n", "~> 8.0"
