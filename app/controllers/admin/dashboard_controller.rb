@@ -6,12 +6,14 @@ class Admin::DashboardController < Admin::BaseController
       trainers: Trainer.count,
       lessons: Lesson.count,
       testimonials: Testimonial.count,
+      press_items: PressItem.count,
       users: User.count,
       enrollments: Enrollment.count
     }
 
     @recent_lessons = Lesson.ordered.includes(:trainer).limit(5)
     @recent_testimonials = Testimonial.ordered.limit(5)
+    @recent_press_items = PressItem.ordered.limit(5)
     @recent_enrollments = Enrollment.received.recent.limit(5)
   end
 end
