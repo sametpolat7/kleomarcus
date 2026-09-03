@@ -2,8 +2,8 @@
 <html lang="tr">
   <head>
     <meta charset="UTF-8">
-    <title><%= content_for(:title) || "Kleomarcus" %></title>
-    <meta name="application-name" content="Kleomarcus">
+    <title><%= content_for(:title) || club.name %></title>
+    <meta name="application-name" content="<%= club.short_name %>">
 
     <%# Mobile-First Viewport & PWA %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -13,18 +13,19 @@
     <meta name="format-detection" content="telephone=no">
 
     <%# SEO Meta Tags %>
-    <meta name="description" content="<%= content_for(:description) || "Çanakkale'nin köklü dövüş sporları akademisi. Boks, Kick Boks, Muay Thai, Wushu, MMA, CrossFit, Hyrox ve Bodybuilding eğitimleri. Deneyimli antrenörler eşliğinde her yaş ve seviyeye uygun bireysel ve grup dersleri." %>">
-    <meta name="keywords" content="<%= content_for(:keywords) || "kleomarcus, kleomarcus spor akademi, çanakkale boks, çanakkale kick boks, çanakkale muay thai, çanakkale wushu, çanakkale mma, çanakkale crossfit, çanakkale hyrox, dövüş sporları çanakkale, dövüş kulübü, spor salonu çanakkale, bireysel antrenman, grup dersleri, çocuk boks, yetişkin dövüş eğitimi" %>">
-    <meta name="author" content="Kleomarcus">
+    <meta name="description" content="<%= content_for(:description) || default_seo_description %>">
+    <meta name="keywords" content="<%= content_for(:keywords) || default_seo_keywords %>">
+    <meta name="author" content="<%= club.name %>">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="<%= content_for(:canonical) || request.original_url %>">
+    <link rel="canonical" href="<%= content_for(:canonical) || canonical_url %>">
+    <%= search_console_verification_tags %>
 
     <%# Open Graph / Social Media %>
     <meta property="og:type" content="<%= content_for(:og_type) || 'website' %>">
-    <meta property="og:site_name" content="Kleomarcus">
-    <meta property="og:title" content="<%= content_for(:og_title) || content_for(:title) || "Kleomarcus" %>">
-    <meta property="og:description" content="<%= content_for(:og_description) || content_for(:description) || "Çanakkale'nin köklü dövüş sporları akademisi. Boks, Kick Boks, Muay Thai, MMA, CrossFit ve daha fazlası. Deneyimli antrenörler eşliğinde her seviyeye uygun eğitim programları." %>">
-    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:site_name" content="<%= club.name %>">
+    <meta property="og:title" content="<%= content_for(:og_title) || content_for(:title) || club.name %>">
+    <meta property="og:description" content="<%= content_for(:og_description) || content_for(:description) || default_seo_description %>">
+    <meta property="og:url" content="<%= canonical_url %>">
     <meta property="og:image" content="<%= content_for(:og_image) || image_url('public/hero-desktop.jpeg') %>">
     <meta property="og:locale" content="tr_TR">
 
