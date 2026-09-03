@@ -41,6 +41,14 @@ RSpec.describe "Admin Sessions", type: :request do
     end
   end
 
+  describe "the modern-browser gate" do
+    it "still turns away an outdated browser from the panel" do
+      get new_admin_session_path, headers: { "HTTP_USER_AGENT" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" }
+
+      expect(response).to have_http_status(:not_acceptable)
+    end
+  end
+
   describe "POST /admin/session" do
     it "signs in a user with panel access and redirects to the admin root" do
       admin = create(:user, :admin)

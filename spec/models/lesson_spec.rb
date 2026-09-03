@@ -36,7 +36,7 @@ RSpec.describe Lesson, type: :model do
       expect { lesson.day_of_week = "notaday" }.not_to raise_error
 
       expect(lesson).not_to be_valid
-      expect(lesson.errors[:day_of_week]).to include("kabul edilen bir kelime değil")
+      expect(lesson.errors[:day_of_week]).to include("seçilmeli")
     end
 
     it "rejects a numeric day, including the enum's own integer form" do
@@ -59,14 +59,14 @@ RSpec.describe Lesson, type: :model do
       expect { lesson.kind = "hybrid" }.not_to raise_error
 
       expect(lesson).not_to be_valid
-      expect(lesson.errors[:kind]).to include("kabul edilen bir kelime değil")
+      expect(lesson.errors[:kind]).to include("seçilmeli")
     end
 
     it "asks for a kind instead of letting the blank prompt reach the not-null column" do
       lesson = build(:lesson, kind: nil)
 
       expect(lesson).not_to be_valid
-      expect(lesson.errors[:kind]).to eq([ "doldurulmalı" ])
+      expect(lesson.errors[:kind]).to eq([ "seçilmeli" ])
       expect { lesson.save }.not_to change(described_class, :count)
     end
   end
@@ -99,6 +99,34 @@ RSpec.describe Lesson, type: :model do
       expect(hours.map(&:first)).to eq([ "09:00", "12:30", "18:15" ])
       expect(described_class.schedule.keys).to contain_exactly("monday", "tuesday")
       expect(described_class.schedule.values.flat_map(&:keys).uniq.sort).to eq(hours.map(&:first))
+    end
+  end
+
+  describe ".opening_hours" do
+    it "collapses each day into its earliest start and latest finish" do
+      create(:lesson, day_of_week: :monday, start_time: "10:00", end_time: "11:00")
+      create(:lesson, day_of_week: :monday, start_time: "21:15", end_time: "22:15")
+      create(:lesson, day_of_week: :monday, start_time: "14:00", end_time: "15:00")
+
+      expect(described_class.opening_hours).to eq({ "monday" => [ "10:00", "22:15" ] })
+    end
+
+    it "lists the days in the same Monday-first order as the schedule grid" do
+      create(:lesson, day_of_week: :sunday, start_time: "10:00", end_time: "11:00")
+      create(:lesson, day_of_week: :monday, start_time: "10:00", end_time: "11:00")
+      create(:lesson, day_of_week: :saturday, start_time: "10:00", end_time: "11:00")
+
+      expect(described_class.opening_hours.keys).to eq([ "monday", "saturday", "sunday" ])
+    end
+
+    it "leaves out the days with no lesson at all" do
+      create(:lesson, day_of_week: :friday, start_time: "10:00", end_time: "11:00")
+
+      expect(described_class.opening_hours.keys).to eq([ "friday" ])
+    end
+
+    it "returns nothing when the schedule is empty" do
+      expect(described_class.opening_hours).to be_empty
     end
   end
 

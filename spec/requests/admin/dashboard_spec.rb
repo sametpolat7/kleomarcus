@@ -50,6 +50,7 @@ RSpec.describe "Admin Dashboard", type: :request do
           a_string_starting_with("Antrenörler 1"),
           a_string_starting_with("Dersler 2"),
           a_string_starting_with("Yorumlar 0"),
+          a_string_starting_with("Basın 0"),
           a_string_starting_with("Kullanıcılar 1"),
           a_string_starting_with("Başvurular 1")
         )
@@ -63,6 +64,36 @@ RSpec.describe "Admin Dashboard", type: :request do
 
         expect(response.body).to include(lesson.name)
         expect(response.body).to include(testimonial.author_name)
+      end
+
+      it "lists recent press records with their publisher and date" do
+        create(:press_item, :visible,
+               publisher: "Çanakkale Olay",
+               headline: "Balkan Şampiyonasından gümüş madalya",
+               published_on: Date.new(2025, 11, 16),
+               archive_url: "https://web.archive.org/web/20251207164751/https://www.canakkaleolay.com/haber/x")
+
+        get admin_root_path
+
+        panel = Nokogiri::HTML(response.body).css("div.admin-card").find { |c| c.text.include?("Basında Biz") }
+        expect(panel.text.squish).to include("Balkan Şampiyonasından gümüş madalya", "Çanakkale Olay", "16 Kasım 2025")
+        expect(panel.text).to include("Yayında")
+      end
+
+      it "flags a published press record that still has no archive copy" do
+        create(:press_item, :visible, :unarchived, headline: "Arşivi olmayan kayıt")
+
+        get admin_root_path
+
+        panel = Nokogiri::HTML(response.body).css("div.admin-card").find { |c| c.text.include?("Basında Biz") }
+        expect(panel.text).to include("Arşivlenmedi")
+        expect(panel.text).not_to include("Yayında")
+      end
+
+      it "offers the press screen from its own stat tile" do
+        get admin_root_path
+
+        expect(Nokogiri::HTML(response.body).css(%(a.admin-card[href="#{admin_press_items_path}"]))).not_to be_empty
       end
 
       it "lists new applications by name and formatted phone number" do
@@ -88,6 +119,7 @@ RSpec.describe "Admin Dashboard", type: :request do
 
         expect(response.body).to include("Henüz ders yok.")
         expect(response.body).to include("Henüz yorum yok.")
+        expect(response.body).to include("Henüz basın kaydı yok.")
         expect(response.body).to include("Henüz başvuru yok.")
       end
 
