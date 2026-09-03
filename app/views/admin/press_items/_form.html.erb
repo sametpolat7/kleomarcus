@@ -1,0 +1,64 @@
+<%# locals: (press_item:) %>
+<%= render "shared/admin/form_errors", resource: press_item %>
+
+<%= form_with model: [:admin, press_item], class: "grid grid-cols-1 sm:grid-cols-2 gap-5" do |f| %>
+  <div>
+    <label class="admin-form-label" for="press_item_publisher">Yayıncı</label>
+    <%= f.text_field :publisher, id: "press_item_publisher", class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="press_item_publisher_kind">Yayın Türü</label>
+    <%= f.select :publisher_kind,
+          PressItem.publisher_kinds.keys.map { |kind| [PressItem.enum_label(:publisher_kind, kind), kind] },
+          {}, class: "select select-bordered w-full", id: "press_item_publisher_kind" %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="press_item_headline">Başlık</label>
+    <%= f.text_field :headline, id: "press_item_headline", class: "input input-bordered w-full", required: true %>
+    <p class="mt-1 text-xs text-base-content/50">Haberin başlığını birebir, orijinal noktalamasıyla yazın.</p>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="press_item_published_on">Yayın Tarihi</label>
+    <%= f.date_field :published_on, id: "press_item_published_on", class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div>
+    <label class="admin-form-label" for="press_item_byline">İmza</label>
+    <%= f.text_field :byline, id: "press_item_byline", class: "input input-bordered w-full" %>
+    <p class="mt-1 text-xs text-base-content/50">Muhabir adı. İsteğe bağlı.</p>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="press_item_url">Haber Adresi</label>
+    <%= f.url_field :url, id: "press_item_url", class: "input input-bordered w-full", required: true, placeholder: "https://" %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="press_item_archive_url">Arşiv Adresi</label>
+    <%= f.url_field :archive_url, id: "press_item_archive_url", class: "input input-bordered w-full", placeholder: "https://web.archive.org/..." %>
+    <p class="mt-1 text-xs text-base-content/50">Link ölürse atıf kaybolmasın diye şart. <code>web.archive.org/save</code> ile arşivleyip adresini buraya girin; boşsa listede “Arşivlenmedi” uyarısı çıkar.</p>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="admin-form-label" for="press_item_quote">Alıntı</label>
+    <%= f.text_area :quote, id: "press_item_quote", rows: 3, class: "textarea textarea-bordered w-full" %>
+    <p class="mt-1 text-xs text-base-content/50">Haberden en fazla bir-iki cümle, birebir. Tam metni kopyalamayın.</p>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="flex items-start gap-3 cursor-pointer">
+      <%= f.check_box :published, class: "checkbox checkbox-sm checkbox-primary mt-0.5" %>
+      <span class="text-sm text-base-content/80">Sitede yayınla</span>
+    </label>
+  </div>
+
+  <div class="sm:col-span-2 flex items-center justify-end gap-2 pt-3 border-t border-base-300">
+    <%= link_to "İptal", admin_press_items_path,
+          class: "btn btn-ghost",
+          data: { action: "click->modal#close" } %>
+    <%= f.submit (press_item.persisted? ? "Güncelle" : "Oluştur"), class: "btn btn-primary" %>
+  </div>
+<% end %>

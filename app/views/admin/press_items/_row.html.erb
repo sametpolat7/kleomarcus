@@ -1,0 +1,35 @@
+<%# locals: (row:) %>
+<tr class="hover:bg-base-200/40 transition-colors">
+  <td class="whitespace-nowrap font-medium">
+    <%= format_date(row.published_on) %>
+  </td>
+  <td>
+    <div class="font-medium"><%= row.publisher %></div>
+    <div class="mt-0.5 text-xs text-base-content/50"><%= PressItem.enum_label(:publisher_kind, row.publisher_kind) %></div>
+  </td>
+  <td class="text-base-content/70 max-w-md">
+    <p class="line-clamp-2"><%= row.headline %></p>
+    <div class="mt-1 flex flex-wrap items-center gap-2 text-xs">
+      <%= link_to "Haber", row.url, target: "_blank", rel: "noopener", class: "link link-primary" %>
+      <% if row.archive_url.present? %>
+        <%= link_to "Arşiv", row.archive_url, target: "_blank", rel: "noopener", class: "link link-primary" %>
+      <% end %>
+      <% if row.unarchived? %>
+        <%= badge "Arşivlenmedi", variant: :error %>
+      <% end %>
+    </div>
+  </td>
+  <td class="whitespace-nowrap">
+    <%= row.published? ? badge("Yayında", variant: :success) : badge("Taslak") %>
+  </td>
+
+  <td class="text-right">
+    <div class="inline-flex gap-1">
+      <%= modal_trigger "Düzenle", edit_admin_press_item_path(row), variant: :ghost %>
+      <%= button_to "Sil", admin_press_item_path(row),
+            method: :delete,
+            class: "btn btn-sm btn-ghost text-error",
+            form: { data: { turbo_confirm: "“#{row.headline}” kaydını silmek istediğinize emin misiniz?" } } %>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,12 @@
+<% content_for :title, "Basın Kaydı Düzenle · Kleomarcus Admin" %>
+
+<div class="admin-card max-w-3xl mx-auto">
+  <%= turbo_frame_tag "admin_modal_frame" do %>
+    <%= admin_modal_header "Basın Kaydı Düzenle",
+          subtitle: @press_item.headline,
+          cancel_path: admin_press_items_path %>
+    <div class="p-6">
+      <%= render "admin/press_items/form", press_item: @press_item %>
+    </div>
+  <% end %>
+</div>
