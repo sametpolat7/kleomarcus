@@ -200,6 +200,8 @@ testimonials_data.each do |attrs|
   testimonial.save!
 end
 
+load Rails.root.join("db/seeds/press_items.rb")
+
 hours = [
   [ "10:00", "11:00" ],
   [ "11:00", "12:00" ],
@@ -253,4 +255,4 @@ schedule.each do |day, config|
   end
 end
 
-puts "Seeded #{Trainer.count} trainers, #{Discipline.count} disciplines, #{Testimonial.count} testimonials, #{Lesson.count} lessons."
+puts "Seeded #{Trainer.count} trainers, #{Discipline.count} disciplines, #{Testimonial.count} testimonials, #{PressItem.count} press items, #{Lesson.count} lessons."

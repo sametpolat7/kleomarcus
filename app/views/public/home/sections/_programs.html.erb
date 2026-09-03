@@ -8,7 +8,7 @@
         Branşlarımız
       </h2>
       <p class="text-base-content/70 max-w-2xl mx-auto text-sm sm:text-base lg:text-lg">
-        Her seviyeye uygun, profesyonel antrenörler eşliğinde kapsamlı eğitim programlarımız
+        Çanakkale'de her seviyeye uygun, profesyonel antrenörler eşliğinde kapsamlı eğitim programlarımız
       </p>
     </header>
 
@@ -32,125 +32,21 @@
       <div class="overflow-hidden md:mx-12 lg:mx-16">
         <div class="flex gap-4 sm:gap-6 lg:gap-8" data-carousel-target="track">
 
-          <!-- Program Card 1 - Boks -->
-          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="1 / 8: Boks">
-            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
-              <figure class="h-40 sm:h-48 overflow-hidden">
-                <%= image_tag 'public/boks.jpeg', alt: 'Boks antrenmanı', class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', width: '600', height: '400' %>
-              </figure>
-              <div class="card-body">
-                <h3 class="card-title font-display text-xl text-base-content">Boks</h3>
-                <p class="text-base-content/70 text-sm">
-                  Duruş, ayak hareketleri ve temel kombinasyonlarla boksun inceliklerini öğrenin.
-                </p>
+          <% featured_club_disciplines.each_with_index do |discipline, index| %>
+            <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="<%= index + 1 %> / <%= featured_club_disciplines.size %>: <%= discipline[:name] %>">
+              <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
+                <figure class="h-40 sm:h-48 overflow-hidden">
+                  <%= image_tag discipline[:image], alt: "#{discipline[:name]} antrenmanı", class: "w-full h-full object-cover hover:scale-105 transition-transform duration-500", loading: "lazy", width: "600", height: "400" %>
+                </figure>
+                <div class="card-body">
+                  <h3 class="card-title font-display text-xl text-base-content"><%= discipline[:name] %></h3>
+                  <p class="text-base-content/70 text-sm">
+                    <%= discipline[:summary] %>
+                  </p>
+                </div>
               </div>
-            </div>
-          </article>
-
-          <!-- Program Card 2 - Kick Boks -->
-          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="2 / 8: Kick Boks">
-            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
-              <figure class="h-40 sm:h-48 overflow-hidden">
-                <%= image_tag 'public/kickboks.jpeg', alt: 'Kick Boks antrenmanı', class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', width: '600', height: '400' %>
-              </figure>
-              <div class="card-body">
-                <h3 class="card-title font-display text-xl text-base-content">Kick Boks</h3>
-                <p class="text-base-content/70 text-sm">
-                  Tekme ve yumruk kombinasyonlarıyla etkili bir dövüş stili geliştirin.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Program Card 3 - CrossFit -->
-          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="3 / 8: CrossFit">
-            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
-              <figure class="h-40 sm:h-48 overflow-hidden">
-                <%= image_tag 'public/crossfit.jpeg', alt: 'CrossFit antrenmanı', class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', width: '600', height: '400' %>
-              </figure>
-              <div class="card-body">
-                <h3 class="card-title font-display text-xl text-base-content">CrossFit</h3>
-                <p class="text-base-content/70 text-sm">
-                  Yüksek yoğunluklu fonksiyonel antrenmanlarla gücünüzü ve dayanıklılığınızı artırın.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Program Card 4 - Muay Thai -->
-          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="4 / 8: Muay Thai">
-            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
-              <figure class="h-40 sm:h-48 overflow-hidden">
-                <%= image_tag 'public/muaythai.jpeg', alt: 'Muay Thai antrenmanı', class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', width: '600', height: '400' %>
-              </figure>
-              <div class="card-body">
-                <h3 class="card-title font-display text-xl text-base-content">Muay Thai</h3>
-                <p class="text-base-content/70 text-sm">
-                  Tayland'ın geleneksel dövüş sanatı ile güçlü ve etkili teknikler öğrenin.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Program Card 5 - Hyrox -->
-          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="5 / 8: Hyrox">
-            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
-              <figure class="h-40 sm:h-48 overflow-hidden">
-                <%= image_tag 'public/hyrox.jpeg', alt: 'Hyrox antrenmanı', class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', width: '600', height: '400' %>
-              </figure>
-              <div class="card-body">
-                <h3 class="card-title font-display text-xl text-base-content">Hyrox</h3>
-                <p class="text-base-content/70 text-sm">
-                  Dayanıklılık ve güç gerektiren fonksiyonel fitness istasyonlarına hazırlanın.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Program Card 6 - Wushu -->
-          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="6 / 8: Wushu">
-            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
-              <figure class="h-40 sm:h-48 overflow-hidden">
-                <%= image_tag 'public/wushu.jpeg', alt: 'Wushu antrenmanı', class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', width: '600', height: '400' %>
-              </figure>
-              <div class="card-body">
-                <h3 class="card-title font-display text-xl text-base-content">Wushu</h3>
-                <p class="text-base-content/70 text-sm">
-                  Çin savaş sanatlarının görkemli ve atletik hareketlerini keşfedin.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Program Card 7 - MMA -->
-          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="7 / 8: MMA">
-            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
-              <figure class="h-40 sm:h-48 overflow-hidden">
-                <%= image_tag 'public/mma.jpeg', alt: 'MMA antrenmanı', class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', width: '600', height: '400' %>
-              </figure>
-              <div class="card-body">
-                <h3 class="card-title font-display text-xl text-base-content">MMA</h3>
-                <p class="text-base-content/70 text-sm">
-                  Karma dövüş sanatları ile her alanda yetkin bir dövüşçü olun.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Program Card 8 - Bodybuilding -->
-          <article class="flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]" data-carousel-target="slide" role="group" aria-roledescription="slide" aria-label="8 / 8: Bodybuilding">
-            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-full">
-              <figure class="h-40 sm:h-48 overflow-hidden">
-                <%= image_tag 'public/bodybuilding.jpeg', alt: 'Bodybuilding antrenmanı', class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', width: '600', height: '400' %>
-              </figure>
-              <div class="card-body">
-                <h3 class="card-title font-display text-xl text-base-content">Bodybuilding</h3>
-                <p class="text-base-content/70 text-sm">
-                  Kas geliştirme ve estetik için etkili antrenman programlarıyla vücudunuzu şekillendirin.
-                </p>
-              </div>
-            </div>
-          </article>
+            </article>
+          <% end %>
         </div>
       </div>
 

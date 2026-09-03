@@ -1,9 +1,9 @@
 <%# SEO Meta Tags %>
 <%= set_seo_meta(
   title: "Ders Programı",
-  description: "Kleomarcus Spor Akademi haftalık ders programı. Boks, Kick Boks, Muay Thai, Wushu, MMA ve CrossFit branşlarında Minikler, Gençler ve Yetişkinler için grup antrenmanları ve bireysel ders saatleri. Hafta içi ve hafta sonu programları.",
+  description: "#{club.name} haftalık ders programı. #{club_discipline_names.to_sentence(last_word_connector: " ve ")} branşlarında Minikler, Gençler ve Yetişkinler için grup antrenmanları ve bireysel ders saatleri. Hafta içi ve hafta sonu programları.",
   keywords: "kleomarcus ders programı, çanakkale dövüş ders saatleri, boks dersi çanakkale, kick boks dersi çanakkale, muay thai dersi çanakkale, çocuk dövüş dersi çanakkale, yetişkin dövüş eğitimi, grup antrenmanı çanakkale, bireysel antrenman saatleri, haftalık antrenman programı",
-  og_description: "Kleomarcus Spor Akademi haftalık ders programı — Minikler, Gençler ve Yetişkinler için grup antrenmanları ve bireysel ders saatleri.",
+  og_description: "#{club.name} haftalık ders programı — Minikler, Gençler ve Yetişkinler için grup antrenmanları ve bireysel ders saatleri.",
   og_image: "public/hero-desktop.jpeg"
 ) %>
 
@@ -12,15 +12,15 @@
   <%= structured_data_tag({
     "@context": "https://schema.org",
     "@type": "Schedule",
-    "name": "Kleomarcus Spor Akademi Haftalık Ders Programı",
-    "description": "Boks, Kick Boks, Muay Thai, Wushu, MMA ve CrossFit branşlarında Minikler, Gençler ve Yetişkinler için haftalık grup antrenmanı ve bireysel ders programı.",
-    "url": request.original_url,
+    "name": "#{club.name} Haftalık Ders Programı",
+    "description": "#{club_discipline_names.to_sentence(last_word_connector: " ve ")} branşlarında Minikler, Gençler ve Yetişkinler için haftalık grup antrenmanı ve bireysel ders programı.",
+    "url": canonical_url,
     "provider": organization_schema
   }) %>
 <% end %>
 
 <%# Hero Section %>
-<%= render "shared/public/page_hero", title: "Ders Programı", image: "public/hero-desktop.jpeg", alt_text: "Kleomarcus Spor Akademi Ders Programı" %>
+<%= render "shared/public/page_hero", title: "Ders Programı", image: "public/hero-desktop.jpeg", alt_text: "#{club.name} Ders Programı" %>
 
 <%# Lessons Section %>
 <section id="lessons" class="py-12 sm:py-16 md:py-20 lg:py-24 bg-base-100" aria-labelledby="lessons-title">

@@ -1,0 +1,11 @@
+<% content_for :title, "Basında Biz · Kleomarcus Admin" %>
+
+<%= admin_page_header "Basında Biz", subtitle: "Kulüp hakkında bağımsız yayınlarda çıkan haberler." do %>
+  <%= modal_trigger "+ Yeni Kayıt", new_admin_press_item_path %>
+<% end %>
+
+<%= render "shared/admin/table",
+      columns: ["Tarih", "Yayıncı", "Başlık", "Durum"],
+      rows: @press_items,
+      row_partial: "admin/press_items/row",
+      pagy: @pagy %>

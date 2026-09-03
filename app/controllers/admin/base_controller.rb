@@ -2,6 +2,8 @@ class Admin::BaseController < ApplicationController
   include Authentication
   include Pagy::Backend
 
+  allow_browser versions: :modern
+
   before_action :require_panel_access
   after_action :keep_flash_inside_frames
   layout "admin"

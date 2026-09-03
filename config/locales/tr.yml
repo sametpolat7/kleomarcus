@@ -16,6 +16,16 @@ tr:
         start_time: Başlangıç
         end_time: Bitiş
         kind: Tür
+      press_item:
+        publisher: Yayıncı
+        publisher_kind: Yayın Türü
+        headline: Başlık
+        url: Haber Adresi
+        archive_url: Arşiv Adresi
+        published_on: Yayın Tarihi
+        byline: İmza
+        quote: Alıntı
+        published: Yayında
       testimonial:
         author_name: Yazar
         content: İçerik
@@ -31,6 +41,14 @@ tr:
         password: Şifre
         password_confirmation: Şifre Tekrarı
         role: Rol
+    errors:
+      models:
+        lesson:
+          attributes:
+            day_of_week:
+              inclusion: seçilmeli
+            kind:
+              inclusion: seçilmeli
     enums:
       enrollment:
         status:
@@ -43,6 +61,12 @@ tr:
         kind:
           solo: Özel Ders
           team: Grup Dersi
+      press_item:
+        publisher_kind:
+          local_press: Yerel Basın
+          national_press: Ulusal Basın
+          news_agency: Haber Ajansı
+          official_statement: Resmî Açıklama Kaynaklı
       user:
         role:
           admin: Yönetici

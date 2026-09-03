@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_11_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_02_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -74,6 +74,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_11_120000) do
     t.datetime "updated_at", null: false
     t.index ["day_of_week", "start_time"], name: "index_lessons_on_day_of_week_and_start_time"
     t.index ["trainer_id"], name: "index_lessons_on_trainer_id"
+  end
+
+  create_table "press_items", force: :cascade do |t|
+    t.string "archive_url"
+    t.string "byline"
+    t.datetime "created_at", null: false
+    t.string "headline", null: false
+    t.boolean "published", default: false, null: false
+    t.date "published_on", null: false
+    t.string "publisher", null: false
+    t.integer "publisher_kind", default: 0, null: false
+    t.text "quote"
+    t.datetime "updated_at", null: false
+    t.string "url", null: false
+    t.index ["published"], name: "index_press_items_on_published"
+    t.index ["published_on"], name: "index_press_items_on_published_on"
+    t.index ["url"], name: "index_press_items_on_url", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|

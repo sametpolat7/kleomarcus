@@ -60,7 +60,7 @@
           Hafta sonu hizmet veriyor musunuz?
         </summary>
         <div class="collapse-content text-base-content/70 pt-2 sm:pt-3">
-          <p class="text-sm sm:text-base leading-relaxed">Evet. Cumartesi ve Pazar günleri 10:00-18:00 saatleri arasında hizmet verilmektedir. Resmi tatil günlerindeki çalışma saatleri hafta başında duyurulmaktadır.</p>
+          <p class="text-sm sm:text-base leading-relaxed">Evet. Cumartesi ve Pazar günleri <% if club_weekend_hours %><%= club_weekend_hours %> saatleri arasında <% end %>hizmet verilmektedir. Resmi tatil günlerindeki çalışma saatleri hafta başında duyurulmaktadır.</p>
         </div>
       </details>
 
@@ -70,7 +70,7 @@
           Nasıl ulaşabilirim?
         </summary>
         <div class="collapse-content text-base-content/70 pt-2 sm:pt-3">
-          <p class="text-sm sm:text-base leading-relaxed">Esenler Mahallesi'nde Şehitler Camii yakınında bulunmaktayız. Çevremizde park alanları mevcuttur. Google Maps'te "Kleomarcus Spor Akademi" araması yaparak konum bilgisine ulaşabilirsiniz.</p>
+          <p class="text-sm sm:text-base leading-relaxed">Çanakkale Esenler Mahallesi'nde Şehitler Camii yakınında bulunmaktayız. Çevremizde park alanları mevcuttur. Google Maps'te "<%= club.name %>" araması yaparak konum bilgisine ulaşabilirsiniz.</p>
         </div>
       </details>
 

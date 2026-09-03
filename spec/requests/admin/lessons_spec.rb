@@ -130,7 +130,7 @@ RSpec.describe "Admin Lessons", type: :request do
         }.not_to change(Lesson, :count)
 
         expect(response).to have_http_status(:unprocessable_content)
-        expect(response.body).to include("Gün kabul edilen bir kelime değil")
+        expect(response.body).to include("Gün seçilmeli")
         expect(Nokogiri::HTML(response.body).at_css("turbo-frame#admin_modal_frame form")).to be_present
       end
 
@@ -140,16 +140,16 @@ RSpec.describe "Admin Lessons", type: :request do
         }.not_to change(Lesson, :count)
 
         expect(response).to have_http_status(:unprocessable_content)
-        expect(response.body).to include("Tür kabul edilen bir kelime değil")
+        expect(response.body).to include("Tür seçilmeli")
       end
 
-      it "rejects a blank kind — the form's “Seçin” prompt — with the presence message" do
+      it "rejects a blank kind — the form's “Seçin” prompt — with the same inclusion message" do
         expect {
           post admin_lessons_path, params: { lesson: valid_params.merge(kind: "") }
         }.not_to change(Lesson, :count)
 
         expect(response).to have_http_status(:unprocessable_content)
-        expect(response.body).to include("Tür doldurulmalı")
+        expect(response.body).to include("Tür seçilmeli")
       end
     end
 

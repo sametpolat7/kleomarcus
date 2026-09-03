@@ -10,14 +10,14 @@ class Lesson < ApplicationRecord
     thursday: 4,
     friday: 5,
     saturday: 6
-  }, validate: { allow_nil: true }
-  enum :kind, { solo: 0, team: 1 }, validate: { allow_nil: true }
+  }, validate: true
+  enum :kind, { solo: 0, team: 1 }, validate: true
 
   # Associations
   belongs_to :trainer, optional: true
 
   # Validations
-  validates :name, :day_of_week, :kind, :start_time, :end_time, presence: true
+  validates :name, :start_time, :end_time, presence: true
   validate :end_time_after_start_time
   validate :not_duplicate_in_slot
 
@@ -40,6 +40,14 @@ class Lesson < ApplicationRecord
       order(:start_time).group(:start_time).maximum(:end_time).map do |start_time, end_time|
         [ start_time.strftime(TIME_FORMAT), end_time.strftime(TIME_FORMAT) ]
       end
+    end
+
+    def opening_hours
+      windows = ordered.group_by(&:day_of_week).transform_values do |lessons|
+        [ lessons.min_by(&:start_time).start_label, lessons.max_by(&:end_time).end_label ]
+      end
+
+      windows.sort_by { |day, _window| schedule_days.index(day) }.to_h
     end
 
     def schedule_kinds

@@ -1,9 +1,9 @@
 <%# SEO Meta Tags %>
 <%= set_seo_meta(
   title: "Antrenörlerimiz",
-  description: "Kleomarcus Spor Akademi antrenör kadrosu. Boks, Kick Boks, Muay Thai, Wushu, MMA ve CrossFit branşlarında lisanslı ve deneyimli eğitmenlerimiz, her yaş grubuna özel antrenman programlarıyla sporcuların gelişimine rehberlik ediyor.",
+  description: "#{club.name} antrenör kadrosu. #{club_discipline_names.to_sentence(last_word_connector: " ve ")} branşlarında lisanslı ve deneyimli eğitmenlerimiz, her yaş grubuna özel antrenman programlarıyla sporcuların gelişimine rehberlik ediyor.",
   keywords: "kleomarcus antrenörleri, çanakkale boks antrenörü, çanakkale kick boks eğitmeni, muay thai antrenörü çanakkale, mma eğitmeni çanakkale, wushu antrenörü, crossfit antrenörü çanakkale, dövüş sporları eğitmeni, lisanslı antrenör çanakkale",
-  og_description: "Kleomarcus Spor Akademi'nin lisanslı ve deneyimli antrenör kadrosuyla tanışın. Boks, Kick Boks, Muay Thai, MMA ve daha fazlasında uzman eğitmenler.",
+  og_description: "#{club.name}'nin lisanslı ve deneyimli antrenör kadrosuyla tanışın. #{club_discipline_names.to_sentence(last_word_connector: " ve ")} branşlarında uzman eğitmenler.",
   og_image: "public/gallery-break-one.jpeg"
 ) %>
 
@@ -12,14 +12,14 @@
   <%= structured_data_tag({
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "Kleomarcus Spor Akademi Antrenörleri",
-    "description": "Kleomarcus Spor Akademi'nin lisanslı ve deneyimli antrenör kadrosu. Boks, Kick Boks, Muay Thai, Wushu, MMA ve CrossFit branşlarında uzman eğitmenler.",
-    "url": request.original_url
+    "name": "#{club.name} Antrenörleri",
+    "description": "#{club.name}'nin lisanslı ve deneyimli antrenör kadrosu. #{club_discipline_names.to_sentence(last_word_connector: " ve ")} branşlarında uzman eğitmenler.",
+    "url": canonical_url
   }) %>
 <% end %>
 
 <%# Hero Section %>
-<%= render "shared/public/page_hero", title: "Antrenörlerimiz", image: "public/gallery-break-one.jpeg", alt_text: "Kleomarcus Spor Akademi Antrenörleri" %>
+<%= render "shared/public/page_hero", title: "Antrenörlerimiz", image: "public/gallery-break-one.jpeg", alt_text: "#{club.name} Antrenörleri" %>
 
 <%# Trainers Grid Section %>
 <section id="trainers" class="py-12 sm:py-16 md:py-20 lg:py-24 bg-base-100" aria-labelledby="trainers-title">
