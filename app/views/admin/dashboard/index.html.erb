@@ -6,13 +6,14 @@
      { label: "Antrenörler", count: @stats[:trainers],     path: admin_trainers_path,     accent: "bg-primary" },
      { label: "Dersler",     count: @stats[:lessons],      path: admin_lessons_path,      accent: "bg-secondary" },
      { label: "Yorumlar",    count: @stats[:testimonials], path: admin_testimonials_path, accent: "bg-accent" },
+     { label: "Basın",       count: @stats[:press_items],  path: admin_press_items_path,  accent: "bg-warning" },
      { label: "Başvurular",  count: @stats[:enrollments],  path: admin_enrollments_path,  accent: "bg-success" }
    ] 
 %>
 
 <% cards << { label: "Kullanıcılar", count: @stats[:users], path: admin_users_path, accent: "bg-info" } if Current.user.admin? %>
 
-<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
   <% cards.each do |c| %>
     <%= link_to c[:path],
           class: "group admin-card relative overflow-hidden p-5 hover:shadow-md hover:border-base-content/20 transition" do %>
@@ -95,6 +96,32 @@
       </ul>
     <% else %>
       <div class="px-5 py-8 text-center text-sm text-base-content/60">Henüz başvuru yok.</div>
+    <% end %>
+  </div>
+
+  <div class="admin-card overflow-hidden">
+    <div class="px-5 py-4 border-b border-base-300 flex items-center justify-between">
+      <h2 class="text-sm font-semibold tracking-wide text-base-content">Basında Biz</h2>
+      <%= link_to "Tümü", admin_press_items_path, class: "text-xs text-base-content/60 hover:text-base-content" %>
+    </div>
+    <% if @recent_press_items.any? %>
+      <ul class="divide-y divide-base-300">
+        <% @recent_press_items.each do |item| %>
+          <li class="px-5 py-3 flex items-center justify-between gap-3">
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-base-content truncate"><%= item.headline %></p>
+              <p class="text-xs text-base-content/60"><%= item.publisher %> · <%= format_date(item.published_on) %></p>
+            </div>
+            <% if item.unarchived? %>
+              <%= badge "Arşivlenmedi", variant: :error %>
+            <% else %>
+              <%= item.published? ? badge("Yayında", variant: :success) : badge("Taslak") %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="px-5 py-8 text-center text-sm text-base-content/60">Henüz basın kaydı yok.</div>
     <% end %>
   </div>
 </section>
