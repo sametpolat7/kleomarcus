@@ -1,0 +1,68 @@
+shared:
+  name: "Kleomarcus Spor Akademi"
+  short_name: "Kleomarcus"
+  url: "https://kleomarcus.com"
+  founder: "Mazlum Orak"
+  founded_in: 2019
+  email: "info@kleomarcus.com"
+  phone: "+90 547 023 08 99"
+  phone_e164: "+905470230899"
+  hall_area_m2: 800
+  price_range: "₺₺"
+  maps_url: "https://maps.app.goo.gl/FoZwYCtdZQpWdino9"
+
+  google_site_verification: ""
+  bing_site_verification: ""
+
+  address:
+    street: "Esenler, Barış Cd. 1/A"
+    locality: "Merkez"
+    region: "Çanakkale"
+    postal_code: "17010"
+    country: "TR"
+
+  geo:
+    latitude: "40.1607801"
+    longitude: "26.4151269"
+
+  area_served:
+    - "Çanakkale"
+    - "Çanakkale Merkez"
+
+  disciplines:
+    - name: "Boks"
+      group: "combat"
+      image: "public/boks.jpeg"
+      summary: "Duruş, ayak hareketleri ve temel kombinasyonlarla boksun inceliklerini öğrenin."
+    - name: "Kick Boks"
+      group: "combat"
+      image: "public/kickboks.jpeg"
+      summary: "Tekme ve yumruk kombinasyonlarıyla etkili bir dövüş stili geliştirin."
+    - name: "Muay Thai"
+      group: "combat"
+      image: "public/muaythai.jpeg"
+      summary: "Tayland'ın geleneksel dövüş sanatı ile güçlü ve etkili teknikler öğrenin."
+    - name: "Wushu"
+      group: "combat"
+      image: "public/wushu.jpeg"
+      summary: "Çin savaş sanatlarının görkemli ve atletik hareketlerini keşfedin."
+    - name: "MMA"
+      group: "combat"
+      image: "public/mma.jpeg"
+      summary: "Karma dövüş sanatları ile her alanda yetkin bir dövüşçü olun."
+    - name: "CrossFit"
+      group: "fitness"
+      image: "public/crossfit.jpeg"
+      summary: "Yüksek yoğunluklu fonksiyonel antrenmanlarla gücünüzü ve dayanıklılığınızı artırın."
+    - name: "Hyrox"
+      group: "fitness"
+      image: "public/hyrox.jpeg"
+      summary: "Dayanıklılık ve güç gerektiren fonksiyonel fitness istasyonlarına hazırlanın."
+    - name: "Bodybuilding"
+      group: "fitness"
+      image: "public/bodybuilding.jpeg"
+      summary: "Kas geliştirme ve estetik için etkili antrenman programlarıyla vücudunuzu şekillendirin."
+
+  social:
+    - "https://www.instagram.com/kleomarcus"
+    - "https://www.facebook.com/kleomarcusss/"
