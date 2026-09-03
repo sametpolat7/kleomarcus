@@ -1,9 +1,9 @@
 <%# SEO Meta Tags %>
 <%= set_seo_meta(
   title: "Galeri",
-  description: "Kleomarcus Spor Akademi fotoğraf galerisi. Antrenmanlar, müsabakalar, kulüp etkinlikleri ve sporcularımızdan kareler. Boks, Kick Boks, Muay Thai, MMA ve CrossFit alanlarından görseller.",
+  description: "#{club.name} fotoğraf galerisi. Antrenmanlar, müsabakalar, kulüp etkinlikleri ve sporcularımızdan kareler. #{club_discipline_names.to_sentence(last_word_connector: " ve ")} branşlarından görseller.",
   keywords: "kleomarcus galeri, kleomarcus fotoğrafları, çanakkale dövüş kulübü görselleri, boks antrenman fotoğrafları, kick boks müsabaka, muay thai görselleri, mma antrenman, crossfit çanakkale, dövüş sporları galerisi",
-  og_description: "Kleomarcus Spor Akademi fotoğraf galerisi — antrenmanlar, müsabakalar ve kulüp etkinliklerinden kareler.",
+  og_description: "#{club.name} fotoğraf galerisi — antrenmanlar, müsabakalar ve kulüp etkinliklerinden kareler.",
   og_image: "public/gallery-break-two.jpeg"
 ) %>
 
@@ -12,15 +12,15 @@
   <%= structured_data_tag({
     "@context": "https://schema.org",
     "@type": "ImageGallery",
-    "name": "Kleomarcus Spor Akademi Fotoğraf Galerisi",
-    "description": "Kleomarcus Spor Akademi fotoğraf galerisi — antrenmanlar, müsabakalar ve kulüp etkinliklerinden kareler.",
-    "url": request.original_url,
+    "name": "#{club.name} Fotoğraf Galerisi",
+    "description": "#{club.name} fotoğraf galerisi — antrenmanlar, müsabakalar ve kulüp etkinliklerinden kareler.",
+    "url": canonical_url,
     "provider": organization_schema
   }) %>
 <% end %>
 
 <%# Hero Section %>
-<%= render "shared/public/page_hero", title: "Galeri", image: "public/gallery-break-two.jpeg", alt_text: "Kleomarcus Spor Akademi Galeri" %>
+<%= render "shared/public/page_hero", title: "Galeri", image: "public/gallery-break-two.jpeg", alt_text: "#{club.name} Galeri" %>
 
 <%# Gallery Section %>
 <section id="gallery" class="py-8 sm:py-12 md:py-16 lg:py-20 bg-base-100" data-controller="gallery" aria-labelledby="gallery-title">
