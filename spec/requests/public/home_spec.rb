@@ -38,7 +38,7 @@ RSpec.describe "Public Home", type: :request do
 
       get root_path
 
-      expect(response.body).to include("<title>Kleomarcus Spor Akademi</title>")
+      expect(response.body).to include("<title>Çanakkale Dövüş Sporları Kulübü | Kleomarcus Spor Akademi</title>")
       expect(response.body).to match(%r{<meta property="og:image" content="http[^"]+hero-desktop[^"]*">})
       expect(response.body).to include(%(<link rel="canonical" href="https://kleomarcus.com/">))
 
@@ -50,6 +50,49 @@ RSpec.describe "Public Home", type: :request do
       expect(schema["openingHoursSpecification"]).to eq(
         [ { "@type" => "OpeningHoursSpecification", "dayOfWeek" => [ "Monday" ], "opens" => "10:00", "closes" => "22:15" } ]
       )
+    end
+
+    it "declares the combat disciplines as the club's sport and keeps conditioning out of it" do
+      get root_path
+
+      schema = JSON.parse(response.body[%r{<script type="application/ld\+json"[^>]*>(.+?)</script>}m, 1])
+
+      expect(schema["sport"]).to eq([ "Boks", "Kick Boks", "Muay Thai", "Wushu", "MMA" ])
+      expect(schema["sport"]).not_to include("CrossFit", "Hyrox", "Bodybuilding")
+      expect(schema["alternateName"]).to include("Kleomarcus Dövüş Kulübü")
+      expect(schema["keywords"]).to include("çanakkale dövüş kulübü")
+      expect(schema["keywords"]).not_to include("spor salonu")
+    end
+
+    it "catalogues the conditioning sets under a separate, subordinate catalogue" do
+      get root_path
+
+      schema = JSON.parse(response.body[%r{<script type="application/ld\+json"[^>]*>(.+?)</script>}m, 1])
+      catalogues = schema.dig("hasOfferCatalog", "itemListElement")
+
+      expect(catalogues.map { |c| c["name"] }).to eq([ "Dövüş Branşları", "Güç ve Kondisyon Antrenmanları" ])
+      expect(catalogues.first["itemListElement"].map { |o| o.dig("itemOffered", "name") })
+        .to eq([ "Boks", "Kick Boks", "Muay Thai", "Wushu", "MMA" ])
+      expect(catalogues.second["itemListElement"].map { |o| o.dig("itemOffered", "name") })
+        .to eq([ "CrossFit", "Hyrox", "Bodybuilding" ])
+    end
+
+    it "publishes the upcoming second location as a department of the same organisation" do
+      get root_path
+
+      schema = JSON.parse(response.body[%r{<script type="application/ld\+json"[^>]*>(.+?)</script>}m, 1])
+      department = schema["department"]
+
+      expect(department["name"]).to eq("Kleomarcus Plus")
+      expect(department.dig("address", "streetAddress")).to eq("Esenler-Karacaören Yolu Üzeri")
+      expect(department.dig("parentOrganization", "@id")).to eq("https://kleomarcus.com/#organization")
+    end
+
+    it "stops advertising the club as a spor salonu through a keywords meta tag" do
+      get root_path
+
+      expect(response.body).not_to include(%(<meta name="keywords"))
+      expect(response.body).not_to include("spor salonu çanakkale")
     end
 
     it "names Çanakkale in the visible page copy the retrievers read" do
