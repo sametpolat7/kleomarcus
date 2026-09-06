@@ -42,6 +42,7 @@ class ErrorsController < ActionController::Base
   SERVER_FALLBACK = PAGES.fetch(500)
 
   layout "error"
+  helper Public::BaseHelper
   skip_forgery_protection
   before_action :prevent_caching
   helper_method :status_code, :status_title, :status_message, :error_reference
