@@ -7,8 +7,33 @@ module Public::BaseHelper
     "#{club.url}#{request.path}"
   end
 
+  def club_phone_href
+    "tel:#{club.phone_e164}"
+  end
+
+  def club_whatsapp_url
+    "https://wa.me/#{club.phone_e164.delete_prefix("+")}"
+  end
+
+  def club_mail_href
+    "mailto:#{club.email}"
+  end
+
+  def club_full_address
+    address = club.address
+    "#{address[:street]}, #{address[:postal_code]} #{address[:locality]}/#{address[:region]}"
+  end
+
   def club_discipline_names
     club.disciplines.map { |discipline| discipline[:name] }
+  end
+
+  def club_combat_names
+    club_disciplines_in("combat").map { |discipline| discipline[:name] }
+  end
+
+  def club_support_names
+    club_disciplines_in("fitness").map { |discipline| discipline[:name] }
   end
 
   def club_disciplines_in(group)
@@ -19,11 +44,23 @@ module Public::BaseHelper
     club.disciplines.select { |discipline| discipline[:image] }
   end
 
-  def club_discipline_list
-    spans = club_discipline_names.map { |name| tag.span(name, class: "text-primary font-display") }
+  def discipline_name_list(names)
+    spans = names.map { |name| tag.span(name, class: "text-primary font-display") }
     return spans.first if spans.one?
 
     safe_join([ safe_join(spans[0..-2], ", "), spans.last ], " ve ")
+  end
+
+  def club_discipline_list
+    discipline_name_list(club_discipline_names)
+  end
+
+  def club_combat_list
+    discipline_name_list(club_combat_names)
+  end
+
+  def club_support_list
+    discipline_name_list(club_support_names)
   end
 
   def club_weekend_hours
@@ -33,25 +70,31 @@ module Public::BaseHelper
     windows.first.join("-")
   end
 
+  def club_offering_sentence
+    combat = club_combat_names.to_sentence(last_word_connector: " ve ")
+    support = club_support_names.to_sentence(last_word_connector: " ve ")
+
+    "#{combat} branşlarında eğitim veriyor, #{support} idman setlerini bu branşların teknik, taktik, güç ve dayanıklılık gelişimine entegre ediyoruz"
+  end
+
+  def club_identity_sentence
+    "#{club.name}, #{club.founded_in}'dan beri Çanakkale'de faaliyet gösteren çok amaçlı bir dövüş sporları kulübüdür."
+  end
+
   def default_seo_description
-    "#{club.name} — #{club.founded_in}'dan beri Çanakkale'de #{club_discipline_names.to_sentence(last_word_connector: " ve ")} eğitimleri. Deneyimli antrenörler eşliğinde her yaş ve seviyeye uygun bireysel ve grup dersleri."
+    "#{club_identity_sentence} #{club_offering_sentence.upcase_first}. Deneyimli antrenörler eşliğinde her yaş ve seviyeye uygun bireysel ve grup dersleri."
   end
 
   def seo_description
     @seo_description || default_seo_description
   end
 
-  def default_seo_keywords
-    "kleomarcus, kleomarcus spor akademi, çanakkale boks, çanakkale kick boks, çanakkale muay thai, çanakkale wushu, çanakkale mma, çanakkale crossfit, çanakkale hyrox, çanakkale bodybuilding, dövüş sporları çanakkale, dövüş kulübü, spor salonu çanakkale, bireysel antrenman, grup dersleri, çocuk boks, yetişkin dövüş eğitimi"
-  end
-
-  def set_seo_meta(title: nil, description: nil, keywords: nil, og_title: nil, og_description: nil, og_image: nil, og_type: "website")
+  def set_seo_meta(title: nil, description: nil, og_title: nil, og_description: nil, og_image: nil, og_type: "website")
     full_title = title ? "#{title} | #{club.name}" : club.name
     content_for :title, full_title
 
     @seo_description = description || default_seo_description
     content_for :description, @seo_description
-    content_for :keywords, keywords || default_seo_keywords
 
     content_for :og_title, og_title || full_title
     content_for :og_description, og_description || description || default_seo_description
@@ -61,6 +104,11 @@ module Public::BaseHelper
     content_for :canonical, canonical_url
 
     nil
+  end
+
+  def club_schema_keywords
+    (club_combat_names.map { |name| "çanakkale #{name.downcase}" } +
+      [ "çanakkale dövüş kulübü", "dövüş sporları çanakkale", "çocuk dövüş sporları çanakkale", "güç ve kondisyon antrenmanı" ]).join(", ")
   end
 
   def opening_hours_specification
@@ -74,12 +122,69 @@ module Public::BaseHelper
     end
   end
 
+  def discipline_offer_catalog(name, disciplines)
+    {
+      "@type": "OfferCatalog",
+      "name": name,
+      "itemListElement": disciplines.map do |discipline|
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": discipline[:name],
+            "serviceType": discipline[:name],
+            "description": discipline[:summary]
+          }
+        }
+      end
+    }
+  end
+
+  def club_offer_catalog
+    {
+      "@type": "OfferCatalog",
+      "name": "#{club.name} Antrenman Programı",
+      "itemListElement": [
+        discipline_offer_catalog("Dövüş Branşları", club_disciplines_in("combat")),
+        discipline_offer_catalog("Güç ve Kondisyon Antrenmanları", club_disciplines_in("fitness"))
+      ]
+    }
+  end
+
+  def club_department_schema
+    plus = club.plus
+    return if plus.blank?
+
+    {
+      "@type": "SportsClub",
+      "@id": "#{club.url}/#kleomarcus-plus",
+      "name": plus[:name],
+      "parentOrganization": { "@id": "#{club.url}/#organization" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": plus[:street],
+        "addressLocality": plus[:locality],
+        "addressRegion": plus[:region],
+        "addressCountry": plus[:country]
+      },
+      "telephone": club.phone_e164,
+      "sameAs": [ plus[:instagram] ].compact_blank
+    }
+  end
+
   def organization_schema
     schema = {
       "@context": "https://schema.org",
       "@type": "SportsClub",
       "@id": "#{club.url}/#organization",
       "name": club.name,
+      "alternateName": club.alternate_names,
+      "description": default_seo_description,
+      "slogan": club.slogan,
+      "keywords": club_schema_keywords,
+      "sport": club_combat_names,
+      "knowsAbout": club_combat_names,
+      "hasOfferCatalog": club_offer_catalog,
       "url": club.url,
       "telephone": club.phone_e164,
       "email": club.email,
@@ -106,6 +211,9 @@ module Public::BaseHelper
       "priceRange": club.price_range,
       "sameAs": club.social
     }
+
+    department = club_department_schema
+    schema = schema.merge("department": department) if department
 
     hours = opening_hours_specification
     hours.any? ? schema.merge("openingHoursSpecification": hours) : schema

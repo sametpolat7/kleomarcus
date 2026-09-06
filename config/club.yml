@@ -4,12 +4,19 @@ shared:
   url: "https://kleomarcus.com"
   founder: "Mazlum Orak"
   founded_in: 2019
-  email: "info@kleomarcus.com"
+  email: "kleomarcus17@gmail.com"
   phone: "+90 547 023 08 99"
   phone_e164: "+905470230899"
-  hall_area_m2: 800
+  hall_area_m2: 400
   price_range: "₺₺"
   maps_url: "https://maps.app.goo.gl/FoZwYCtdZQpWdino9"
+  slogan: "Güç Senin İçinde. Açığa Çıkarmak Bizim İşimiz."
+
+  alternate_names:
+    - "Kleomarcus Spor Akademisi"
+    - "Kleomarcus Dövüş Kulübü"
+    - "Kleomarcus Spor Kulübü"
+    - "Kleomarcus Fight Club"
 
   google_site_verification: ""
   bing_site_verification: ""
@@ -53,15 +60,24 @@ shared:
     - name: "CrossFit"
       group: "fitness"
       image: "public/crossfit.jpeg"
-      summary: "Yüksek yoğunluklu fonksiyonel antrenmanlarla gücünüzü ve dayanıklılığınızı artırın."
+      summary: "Ring ve müsabaka temposunu taşıyabilmek için genel dayanıklılık ve tekrarlı güç çalışması."
     - name: "Hyrox"
       group: "fitness"
       image: "public/hyrox.jpeg"
-      summary: "Dayanıklılık ve güç gerektiren fonksiyonel fitness istasyonlarına hazırlanın."
+      summary: "Uzun raundlarda tempo düşürmemek için istasyon bazlı dayanıklılık ve güç çalışması."
     - name: "Bodybuilding"
       group: "fitness"
       image: "public/bodybuilding.jpeg"
-      summary: "Kas geliştirme ve estetik için etkili antrenman programlarıyla vücudunuzu şekillendirin."
+      summary: "Kilo kategorisi hedefleri ve vuruş gücü için planlı kuvvet ve kas gelişimi çalışması."
+
+  plus:
+    name: "Kleomarcus Plus"
+    status: "upcoming"
+    street: "Esenler-Karacaören Yolu Üzeri"
+    locality: "Merkez"
+    region: "Çanakkale"
+    country: "TR"
+    instagram: "https://www.instagram.com/kleomarcus_plus"
 
   social:
     - "https://www.instagram.com/kleomarcus"

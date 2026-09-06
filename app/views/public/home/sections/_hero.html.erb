@@ -4,7 +4,7 @@
   <div class="absolute inset-0">
     <picture>
       <source media="(min-width: 640px)" srcset="<%= image_path('public/hero-desktop.jpeg') %>">
-      <%= image_tag 'public/hero-mobile.jpeg', alt: "Kleomarcus Mekan Görseli", class: "w-full h-full object-cover object-center", loading: "eager" %>
+      <%= image_tag 'public/hero-mobile.jpeg', alt: "Kleomarcus Spor Akademi — Çanakkale'deki dövüş sporları antrenman salonu", class: "w-full h-full object-cover object-center", loading: "eager" %>
     </picture>
 
     <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/70 to-neutral-950/30"></div>
@@ -36,7 +36,7 @@
       <!-- Rotating Texts -->
       <div class="flex flex-col gap-8 sm:flex-row sm:gap-12 lg:gap-16">
 
-        <% { "combat" => "DÖVÜŞ SPORLARI", "fitness" => "FITNESS" }.each do |group, label| %>
+        <% { "combat" => "DÖVÜŞ BRANŞLARI", "fitness" => "GÜÇ & KONDİSYON" }.each do |group, label| %>
           <div class="text-center sm:text-left">
             <span class="block text-neutral-400 text-sm sm:text-base tracking-wider mb-2 sm:mb-3">
               <%= label %>

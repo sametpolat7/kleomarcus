@@ -2,7 +2,7 @@
 <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col gap-3" aria-label="Hızlı İletişim">
 
   <%# Instagram %>
-  <a href="https://www.instagram.com/kleomarcus"
+  <a href="<%= club.social.first %>"
      target="_blank"
      rel="noopener noreferrer"
      aria-label="Instagram'da Bizi Takip Edin"
@@ -11,7 +11,7 @@
   </a>
 
   <%# WhatsApp %>
-  <a href="https://wa.me/905470230899"
+  <a href="<%= club_whatsapp_url %>"
      target="_blank"
      rel="noopener noreferrer"
      aria-label="WhatsApp'tan Bize Yazın"
