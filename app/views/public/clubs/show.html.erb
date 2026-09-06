@@ -1,9 +1,8 @@
 <%# SEO Meta Tags for Club Page %>
 <%= set_seo_meta(
   title: "Kulübümüz",
-  description: "#{club.name} hakkında. #{club.founded_in}'dan beri Çanakkale'de #{club_discipline_names.to_sentence(last_word_connector: " ve ")} branşlarında eğitim veriyoruz. Disiplinli antrenman anlayışı, deneyimli kadro ve modern tesislerimizle tanışın.",
-  keywords: "kleomarcus hakkında, kleomarcus kulübü, çanakkale dövüş kulübü, çanakkale spor akademisi, dövüş sporları kulübü, boks kulübü çanakkale, kick boks kulübü, muay thai çanakkale, wushu çanakkale, mma çanakkale",
-  og_description: "#{club.name} — #{club.founded_in}'dan beri Çanakkale'de dövüş sporları akademisi. Disiplinli antrenman anlayışı, deneyimli kadro ve modern tesislerle tanışın.",
+  description: "#{club_identity_sentence} #{club_offering_sentence.upcase_first}. Disiplinli antrenman anlayışı, deneyimli kadro ve modern tesislerimizle tanışın.",
+  og_description: "#{club_identity_sentence} Disiplinli antrenman anlayışı, deneyimli kadro ve modern tesislerle tanışın.",
   og_image: "public/our-club.jpeg"
 ) %>
 
@@ -42,9 +41,11 @@
 
         <div class="space-y-3 sm:space-y-4 text-base-content/80">
           <p class="text-sm sm:text-base md:text-lg leading-relaxed">
-            <%= club.name %>, kurucusu <span class="text-primary font-display"><%= club.founder %></span> önderliğinde <%= club.founded_in %> yılından beri Çanakkale'de faaliyet gösteren bir dövüş ve fitness akademisidir.
-            <%= club_discipline_list %>
+            <%= club.name %>, kurucusu <span class="text-primary font-display"><%= club.founder %></span> önderliğinde <%= club.founded_in %> yılından beri Çanakkale'de faaliyet gösteren çok amaçlı bir dövüş sporları kulübüdür.
+            <%= club_combat_list %>
             branşlarında profesyonel eğitimler sunuyoruz.
+            <%= club_support_list %>
+            idman setlerimizi de bu branşların teknik, taktik, güç ve dayanıklılık gelişimine entegre ediyoruz.
           </p>
           <p class="text-sm sm:text-base md:text-lg leading-relaxed">
             Akademimize adını veren <span class="text-primary font-display">Kleomarcus</span>, Eski Mısır'da savaşçı krallara verilen bir unvandır. Kralların gerçek isimleri kutsal sayılarak gizli tutulur, kendilerine savaş tanrılarını simgeleyen lakaplar verilirdi. Bu unvan, Kadeş Savaşı zaferiyle tanınan II.&nbsp;Ramses (MÖ&nbsp;1303–1212) tarafından verilmiş olup akademimizin taşıdığı savaşçı ruhunu ve disiplini simgelemektedir.
@@ -173,11 +174,11 @@
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <a href="tel:+905470230899" class="btn btn-lg btn-outline border-2 border-primary-content text-primary-content hover:bg-primary-content hover:text-primary transition-all duration-300">
+        <a href="<%= club_phone_href %>" class="btn btn-lg btn-outline border-2 border-primary-content text-primary-content hover:bg-primary-content hover:text-primary transition-all duration-300">
           Bizi Ara
         </a>
         <span class="text-sm opacity-70">veya</span>
-        <a href="https://wa.me/905470230899" target="_blank" rel="noopener noreferrer" class="text-sm sm:text-base underline hover:opacity-100 opacity-80">
+        <a href="<%= club_whatsapp_url %>" target="_blank" rel="noopener noreferrer" class="text-sm sm:text-base underline hover:opacity-100 opacity-80">
           WhatsApp'tan yaz
         </a>
       </div>
