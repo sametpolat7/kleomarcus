@@ -34,7 +34,6 @@ press_items_data = [
     publisher_kind: :local_press,
     headline: "Çanakkale'de ringler kabuk değiştiriyor!",
     url: "https://www.canakkaleolay.com/haber/canakkale-de-ringler-kabuk-degistiriyor-124262",
-    archive_url: "https://web.archive.org/web/20260903203103/https://www.canakkaleolay.com/haber/canakkale-de-ringler-kabuk-degistiriyor-124262",
     published_on: Date.new(2026, 7, 22),
     byline: "Azize Yalçın, Simay Yıldırım",
     quote: "Kulübümüzün %80'ini kadınlar oluşturuyor. Çocuklarda akran zorbalığı, kadınlarda ise öz savunma ve sağlıklı yaşam isteği talebi zirveye taşıdı."
@@ -44,7 +43,7 @@ press_items_data = [
     publisher_kind: :local_press,
     headline: "KickBoks'ta büyük başarı",
     url: "https://www.canakkalekalem.com/kickboksta-buyuk-basari/12207",
-    archive_url: "https://web.archive.org/web/20260903202655/https://www.canakkalekalem.com/kickboksta-buyuk-basari/12207",
+    archive_url: "https://web.archive.org/web/20260905181313/https://www.canakkalekalem.com/kickboksta-buyuk-basari/12207",
     published_on: Date.new(2019, 4, 26),
     quote: "ÇOMÜ Kleomarcus Kulübü sporcuları, Bartın'da düzenlenen Üniversiteler Arası Kick Boks Türkiye Şampiyonası'nda dereceye girdi."
   },
@@ -62,7 +61,7 @@ press_items_data = [
     publisher_kind: :official_statement,
     headline: "2025 Wushu Türkiye Şampiyonasında büyük başarı elde etti!",
     url: "https://www.canakkalekalem.com/2025-wushu-turkiye-sampiyonasinda-buyuk-basari-elde-etti/139832",
-    archive_url: "https://web.archive.org/web/20260903203230/https://www.canakkalekalem.com/2025-wushu-turkiye-sampiyonasinda-buyuk-basari-elde-etti/139832",
+    archive_url: "https://web.archive.org/web/20260905181348/https://www.canakkalekalem.com/2025-wushu-turkiye-sampiyonasinda-buyuk-basari-elde-etti/139832",
     published_on: Date.new(2025, 2, 18),
     quote: "Çanakkale Gençlik ve Spor İl Müdürlüğü, Kleo Marcus Spor Akademisi'ni tebrik ederek sporcuların derecelerini duyurdu."
   },
@@ -100,7 +99,6 @@ press_items_data = [
     publisher_kind: :local_press,
     headline: "Çanakkale'yi Balkan Şampiyonası'nda temsil edecekler",
     url: "https://www.canakkaleolay.com/haber/canakkale-yi-balkan-sampiyonasi-nda-temsil-edecekler-67277",
-    archive_url: "https://web.archive.org/web/20260903202102/https://www.canakkaleolay.com/haber/canakkale-yi-balkan-sampiyonasi-nda-temsil-edecekler-67277",
     published_on: Date.new(2024, 7, 19),
     quote: "Kleomarcus Spor Kulübü Antrenörü Mazlum Orak tarafından çalıştırılan Süheyla Altın, Süreyya Altın ve Muhammet Cemal Yay'dan oluşan Çanakkale ekibi, ilimizi Edirne'de düzenlenecek olan 7. Açık Balkan Wushu Kung Fu Şampiyonası'nda temsil edecek."
   },
@@ -143,12 +141,13 @@ press_items_data = [
     quote: "17-20 Nisan tarihleri arasında Bartın ilinde gerçekleştirilen Üniversitelerarası Wushu Kungfu Türkiye Şampiyonasına Antrenör Mazlum Orak nezaretinde katılan Çanakkale Onsekiz Mart Üniversitesi (ÇOMÜ) Wushu Kungfu Takımı, 12 sporcu ile katıldığı turnuvadan 12 madalya ile döndü."
   },
   {
-    publisher: "SES15",
-    publisher_kind: :local_press,
-    headline: "İkiz Kız Kardeşler, Milli Takım Formasına Kavuşabilmek İçin Ter Döküyor",
-    url: "https://www.ses15.com.tr/genel/ikiz-kiz-kardesler-milli-takim-formasina-kavusabilmek-icin-ter-dokuyor-116659",
-    archive_url: "https://web.archive.org/web/20250322062649/https://www.ses15.com.tr/genel/ikiz-kiz-kardesler-milli-takim-formasina-kavusabilmek-icin-ter-dokuyor-116659",
+    publisher: "Anadolu Ajansı",
+    publisher_kind: :news_agency,
+    headline: "Wushucu ikiz kız kardeşler, milli takım formasına kavuşabilmek için ter döküyor",
+    url: "https://www.aa.com.tr/tr/spor/wushucu-ikiz-kiz-kardesler-milli-takim-formasina-kavusabilmek-icin-ter-dokuyor/3459998",
+    archive_url: "https://web.archive.org/web/20250304100416/https://www.aa.com.tr/tr/spor/wushucu-ikiz-kiz-kardesler-milli-takim-formasina-kavusabilmek-icin-ter-dokuyor/3459998",
     published_on: Date.new(2025, 1, 23),
+    byline: "Çiğdem Münibe Alyanak",
     quote: "Eğitimlerinin yanı sıra bir spor branşıyla ilgilenmeye karar veren ikiz kardeşlerin yolu, yaptıkları araştırmalar neticesinde Wushu Milli Takımı antrenörü Mazlum Orak ile kesişti."
   },
   {
