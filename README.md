@@ -1,70 +1,75 @@
 # Kleomarcus
 
-Web presence for **Kleomarcus Spor Akademi** — a combat sports and fitness academy in Çanakkale, Turkey. Built with Ruby on Rails 8.1.
+Source code for [kleomarcus.com](https://www.kleomarcus.com), the website of Kleomarcus Spor Akademi, a combat sports and fitness academy in Çanakkale, Turkey.
 
-## Tech Stack
+The public site presents the club, its disciplines, trainers, gallery and press coverage, and takes enrollment applications. An admin panel manages that content.
 
-| Layer      | Technology                                          |
-| ---------- | --------------------------------------------------- |
-| Backend    | Ruby 3.4.4, Rails 8.1.3                             |
-| Frontend   | Tailwind CSS 4, DaisyUI, Hotwire (Turbo + Stimulus) |
-| Database   | PostgreSQL 16, Solid Cache / Queue / Cable          |
-| Assets     | Propshaft, importmap-rails                          |
-| Storage    | Active Storage, libvips                             |
-| Deployment | Kamal 2, Docker, Thruster                           |
-| Testing    | RSpec, Factory Bot, Capybara, Selenium              |
-| Quality    | RuboCop, Brakeman, bundler-audit, Herb              |
+## Stack
 
-## Getting Started
+| Area        | Tools                                                                    |
+| ----------- | ------------------------------------------------------------------------ |
+| Framework   | Ruby 3.4, Rails 8.1                                                      |
+| Frontend    | Hotwire (Turbo, Stimulus), import maps, Propshaft, Tailwind CSS 4, daisyUI |
+| Data        | PostgreSQL 16, Solid Cache, Solid Queue, Solid Cable, Active Storage      |
+| Deployment  | Docker, Kamal 2, Thruster, Puma                                          |
+| Quality     | RSpec, Factory Bot, Capybara, RuboCop, Herb, Brakeman, bundler-audit     |
 
-Requires Ruby 3.4.4, Rails 8.1.3 and a running PostgreSQL server.
+## Getting started
+
+Requires Ruby 3.4.4 (see `.ruby-version`), PostgreSQL 16 and libvips.
 
 ```bash
 git clone https://github.com/sametpolat7/kleomarcus.git
 cd kleomarcus
-bin/setup   # Install deps, prepare DB, seed data
-bin/dev     # Start Rails server + Tailwind watcher → http://localhost:3000
+bin/setup
 ```
 
-Development and test connect to `localhost` as your OS user with no password. Set `DATABASE_HOST`, `DATABASE_USERNAME` or `DATABASE_PASSWORD` if your installation differs.
+`bin/setup` installs gems, creates and seeds the database, then starts the app at http://localhost:3000. Pass `--skip-server` to set up without starting it. On later runs, `bin/dev` starts the Rails server together with the Tailwind watcher.
 
-## Testing & CI
+Development and test connect to PostgreSQL on `localhost` as your OS user with no password. Set `DATABASE_HOST`, `DATABASE_USERNAME` or `DATABASE_PASSWORD` if your installation differs.
+
+The admin panel lives at `/admin`. Seeds do not create a user, so create the first admin once:
 
 ```bash
-bundle exec rspec   # Run all specs
-bin/ci              # Full pipeline: lint → audit → security → assets → specs → seeds
+bin/rails runner 'User.create!(username: "admin", email_address: "admin@example.com", password: "change-me", role: :admin)'
 ```
 
-## Code Quality
+## Testing and quality
 
 ```bash
-bin/rubocop                       # Style check (auto-fix with -a)
-bin/brakeman                      # Security scan
-bin/bundler-audit                 # Dependency audit
-bin/importmap audit               # JavaScript dependency audit
-bundle exec herb analyze app/views  # ERB lint
+bin/ci                               # full pipeline: style, security, assets, specs, seeds
+bundle exec rspec                    # all specs, including system tests
+bin/rubocop                          # Ruby style (add -a to auto-correct)
+bundle exec herb analyze app/views   # ERB lint
+bin/brakeman                         # static security analysis
+bin/bundler-audit                    # gem vulnerability audit
+bin/importmap audit                  # JavaScript vulnerability audit
 ```
+
+GitHub Actions runs the same checks on every pull request and on every push to `main`.
 
 ## Deployment
 
-The app runs on a single Linux VPS as a Docker container, deployed with [Kamal](https://kamal-deploy.org). PostgreSQL runs beside it as a Kamal accessory, bound to loopback and reachable only over the private Docker network. Database files and Active Storage uploads live in named Docker volumes, so they outlive every container.
+The app runs as a single Docker container on a Linux VPS, deployed with [Kamal](https://kamal-deploy.org). PostgreSQL runs beside it as a Kamal accessory bound to loopback, and both the database files and Active Storage uploads live in named Docker volumes that outlive containers.
 
 ```bash
-bin/kamal deploy               # Build, push, health check, then switch traffic over
-bin/kamal rollback <version>   # Return to a previously deployed image
-bin/kamal console              # Remote Rails console
-bin/kamal logs                 # Tail production logs
-bin/kamal dbc                  # Remote database console
+bin/kamal deploy               # build, push, health check, then switch traffic
+bin/kamal rollback <version>   # return to a previously deployed image
+bin/kamal console              # production Rails console
+bin/kamal logs                 # tail production logs
+bin/kamal dbc                  # production database console
 ```
 
-Migrations need no separate step: the container entrypoint runs `db:prepare` before Puma starts, and traffic moves to the new container only once `/up` responds. A failed build, migration or health check therefore leaves the running version serving.
+Migrations need no separate step. The container entrypoint runs `db:prepare` before Puma starts, and traffic only moves to the new container once `/up` responds. A failed build, migration or health check leaves the running version in place.
 
-The database accessory is provisioned once rather than per deploy:
+The database accessory is provisioned once, before the first deploy:
 
 ```bash
 bin/kamal accessory boot postgres
 ```
 
+Secrets (`RAILS_MASTER_KEY`, `KAMAL_REGISTRY_PASSWORD`, `POSTGRES_PASSWORD`) are resolved through `.kamal/secrets`, which documents where each one comes from.
+
 ## License
 
-All rights reserved. See [LICENSE](LICENSE) for details.
+Copyright © 2025–2026 Samet Polat. All rights reserved. See [LICENSE](LICENSE).
