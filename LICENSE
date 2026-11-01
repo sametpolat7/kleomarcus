@@ -1,5 +1,30 @@
-Copyright (c) 2025 Samet Polat
+Copyright (c) 2025-2026 Samet Polat. All rights reserved.
 
-All rights reserved.
+This repository contains the source code of the website of Kleomarcus Spor
+Akademi (https://www.kleomarcus.com). It is published for reference only.
 
-Redistribution and use in source and binary forms, with or without modification, are not permitted without explicit permission from the copyright holder.
+Source code
+
+The source code in this repository is the copyrighted work of Samet Polat.
+Redistribution and use in source and binary forms, with or without
+modification, are not permitted without the prior written permission of the
+copyright holder. Viewing and forking the repository on GitHub, as permitted
+by the GitHub Terms of Service, grant no further rights.
+
+Content and brand
+
+The Kleomarcus name and logo, photographs, trainer biographies, testimonials,
+press material and other content in this repository belong to Kleomarcus Spor
+Akademi or to the persons depicted or quoted. They are not licensed for any
+use.
+
+Third-party software
+
+Third-party libraries included in or used by this project remain subject to
+their own licenses, which are preserved in their respective files.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE.
