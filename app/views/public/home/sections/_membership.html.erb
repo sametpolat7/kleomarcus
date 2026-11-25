@@ -11,124 +11,34 @@
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
-
-      <!-- Special Package 1 -->
-      <article class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
-        <div class="card-body text-center p-4 sm:p-6">
-          <h3 class="font-display text-lg sm:text-xl md:text-2xl font-bold text-base-content">Özel Ders 1</h3>
-          <p class="text-base-content/60 text-xs sm:text-sm mb-3 sm:mb-4">Dövüş sporlarına giriş</p>
-          <div class="mb-4 sm:mb-6" aria-label="Aylık 8.000 lira">
-            <span class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-base-content">₺8.000</span>
-            <span class="text-base-content/60 text-sm sm:text-base">/ay</span>
+      <% @membership_plans.each do |plan| %>
+        <% featured = plan.featured? %>
+        <article class="<%= class_names("card transition-shadow", featured ? "bg-primary text-primary-content shadow-2xl md:scale-105 z-10 hover:shadow-3xl" : "bg-base-200 shadow-xl hover:shadow-2xl") %>">
+          <div class="<%= class_names("card-body text-center p-4 sm:p-6", relative: featured) %>">
+            <% if featured %>
+              <div class="badge badge-secondary badge-sm sm:badge-md absolute top-3 right-3 sm:top-4 sm:right-4 font-semibold text-xs sm:text-sm" role="status" aria-label="En popüler paket">
+                Popüler
+              </div>
+            <% end %>
+            <h3 class="<%= class_names("font-display text-lg sm:text-xl md:text-2xl font-bold", "text-base-content": !featured) %>"><%= plan.name %></h3>
+            <p class="<%= class_names("text-xs sm:text-sm mb-3 sm:mb-4", featured ? "opacity-80" : "text-base-content/60") %>"><%= plan.description %></p>
+            <div class="mb-4 sm:mb-6" aria-label="Aylık <%= plan.formatted_monthly_price %> lira">
+              <span class="<%= class_names("font-display text-2xl sm:text-3xl md:text-4xl font-bold", "text-base-content": !featured) %>">₺<%= plan.formatted_monthly_price %></span>
+              <span class="<%= class_names("text-sm sm:text-base", featured ? "opacity-80" : "text-base-content/60") %>">/ay</span>
+            </div>
+            <ul class="space-y-2 sm:space-y-3 text-left mb-6 sm:mb-8 text-sm sm:text-base" role="list">
+              <% plan.features.each do |feature| %>
+                <li class="<%= class_names("flex items-start gap-2", featured ? "opacity-90" : "text-base-content/80") %>">
+                  <svg class="<%= class_names("w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5", "text-primary": !featured) %>" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span><%= feature %></span>
+                </li>
+              <% end %>
+            </ul>
           </div>
-          <ul class="space-y-2 sm:space-y-3 text-left mb-6 sm:mb-8 text-sm sm:text-base" role="list">
-            <li class="flex items-start gap-2 text-base-content/80">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Haftada 2, ayda 8 özel ders</span>
-            </li>
-            <li class="flex items-start gap-2 text-base-content/80">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Bire bir antrenör desteği</span>
-            </li>
-            <li class="flex items-start gap-2 text-base-content/80">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Torba, interval ve ağırlık antrenmanları</span>
-            </li>
-            <li class="flex items-start gap-2 text-base-content/80">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Antrenör eşliğinde teknik sparring</span>
-            </li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Group Package (Popular) -->
-      <article class="card bg-primary text-primary-content shadow-2xl md:scale-105 z-10 hover:shadow-3xl transition-shadow">
-        <div class="card-body text-center relative p-4 sm:p-6">
-          <div class="badge badge-secondary badge-sm sm:badge-md absolute top-3 right-3 sm:top-4 sm:right-4 font-semibold text-xs sm:text-sm" role="status" aria-label="En popüler paket">
-            Popüler
-          </div>
-          <h3 class="font-display text-lg sm:text-xl md:text-2xl font-bold">Grup Dersleri</h3>
-          <p class="opacity-80 text-xs sm:text-sm mb-3 sm:mb-4">Toplu antrenman yapmak isteyenlere</p>
-          <div class="mb-4 sm:mb-6" aria-label="Aylık 2.500 lira">
-            <span class="font-display text-2xl sm:text-3xl md:text-4xl font-bold">₺2.500</span>
-            <span class="opacity-80 text-sm sm:text-base">/ay</span>
-          </div>
-          <ul class="space-y-2 sm:space-y-3 text-left mb-6 sm:mb-8 text-sm sm:text-base" role="list">
-            <li class="flex items-start gap-2 opacity-90">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Haftada 2, ayda 8 grup dersi</span>
-            </li>
-            <li class="flex items-start gap-2 opacity-90">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Profesyonel antrenörler eşliğinde</span>
-            </li>
-            <li class="flex items-start gap-2 opacity-90">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Toplu antrenman programları</span>
-            </li>
-            <li class="flex items-start gap-2 opacity-90">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Ekiple birlikte sparring</span>
-            </li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Special Package 2 -->
-      <article class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
-        <div class="card-body text-center p-4 sm:p-6">
-          <h3 class="font-display text-lg sm:text-xl md:text-2xl font-bold text-base-content">Özel Ders 2</h3>
-          <p class="text-base-content/60 text-xs sm:text-sm mb-3 sm:mb-4">Hızlı ilerlemek isteyenlere</p>
-          <div class="mb-4 sm:mb-6" aria-label="Aylık 12.000 lira">
-            <span class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-base-content">₺12.000</span>
-            <span class="text-base-content/60 text-sm sm:text-base">/ay</span>
-          </div>
-          <ul class="space-y-2 sm:space-y-3 text-left mb-6 sm:mb-8 text-sm sm:text-base" role="list">
-            <li class="flex items-start gap-2 text-base-content/80">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Haftada 3, ayda 12 özel ders</span>
-            </li>
-            <li class="flex items-start gap-2 text-base-content/80">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Bire bir antrenör desteği</span>
-            </li>
-            <li class="flex items-start gap-2 text-base-content/80">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Kişiselleştirilmiş antrenman programı</span>
-            </li>
-            <li class="flex items-start gap-2 text-base-content/80">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Antrenör eşliğinde teknik sparring</span>
-            </li>
-          </ul>
-        </div>
-      </article>
-
+        </article>
+      <% end %>
     </div>
 
     <p class="text-center text-base-content/60 text-xs sm:text-sm mt-6 sm:mt-8 px-4">
