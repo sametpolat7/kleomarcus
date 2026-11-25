@@ -85,7 +85,7 @@ jobs:
           bundler-cache: true
 
       - name: Analyze ERB templates with Herb
-        run: bundle exec herb analyze app/views --no-log-file
+        run: bundle exec herb analyze app/views
 
   test:
     name: Run unit & integration tests (RSpec)
