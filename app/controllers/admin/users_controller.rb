@@ -44,12 +44,6 @@ class Admin::UsersController < Admin::BaseController
 
   private
 
-  def require_admin
-    return if Current.user.admin?
-
-    redirect_to admin_root_path, alert: "Bu bölüme yalnızca yöneticiler erişebilir."
-  end
-
   def set_user
     @user = User.find(params[:id])
   end

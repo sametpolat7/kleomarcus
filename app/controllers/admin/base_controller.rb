@@ -10,6 +10,12 @@ class Admin::BaseController < ApplicationController
 
   private
 
+  def require_admin
+    return if Current.user.admin?
+
+    redirect_to admin_root_path, alert: "Bu bölüme yalnızca yöneticiler erişebilir."
+  end
+
   def keep_flash_inside_frames
     flash.keep if turbo_frame_request?
   end
