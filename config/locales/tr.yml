@@ -1,6 +1,8 @@
 tr:
   activerecord:
     attributes:
+      discipline:
+        name: Branş Adı
       enrollment:
         full_name: Ad Soyad
         phone: Telefon
@@ -16,6 +18,13 @@ tr:
         start_time: Başlangıç
         end_time: Bitiş
         kind: Tür
+      membership_plan:
+        name: Paket Adı
+        description: Açıklama
+        monthly_price: Aylık Ücret
+        features: Özellikler
+        featured: Öne Çıkan
+        position: Sıra
       press_item:
         publisher: Yayıncı
         publisher_kind: Yayın Türü
