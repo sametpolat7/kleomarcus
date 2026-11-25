@@ -1,0 +1,19 @@
+<%# locals: (row:) %>
+<tr class="hover:bg-base-200/40 transition-colors">
+  <td class="font-medium">
+    <%= row.name %>
+  </td>
+  <td class="text-base-content/70">
+    <%= row.trainers.any? ? row.trainers.sort_by(&:position).map(&:name).to_sentence : "—" %>
+  </td>
+
+  <td class="text-right">
+    <div class="inline-flex gap-1">
+      <%= modal_trigger "Düzenle", edit_admin_discipline_path(row), variant: :ghost %>
+      <%= button_to "Sil", admin_discipline_path(row),
+            method: :delete,
+            class: "btn btn-sm btn-ghost text-error",
+            form: { data: { turbo_confirm: "“#{row.name}” branşını silmek istediğinize emin misiniz?" } } %>
+    </div>
+  </td>
+</tr>

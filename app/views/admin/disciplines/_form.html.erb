@@ -1,0 +1,16 @@
+<%# locals: (discipline:) %>
+<%= render "shared/admin/form_errors", resource: discipline %>
+
+<%= form_with model: [:admin, discipline] do |f| %>
+  <div>
+    <label class="admin-form-label" for="discipline_name">Branş Adı</label>
+    <%= f.text_field :name, id: "discipline_name", class: "input input-bordered w-full", required: true %>
+  </div>
+
+  <div class="flex items-center justify-end gap-2 pt-3 mt-6 border-t border-base-300">
+    <%= link_to "İptal", admin_disciplines_path,
+          class: "btn btn-ghost",
+          data: { action: "click->modal#close" } %>
+    <%= f.submit (discipline.persisted? ? "Güncelle" : "Oluştur"), class: "btn btn-primary" %>
+  </div>
+<% end %>

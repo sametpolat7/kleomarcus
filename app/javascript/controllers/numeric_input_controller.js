@@ -4,6 +4,7 @@ export default class extends Controller {
   static values = {
     maxLength: Number,
     countryCode: { type: String, default: "" },
+    delimiter: { type: String, default: "" },
   };
 
   connect() {
@@ -30,7 +31,22 @@ export default class extends Controller {
       digits = digits.slice(0, this.maxLengthValue);
     }
 
-    this.element.value = digits;
-    this.element.setSelectionRange(digitsBeforeCaret, digitsBeforeCaret);
+    this.element.value = this.delimiterValue
+      ? digits.replace(/\B(?=(\d{3})+(?!\d))/g, this.delimiterValue)
+      : digits;
+
+    const caret = this.caretAfterDigits(digitsBeforeCaret);
+    this.element.setSelectionRange(caret, caret);
+  }
+
+  // Index just past the nth digit, so delimiters inserted while typing do not move the caret.
+  caretAfterDigits(count) {
+    if (count === 0) return 0;
+
+    let seen = 0;
+    for (let index = 0; index < this.element.value.length; index++) {
+      if (/\d/.test(this.element.value[index]) && ++seen === count) return index + 1;
+    }
+    return this.element.value.length;
   }
 }

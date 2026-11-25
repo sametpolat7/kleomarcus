@@ -32,6 +32,39 @@ RSpec.describe "Public Home", type: :request do
       expect(response.body).not_to include("Sonraki Yorum")
     end
 
+    it "lists the membership plans in panel order with their monthly price and features" do
+      create(:membership_plan, name: "Özel Ders 2", monthly_price: 12_000, position: 3)
+      create(:membership_plan, name: "Grup Dersleri", monthly_price: 2_500, position: 2, features: [ "Haftada 2, ayda 8 grup dersi", "Ekiple birlikte sparring" ])
+      create(:membership_plan, name: "Özel Ders 1", monthly_price: 8_000, position: 1)
+
+      get root_path
+
+      cards = Nokogiri::HTML(response.body).css("section#membership article")
+      expect(cards.map { |card| card.at_css("h3").text }).to eq([ "Özel Ders 1", "Grup Dersleri", "Özel Ders 2" ])
+      expect(cards.map { |card| card.at_css("[aria-label^='Aylık']")["aria-label"] })
+        .to eq([ "Aylık 8.000 lira", "Aylık 2.500 lira", "Aylık 12.000 lira" ])
+      expect(cards[1].text).to include("₺2.500")
+      expect(cards[1].css("li").map { |item| item.text.squish }).to eq([ "Haftada 2, ayda 8 grup dersi", "Ekiple birlikte sparring" ])
+    end
+
+    it "badges only the featured plan as Popüler" do
+      create(:membership_plan, name: "Özel Ders 1", position: 1)
+      create(:membership_plan, :featured, name: "Grup Dersleri", position: 2)
+
+      get root_path
+
+      cards = Nokogiri::HTML(response.body).css("section#membership article")
+      expect(cards.map { |card| card.text.include?("Popüler") }).to eq([ false, true ])
+    end
+
+    it "drops the whole membership section when there is no plan to show" do
+      get root_path
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).not_to include(%(id="membership"))
+      expect(response.body).not_to include("Üyelik Paketleri")
+    end
+
     it "renders the SEO meta tags and the club's structured data" do
       create(:lesson, day_of_week: :monday, start_time: "10:00", end_time: "11:00")
       create(:lesson, day_of_week: :monday, start_time: "21:15", end_time: "22:15")
