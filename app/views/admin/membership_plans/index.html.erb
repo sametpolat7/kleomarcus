@@ -1,0 +1,9 @@
+<% content_for :title, "Üyelik Paketleri · Kleomarcus Admin" %>
+
+<%= admin_page_header "Üyelik Paketleri", subtitle: "Ana sayfadaki üyelik paketlerinin aylık ücretleri." %>
+
+<%= render "shared/admin/table",
+      columns: ["Paket", "Açıklama", "Aylık Ücret"],
+      rows: @membership_plans,
+      row_partial: "admin/membership_plans/row",
+      empty_text: "Henüz üyelik paketi yok." %>

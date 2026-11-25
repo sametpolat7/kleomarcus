@@ -1,0 +1,32 @@
+<%# locals: (membership_plan:) %>
+<%= render "shared/admin/form_errors", resource: membership_plan %>
+
+<%= form_with model: [:admin, membership_plan] do |f| %>
+  <div>
+    <label class="admin-form-label" for="membership_plan_monthly_price">Aylık Ücret</label>
+    <label class="input input-bordered w-full">
+      <span class="text-base-content/60">₺</span>
+      <%= f.text_field :monthly_price,
+            id: "membership_plan_monthly_price",
+            value: membership_plan.formatted_monthly_price,
+            inputmode: "numeric",
+            autocomplete: "off",
+            required: true,
+            class: "grow",
+            data: {
+              controller: "numeric-input",
+              numeric_input_max_length_value: 6,
+              numeric_input_delimiter_value: MembershipPlan::PRICE_DELIMITER,
+              action: "input->numeric-input#format"
+            } %>
+    </label>
+    <p class="mt-1 text-xs text-base-content/50">Ana sayfada aylık ücret olarak gösterilir. Örnek: 8.000</p>
+  </div>
+
+  <div class="flex items-center justify-end gap-2 pt-3 mt-6 border-t border-base-300">
+    <%= link_to "İptal", admin_membership_plans_path,
+          class: "btn btn-ghost",
+          data: { action: "click->modal#close" } %>
+    <%= f.submit "Güncelle", class: "btn btn-primary" %>
+  </div>
+<% end %>

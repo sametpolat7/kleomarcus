@@ -1,0 +1,12 @@
+<% content_for :title, "Paket Fiyatı Düzenle · Kleomarcus Admin" %>
+
+<div class="admin-card max-w-3xl mx-auto">
+  <%= turbo_frame_tag "admin_modal_frame" do %>
+    <%= admin_modal_header "Paket Fiyatı Düzenle",
+          subtitle: @membership_plan.name,
+          cancel_path: admin_membership_plans_path %>
+    <div class="p-6">
+      <%= render "admin/membership_plans/form", membership_plan: @membership_plan %>
+    </div>
+  <% end %>
+</div>
