@@ -5,14 +5,28 @@ updates:
     schedule:
       interval: monthly
     open-pull-requests-limit: 10
-    ignore:
-      - dependency-name: "*"
+    groups:
+      security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+      minor-and-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "rails"
+          - "kamal"
         update-types:
-          - "version-update:semver-minor"
-          - "version-update:semver-patch"
+          - minor
+          - patch
 
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: monthly
     open-pull-requests-limit: 10
+    groups:
+      github-actions:
+        patterns:
+          - "*"
