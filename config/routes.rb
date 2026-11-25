@@ -9,12 +9,14 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
     resource :session, only: %i[new create destroy]
 
-    resources :trainers,     except: :show, path: "egitmenler"
-    resources :lessons,      except: :show, path: "dersler"
-    resources :testimonials, except: :show, path: "yorumlar"
-    resources :press_items,  except: :show, path: "basinda-biz"
-    resources :users,        except: :show, path: "kullanicilar"
-    resources :enrollments,  only: %i[index edit update destroy], path: "basvurular"
+    resources :trainers,         except: :show, path: "egitmenler"
+    resources :disciplines,      except: :show, path: "branslar"
+    resources :lessons,          except: :show, path: "dersler"
+    resources :testimonials,     except: :show, path: "yorumlar"
+    resources :press_items,      except: :show, path: "basinda-biz"
+    resources :membership_plans, only: %i[index edit update], path: "uyelik-paketleri"
+    resources :users,            except: :show, path: "kullanicilar"
+    resources :enrollments,      only: %i[index edit update destroy], path: "basvurular"
   end
 
   # Public
