@@ -1,0 +1,12 @@
+<% content_for :title, "Branşlar · Kleomarcus Admin" %>
+
+<%= admin_page_header "Branşlar", subtitle: "Antrenörlere atanabilen branşlar." do %>
+  <%= modal_trigger "+ Yeni Branş", new_admin_discipline_path %>
+<% end %>
+
+<%= render "shared/admin/table",
+      columns: ["Branş", "Antrenörler"],
+      rows: @disciplines,
+      row_partial: "admin/disciplines/row",
+      pagy: @pagy,
+      empty_text: "Henüz branş yok." %>
