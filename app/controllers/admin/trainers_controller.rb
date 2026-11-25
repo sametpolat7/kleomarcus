@@ -42,7 +42,7 @@ class Admin::TrainersController < Admin::BaseController
   end
 
   def set_disciplines
-    @disciplines = Discipline.order(:name)
+    @disciplines = Discipline.ordered
   end
 
   def trainer_params
