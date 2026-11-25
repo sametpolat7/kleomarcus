@@ -16,7 +16,7 @@ The public site presents the club, its disciplines, trainers, gallery and press 
 
 ## Getting started
 
-Requires Ruby 3.4.4 (see `.ruby-version`), PostgreSQL 16 and libvips.
+Requires Ruby 3.4.13 (see `.ruby-version`), PostgreSQL 16 and libvips.
 
 ```bash
 git clone https://github.com/sametpolat7/kleomarcus.git
