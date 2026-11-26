@@ -1,0 +1,8 @@
+<%# locals: (row:) %>
+<tr class="hover:bg-base-200/40 transition-colors">
+  <td class="align-top whitespace-nowrap"><%= feedback_topic_label(row) %></td>
+  <td class="align-top">
+    <p class="max-w-2xl whitespace-pre-line break-words text-sm leading-relaxed"><%= email_off(row.message) %></p>
+  </td>
+  <td class="align-top whitespace-nowrap text-base-content/70"><%= format_date(row.created_at) %></td>
+</tr>
