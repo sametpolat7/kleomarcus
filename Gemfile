@@ -29,6 +29,9 @@ gem "pagy", "~> 9.0"
 # Locale data for Rails defaults (validation messages, dates, numbers) [https://github.com/svenfuchs/rails-i18n]
 gem "rails-i18n", "~> 8.0"
 
+# QR codes for the printable feedback poster [https://github.com/whomwah/rqrcode]
+gem "rqrcode", "~> 3.2"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
