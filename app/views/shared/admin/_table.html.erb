@@ -1,4 +1,4 @@
-<%# locals: (columns:, rows:, row_partial:, pagy: nil, empty_text: "Kayıt bulunamadı.") %>
+<%# locals: (columns:, rows:, row_partial:, pagy: nil, empty_text: "Kayıt bulunamadı.", actions: true) %>
 <% if rows.any? %>
   <div class="admin-card overflow-x-auto">
     <table class="table">
@@ -7,7 +7,9 @@
           <% columns.each do |col| %>
             <th><%= col %></th>
           <% end %>
-          <th class="text-right">İşlemler</th>
+          <% if actions %>
+            <th class="text-right">İşlemler</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
