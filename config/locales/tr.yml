@@ -12,6 +12,9 @@ tr:
         info_consent: Bilgi doğruluğu ve iletişim onayı
         kvkk_consent: KVKK aydınlatma metni onayı
         status: Durum
+      feedback:
+        topic: Konu
+        message: Mesaj
       lesson:
         name: Ders Adı
         day_of_week: Gün
@@ -52,6 +55,10 @@ tr:
         role: Rol
     errors:
       models:
+        feedback:
+          attributes:
+            topic:
+              inclusion: seçilmeli
         lesson:
           attributes:
             day_of_week:
@@ -66,6 +73,12 @@ tr:
           positive: Olumlu
           negative: Olumsuz
           undecided: Kararsız
+      feedback:
+        topic:
+          trainers: Antrenörler
+          facility: Salon ve Tesis
+          classes: Dersler
+          other: Diğer
       lesson:
         kind:
           solo: Özel Ders
