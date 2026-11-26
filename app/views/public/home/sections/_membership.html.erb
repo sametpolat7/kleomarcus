@@ -21,7 +21,7 @@
               </div>
             <% end %>
             <h3 class="<%= class_names("font-display text-lg sm:text-xl md:text-2xl font-bold", "text-base-content": !featured) %>"><%= plan.name %></h3>
-            <p class="<%= class_names("text-xs sm:text-sm mb-3 sm:mb-4", featured ? "opacity-80" : "text-base-content/60") %>"><%= plan.description %></p>
+            <p class="<%= class_names("grow-0 text-xs sm:text-sm mb-3 sm:mb-4", featured ? "opacity-80" : "text-base-content/60") %>"><%= plan.description %></p>
             <div class="mb-4 sm:mb-6" aria-label="Aylık <%= plan.formatted_monthly_price %> lira">
               <span class="<%= class_names("font-display text-2xl sm:text-3xl md:text-4xl font-bold", "text-base-content": !featured) %>">₺<%= plan.formatted_monthly_price %></span>
               <span class="<%= class_names("text-sm sm:text-base", featured ? "opacity-80" : "text-base-content/60") %>">/ay</span>

@@ -15,7 +15,7 @@
     <%# SEO Meta Tags %>
     <meta name="description" content="<%= content_for(:description) || default_seo_description %>">
     <meta name="author" content="<%= club.name %>">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="<%= content_for(:robots) || "index, follow" %>">
     <link rel="canonical" href="<%= content_for(:canonical) || canonical_url %>">
     <%= search_console_verification_tags %>
 
