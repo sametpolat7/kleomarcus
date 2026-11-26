@@ -17,6 +17,11 @@ Rails.application.routes.draw do
     resources :membership_plans, only: %i[index edit update], path: "uyelik-paketleri"
     resources :users,            except: :show, path: "kullanicilar"
     resources :enrollments,      only: %i[index edit update destroy], path: "basvurular"
+    resources :feedbacks,        only: :index, path: "geri-bildirimler"
+
+    namespace :feedbacks, path: "geri-bildirimler" do
+      resource :poster, only: :show, path: "qr-afisi"
+    end
   end
 
   # Public
@@ -31,6 +36,10 @@ Rails.application.routes.draw do
     resources :press_items, only: :index, path: "basinda-biz"
 
     resource :enrollment, only: %i[new create], path: "basvuru", path_names: { new: "" } do
+      get "tesekkurler", action: :thanks, as: :thanks
+    end
+
+    resource :feedback, only: %i[new create], path: "geri-bildirim", path_names: { new: "" } do
       get "tesekkurler", action: :thanks, as: :thanks
     end
   end
