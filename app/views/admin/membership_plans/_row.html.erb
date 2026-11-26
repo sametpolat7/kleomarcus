@@ -1,9 +1,6 @@
 <%# locals: (row:) %>
 <tr class="hover:bg-base-200/40 transition-colors">
-  <td class="font-medium whitespace-nowrap">
-    <%= row.name %>
-    <%= badge("Popüler", variant: :primary) if row.featured? %>
-  </td>
+  <td class="font-medium whitespace-nowrap"><%= row.name %></td>
   <td class="text-base-content/70">
     <%= row.description %>
   </td>
