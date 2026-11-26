@@ -1,0 +1,130 @@
+<%= set_seo_meta(
+  title: "Geri Bildirim",
+  description: "#{club.name} geri bildirim formu. Antrenörlerimizi, salonumuzu ve derslerimizi isim belirtmeden değerlendirin."
+) %>
+<% content_for :robots, "noindex, follow" %>
+
+<section class="bg-neutral-950" aria-labelledby="feedback-title">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+    <h1 id="feedback-title" class="font-display text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.05] mb-4 sm:mb-5">
+      Geri Bildirim
+    </h1>
+
+    <div class="relative w-full max-w-xs sm:max-w-sm mb-5 sm:mb-6">
+      <div class="h-[2px] w-full bg-gradient-to-r from-primary via-primary/60 to-transparent"></div>
+      <div class="absolute -left-1 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-primary rotate-45"></div>
+    </div>
+
+    <p class="max-w-2xl text-sm sm:text-base text-white/70 leading-relaxed">
+      Antrenörlerimizi, salonumuzu ve derslerimizi değerlendirebilirsiniz.
+    </p>
+  </div>
+</section>
+
+<section class="py-10 sm:py-14 lg:py-16 bg-base-100" aria-labelledby="form-title">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14">
+
+      <div class="lg:col-span-7 xl:col-span-8">
+        <div class="border border-base-300 bg-base-100 p-5 sm:p-7">
+
+          <header class="mb-6">
+            <h2 id="form-title" class="font-display text-base sm:text-lg font-bold text-base-content">
+              Görüşünüzü Paylaşın
+            </h2>
+            <p class="mt-1 text-xs sm:text-sm text-base-content/60">
+              Bir konu seçip birkaç cümle yazmanız yeterli.
+            </p>
+          </header>
+
+          <% if @too_frequent %>
+            <div role="alert" class="alert alert-warning alert-soft mb-4">
+              <span class="text-sm">Gönderim sınırına ulaşıldı. Mesajınız aşağıda duruyor; lütfen daha sonra tekrar gönderin.</span>
+            </div>
+          <% end %>
+
+          <%= render "shared/public/form_errors", resource: @feedback %>
+
+          <%= form_with model: @feedback, url: feedback_path, class: "space-y-5" do |f| %>
+            <fieldset>
+              <legend class="label text-sm font-medium mb-2">
+                Konu
+              </legend>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <% Feedback.topics.each_key do |topic| %>
+                  <label class="flex items-center gap-3 border px-4 py-3 cursor-pointer transition-colors hover:border-primary/50 has-checked:border-primary has-checked:bg-primary/5 <%= @feedback.errors[:topic].any? ? "border-error" : "border-base-300" %>">
+                    <%= f.radio_button :topic, topic, required: true, class: "radio radio-sm radio-primary" %>
+                    <span class="text-sm font-medium text-base-content"><%= Feedback.enum_label(:topic, topic) %></span>
+                  </label>
+                <% end %>
+              </div>
+            </fieldset>
+
+            <div>
+              <label class="label text-sm font-medium" for="feedback_message">
+                Mesajınız
+              </label>
+              <%= f.text_area :message, id: "feedback_message", rows: 6, required: true,
+                    minlength: Feedback::MESSAGE_LENGTH.min, maxlength: Feedback::MESSAGE_LENGTH.max,
+                    placeholder: "Deneyiminizi, önerinizi ya da karşılaştığınız bir sorunu yazın.",
+                    class: "textarea textarea-bordered w-full #{"textarea-error" if @feedback.errors[:message].any?}" %>
+              <p class="mt-1.5 text-xs text-base-content/50">En az <%= Feedback::MESSAGE_LENGTH.min %>, en fazla <%= Feedback::MESSAGE_LENGTH.max %> karakter.</p>
+            </div>
+
+            <div class="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
+              <label for="website">Web siteniz</label>
+              <%= text_field_tag :website, nil, id: "website", tabindex: -1, autocomplete: "off" %>
+            </div>
+
+            <div class="pt-1">
+              <%= f.submit "Geri Bildirimi Gönder",
+                    class: "btn btn-primary w-full sm:w-auto px-8 shadow-md hover:shadow-lg transition-all duration-200" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-5 xl:col-span-4">
+        <div class="lg:sticky lg:top-24 space-y-5 sm:space-y-6">
+
+          <div class="border border-base-300 bg-base-200 p-5 sm:p-6">
+            <h2 class="font-display text-sm sm:text-base font-bold text-base-content mb-5">Bilmeniz Gerekenler</h2>
+
+            <ol class="space-y-4">
+              <li class="flex items-start gap-3">
+                <span class="font-display text-sm font-bold text-primary leading-6">01</span>
+                <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                  <span class="font-semibold text-base-content">İsim istenmez.</span>
+                  Adınız, telefonunuz ya da e-postanız sorulmaz.
+                </p>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-display text-sm font-bold text-primary leading-6">02</span>
+                <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                  <span class="font-semibold text-base-content">Mazlum Hoca okur.</span>
+                  Her geri bildirim Mazlum Orak tarafından okunur ve değerlendirilir.
+                </p>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-display text-sm font-bold text-primary leading-6">03</span>
+                <p class="text-xs sm:text-sm text-base-content/70 leading-relaxed">
+                  <span class="font-semibold text-base-content">Her görüş değerlidir.</span>
+                  Övgü de eleştiri de kulübümüzü geliştirir.
+                </p>
+              </li>
+            </ol>
+          </div>
+
+          <p class="border-l-2 border-primary bg-base-200 p-4 text-xs sm:text-sm text-base-content/70 leading-relaxed">
+            Geri bildirimler anonim olduğu için yanıt veremiyoruz. Size dönmemizi isterseniz
+            <a href="<%= club_phone_href %>" class="font-medium text-base-content hover:text-primary transition-colors whitespace-nowrap"><%= club.phone %></a>
+            numarasından bize ulaşabilirsiniz.
+          </p>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
