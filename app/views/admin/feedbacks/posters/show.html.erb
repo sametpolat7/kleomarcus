@@ -1,0 +1,36 @@
+<% content_for :title, "Geri Bildirim QR Afişi · Kleomarcus Admin" %>
+
+<div class="flex flex-col items-center gap-2 p-4 print:hidden" data-controller="print">
+  <button type="button" class="btn btn-primary btn-sm px-6" data-action="print#print">Yazdır</button>
+  <p class="text-xs text-secondary/60">A4 dikey basılır. Yazdırırken kenar boşluklarını “Yok”, ölçeği %100 seçin.</p>
+</div>
+
+<main class="mx-auto mb-8 flex h-[297mm] w-[210mm] flex-col items-center bg-white px-[20mm] pt-[20mm] pb-[14mm] text-center shadow-xl print:m-0 print:shadow-none">
+  <div class="flex flex-1 flex-col items-center justify-center">
+    <div class="h-[1mm] w-[16mm] bg-primary"></div>
+
+    <p class="mt-[9mm] pl-[0.3em] text-[10pt] font-bold tracking-[0.3em] text-primary">GERİ BİLDİRİM</p>
+    <h1 class="mt-[4mm] font-display text-[32pt] leading-[1.15]">Fikriniz Bizim İçin Değerli</h1>
+    <p class="mt-[6mm] text-[13pt] leading-[1.55] text-secondary/70">
+      Antrenörlerimizi, salonumuzu ve derslerimizi değerlendirin.<br>
+      Tamamen anonim.
+    </p>
+
+    <div class="relative mt-[12mm] p-[12mm]">
+      <span class="absolute top-0 left-0 h-[12mm] w-[12mm] border-t-[1.2mm] border-l-[1.2mm] border-primary"></span>
+      <span class="absolute top-0 right-0 h-[12mm] w-[12mm] border-t-[1.2mm] border-r-[1.2mm] border-primary"></span>
+      <span class="absolute bottom-0 left-0 h-[12mm] w-[12mm] border-b-[1.2mm] border-l-[1.2mm] border-primary"></span>
+      <span class="absolute right-0 bottom-0 h-[12mm] w-[12mm] border-r-[1.2mm] border-b-[1.2mm] border-primary"></span>
+
+      <div class="h-[96mm] w-[96mm]"><%= feedback_qr_code(@feedback_url) %></div>
+    </div>
+
+    <p class="mt-[7mm] text-[12pt] font-medium">Telefonunuzun kamerasıyla okutun</p>
+    <p class="mt-[2mm] text-[11pt] tracking-[0.02em] text-secondary/70"><%= poster_display_url(@feedback_url) %></p>
+  </div>
+
+  <footer class="flex w-full justify-between border-t-[0.3mm] border-base-300 pt-[6mm] text-[9pt] text-secondary/70">
+    <span><strong class="font-display font-normal text-secondary">KLEOMARCUS</strong>&nbsp; Güç Senin İçinde.</span>
+    <span><%= URI(@feedback_url).host %></span>
+  </footer>
+</main>
